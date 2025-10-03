@@ -191,14 +191,14 @@ class URDFViewer {
     }
 
     setupLighting() {
-        // Lighting setup matching reference implementation
+        // Enhanced lighting for better contrast and shadows
 
-        // Ambient light
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+        // Ambient light - reduced for more contrast
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
         this.scene.add(ambientLight);
 
-        // Main light with shadow
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        // Main light with shadow - stronger intensity
+        const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
         mainLight.position.set(10, 10, 5);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
@@ -209,16 +209,22 @@ class URDFViewer {
         mainLight.shadow.camera.bottom = -10;
         mainLight.shadow.camera.near = 0.5;
         mainLight.shadow.camera.far = 50;
+        mainLight.shadow.bias = -0.0001;
         this.scene.add(mainLight);
 
-        // Fill light
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
-        fillLight.position.set(-5, 5, 5);
+        // Fill light - from opposite side
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        fillLight.position.set(-5, 5, -5);
         this.scene.add(fillLight);
+
+        // Rim light for edge definition
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        rimLight.position.set(0, 10, -10);
+        this.scene.add(rimLight);
 
         // Add ground plane for shadow receiving
         const groundGeometry = new THREE.PlaneGeometry(50, 50);
-        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.3 });
+        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.35 });
         const ground = new THREE.Mesh(groundGeometry, groundMaterial);
         ground.rotation.x = -Math.PI / 2;
         ground.position.y = -0.01;
@@ -413,11 +419,11 @@ class URDFViewer {
         // Sort links by name for deterministic coloring
         links.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
-        // Generate distinct pastel colors using golden ratio
+        // Generate distinct colors using golden ratio - deeper colors for better shading
         const colorForIndex = (i) => {
             const h = (i * phi) % 1; // Distribute across full hue range
-            const s = 0.55; // Slightly richer saturation for distinction
-            const l = 0.6; // Darker value for better shading
+            const s = 0.65; // Higher saturation for richer colors
+            const l = 0.50; // Medium lightness for better light/shadow contrast
             const c = new THREE.Color();
             c.setHSL(h, s, l);
             return c;
@@ -448,12 +454,12 @@ class URDFViewer {
             const color = this.linkColors.get(owner);
             if (!color) return;
 
-            // Apply material with assigned color - using MeshPhongMaterial for harder appearance
+            // Apply material with assigned color - using MeshPhongMaterial for better lighting response
             try {
                 const createMaterial = () => new THREE.MeshPhongMaterial({
                     color: color.clone(),
-                    shininess: 30,
-                    specular: 0x444444,
+                    shininess: 50,
+                    specular: 0x666666,
                     flatShading: false
                 });
 

@@ -193,24 +193,29 @@ class URDFViewer {
             const urdfPath = this.urdfData.urdfPath;
             const urdfDir = urdfPath.substring(0, urdfPath.lastIndexOf('/') + 1); // Include trailing slash
 
-            // Set package path for mesh loading - URDFLoader will prepend this to mesh paths
-            loader.packages = {
-                '': urdfDir // Empty string key for default package
-            };
+            // Don't use packages - we'll handle path resolution in loadMeshCb
+            // URDFLoader passes the relative path from URDF file to loadMeshCb
 
-            // Also set the load mesh callback for OBJ files
-            // Note: URDFLoader already prepends the package path, so we receive the full path here
+            // Set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
                 try {
-                    console.log('Loading mesh from:', path);
+                    // Remove leading ./ if present
+                    let cleanPath = path;
+                    if (cleanPath.startsWith('./')) {
+                        cleanPath = cleanPath.substring(2);
+                    }
+
+                    // Construct full URL relative to URDF file location
+                    const fullPath = urdfDir + cleanPath;
+                    console.log('Resolving mesh path:', path, '->', fullPath);
 
                     const objLoader = new THREE.OBJLoader(manager);
                     objLoader.load(
-                        path, // Use path directly - it's already resolved by URDFLoader
+                        fullPath,
                         onComplete,
                         undefined,
                         (error) => {
-                            console.error('Error loading mesh from:', path, error);
+                            console.error('Error loading mesh from:', fullPath, error);
                         }
                     );
                 } catch (err) {

@@ -123,7 +123,6 @@ class URDFViewer {
         this.joints = {};
         this.animationId = null;
         this.showWireframe = false;
-        this.linkColors = new Map();
     }
 
     async load() {
@@ -155,7 +154,7 @@ class URDFViewer {
 
         // Scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xf0f0f0);
+        this.scene.background = new THREE.Color(0xf0f0f0);  // Light gray background
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
@@ -165,12 +164,9 @@ class URDFViewer {
         // Renderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(width, height);
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        this.renderer.setPixelRatio(window.devicePixelRatio || 1);
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        this.renderer.outputEncoding = THREE.sRGBEncoding;
-        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.2;
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -182,59 +178,28 @@ class URDFViewer {
             this.controls.update();
         }
 
-        // Add a subtle ground plane for shadows
-        const groundGeometry = new THREE.PlaneGeometry(20, 20);
-        const groundMaterial = new THREE.ShadowMaterial({
-            opacity: 0.3,
-            color: 0x000000
-        });
-        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-        ground.rotation.x = -Math.PI / 2;
-        ground.position.y = -0.01;
-        ground.receiveShadow = true;
-        this.scene.add(ground);
-
         // Resize handler
         window.addEventListener('resize', () => this.resize());
     }
 
     setupLighting() {
-        // Ambient light - subtle base illumination
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+        // Simple lighting setup matching reference
+        // Ambient light
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
         this.scene.add(ambientLight);
 
-        // Hemisphere light for natural outdoor lighting
-        const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
-        hemisphereLight.position.set(0, 20, 0);
-        this.scene.add(hemisphereLight);
-
-        // Main directional light (sun-like)
-        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        mainLight.position.set(10, 15, 10);
+        // Main light
+        const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        mainLight.position.set(10, 10, 5);
         mainLight.castShadow = true;
-
-        // Shadow configuration
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
-        mainLight.shadow.camera.near = 0.5;
-        mainLight.shadow.camera.far = 50;
-        mainLight.shadow.camera.left = -10;
-        mainLight.shadow.camera.right = 10;
-        mainLight.shadow.camera.top = 10;
-        mainLight.shadow.camera.bottom = -10;
-        mainLight.shadow.bias = -0.0005;
-
         this.scene.add(mainLight);
 
-        // Fill light to reduce harsh shadows
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
-        fillLight.position.set(-5, 10, -5);
+        // Fill light
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
+        fillLight.position.set(-5, 5, 5);
         this.scene.add(fillLight);
-
-        // Back light for rim lighting effect
-        const backLight = new THREE.DirectionalLight(0xffffff, 0.2);
-        backLight.position.set(0, 10, -10);
-        this.scene.add(backLight);
     }
 
     async loadURDF() {
@@ -410,63 +375,18 @@ class URDFViewer {
         traverse(robot);
     }
 
-    // Apply blue-toned pastel colors per URDF link
+    // Apply consistent light blue color to all meshes
     colorizeLinks(root) {
-        const phi = (Math.sqrt(5) - 1) / 2; // golden ratio for color distribution
-        let idx = 0;
-
-        // Collect links in stable order
-        const links = [];
-        root.traverse((node) => {
-            if (node.isURDFLink) links.push(node);
-        });
-        // Sort for deterministic coloring
-        links.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-
-        // Generate blue-based pastel colors
-        const colorForIndex = (i) => {
-            const h = 0.55 + (i * phi * 0.15) % 0.15; // Blue hue range (0.55-0.70)
-            const s = 0.35 + (i * 0.1) % 0.2; // Moderate saturation
-            const l = 0.65 + (i * 0.05) % 0.15; // Light values
-            const c = new THREE.Color();
-            c.setHSL(h, s, l);
-            return c;
-        };
-
-        // Assign colors to links
-        links.forEach((link) => {
-            const c = colorForIndex(idx++);
-            this.linkColors.set(link, c);
-        });
-
-        // Apply colors to meshes
+        // Apply uniform color to all meshes for better visibility
         root.traverse((node) => {
             if (!node.isMesh) return;
 
-            // Find owning link
-            let p = node;
-            let owner = null;
-            while (p) {
-                if (p.isURDFLink) {
-                    owner = p;
-                    break;
-                }
-                p = p.parent;
-            }
-            if (!owner) return;
-
-            const color = this.linkColors.get(owner) || new THREE.Color(0x87CEEB);
-
-            // Always create new material to ensure colors are applied
+            // Simple material matching reference - light blue
             node.material = new THREE.MeshPhongMaterial({
-                color: color,
-                shininess: 50,
-                specular: 0x222222,
-                emissive: 0x000000,
-                emissiveIntensity: 0.1,
-                reflectivity: 0.5,
-                wireframe: false,
-                flatShading: false
+                color: 0x87CEEB,  // Light blue color
+                shininess: 30,
+                specular: 0x444444,
+                wireframe: false
             });
             node.material.needsUpdate = true;
         });
@@ -488,20 +408,9 @@ class URDFViewer {
                         child.material.color.set(0x3366CC);
                     }
                 } else {
-                    // Restore original link colors
-                    let p = child;
-                    let owner = null;
-                    while (p) {
-                        if (p.isURDFLink) {
-                            owner = p;
-                            break;
-                        }
-                        p = p.parent;
-                    }
-
-                    const color = this.linkColors.get(owner) || new THREE.Color(0x87CEEB);
+                    // Restore light blue color
                     if (child.material.color) {
-                        child.material.color.copy(color);
+                        child.material.color.set(0x87CEEB);
                     }
                     child.material.wireframeLinewidth = 1.0;
                 }

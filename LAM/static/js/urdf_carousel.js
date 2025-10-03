@@ -170,13 +170,16 @@ class URDFViewer {
         this.renderer.setPixelRatio(window.devicePixelRatio || 1);
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        if ('physicallyCorrectLights' in this.renderer) {
+            this.renderer.physicallyCorrectLights = true;
+        }
         if (this.renderer.outputColorSpace !== undefined) {
             this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         } else if (this.renderer.outputEncoding !== undefined) {
             this.renderer.outputEncoding = THREE.sRGBEncoding;
         }
-        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.2;
+        this.renderer.toneMapping = THREE.ReinhardToneMapping;
+        this.renderer.toneMappingExposure = 0.95;
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -189,17 +192,17 @@ class URDFViewer {
         }
 
         // Add a subtle grid for spatial reference
-        const gridHelper = new THREE.GridHelper(10, 20, 0x888888, 0xcccccc);
-        gridHelper.material.opacity = 0.15;
+        const gridHelper = new THREE.GridHelper(10, 20, 0x777777, 0xbbbbbb);
+        gridHelper.material.opacity = 0.12;
         gridHelper.material.transparent = true;
         gridHelper.position.y = -0.01;
         this.scene.add(gridHelper);
 
         // Soft shadow receiver gives the model a grounded look
-        const shadowMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
+        const shadowMaterial = new THREE.ShadowMaterial({ opacity: 0.35 });
         const shadowPlane = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), shadowMaterial);
         shadowPlane.rotation.x = -Math.PI / 2;
-        shadowPlane.position.y = -0.02;
+        shadowPlane.position.y = -0.015;
         shadowPlane.receiveShadow = true;
         this.scene.add(shadowPlane);
         this.shadowPlane = shadowPlane;
@@ -215,41 +218,41 @@ class URDFViewer {
         this.lightRig = lightRig;
 
         // Base ambient keeps interiors readable but still allows contrast
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.18);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.08);
         lightRig.add(ambientLight);
 
         // Hemisphere provides soft sky / ground gradients
-        const hemiLight = new THREE.HemisphereLight(0xf5f7ff, 0x2f2f2f, 0.65);
+        const hemiLight = new THREE.HemisphereLight(0xf0f4ff, 0x1c1c1c, 0.45);
         hemiLight.position.set(0, 6, 0);
         lightRig.add(hemiLight);
 
         // Key directional light casts the main, soft shadow
-        const keyLight = new THREE.DirectionalLight(0xffffff, 3.0);
-        keyLight.position.set(6, 9, 7);
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
+        keyLight.position.set(6, 10, 6);
         keyLight.castShadow = true;
         keyLight.shadow.mapSize.set(2048, 2048);
         keyLight.shadow.camera.near = 0.1;
-        keyLight.shadow.camera.far = 40;
-        keyLight.shadow.camera.left = -12;
-        keyLight.shadow.camera.right = 12;
-        keyLight.shadow.camera.top = 12;
-        keyLight.shadow.camera.bottom = -12;
-        keyLight.shadow.bias = -1e-4;
+        keyLight.shadow.camera.far = 35;
+        keyLight.shadow.camera.left = -10;
+        keyLight.shadow.camera.right = 10;
+        keyLight.shadow.camera.top = 10;
+        keyLight.shadow.camera.bottom = -10;
+        keyLight.shadow.bias = -5e-4;
         lightRig.add(keyLight);
 
         // Fill light lifts the dark side
-        const fillLight = new THREE.DirectionalLight(0xffffff, 1.4);
-        fillLight.position.set(-7, 5, 3);
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.65);
+        fillLight.position.set(-6, 4, 3);
         lightRig.add(fillLight);
 
         // Rim / back light to outline the silhouette against the background
-        const rimLight = new THREE.DirectionalLight(0xffffff, 1.3);
-        rimLight.position.set(1, 4, -6);
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        rimLight.position.set(1, 5, -6);
         lightRig.add(rimLight);
 
         // Subtle bounce from below reduces pitch-black undersides
-        const bounceLight = new THREE.PointLight(0xffffff, 0.8, 25, 2);
-        bounceLight.position.set(0, 1.5, 0);
+        const bounceLight = new THREE.PointLight(0xddddff, 0.35, 18, 2.2);
+        bounceLight.position.set(0, 1.0, 0);
         lightRig.add(bounceLight);
 
         if (this.shadowPlane) {
@@ -448,8 +451,8 @@ class URDFViewer {
         // Generate distinct pastel colors using golden ratio
         const colorForIndex = (i) => {
             const h = (i * phi) % 1; // Distribute across full hue range
-            const s = 0.45; // Moderate saturation for pleasant colors
-            const l = 0.75; // Light values for pastel effect
+            const s = 0.55; // Slightly richer saturation for distinction
+            const l = 0.6; // Darker value for better shading
             const c = new THREE.Color();
             c.setHSL(h, s, l);
             return c;

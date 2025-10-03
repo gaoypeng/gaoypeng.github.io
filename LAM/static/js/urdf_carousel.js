@@ -164,11 +164,15 @@ class URDFViewer {
         this.camera.position.set(2, 2, 2);
         this.camera.lookAt(0, 0, 0);
 
-        // Renderer - simple setup
+        // Renderer with shadow support
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(width, height);
-        this.renderer.setPixelRatio(window.devicePixelRatio || 1);
-        this.renderer.shadowMap.enabled = false;  // Disable shadows for cleaner look
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        if (this.renderer.outputEncoding !== undefined) {
+            this.renderer.outputEncoding = THREE.sRGBEncoding;
+        }
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -187,21 +191,39 @@ class URDFViewer {
     }
 
     setupLighting() {
-        // Simple, clean lighting matching reference implementation
+        // Lighting setup matching reference implementation
 
         // Ambient light
         const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
         this.scene.add(ambientLight);
 
-        // Main light
+        // Main light with shadow
         const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
         mainLight.position.set(10, 10, 5);
+        mainLight.castShadow = true;
+        mainLight.shadow.mapSize.width = 2048;
+        mainLight.shadow.mapSize.height = 2048;
+        mainLight.shadow.camera.left = -10;
+        mainLight.shadow.camera.right = 10;
+        mainLight.shadow.camera.top = 10;
+        mainLight.shadow.camera.bottom = -10;
+        mainLight.shadow.camera.near = 0.5;
+        mainLight.shadow.camera.far = 50;
         this.scene.add(mainLight);
 
         // Fill light
         const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
         fillLight.position.set(-5, 5, 5);
         this.scene.add(fillLight);
+
+        // Add ground plane for shadow receiving
+        const groundGeometry = new THREE.PlaneGeometry(50, 50);
+        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.3 });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -0.01;
+        ground.receiveShadow = true;
+        this.scene.add(ground);
     }
 
     async loadURDF() {

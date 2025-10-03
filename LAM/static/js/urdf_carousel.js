@@ -193,23 +193,30 @@ class URDFViewer {
             const urdfPath = this.urdfData.urdfPath;
             const urdfDir = urdfPath.substring(0, urdfPath.lastIndexOf('/') + 1);
 
-            // CRITICAL: Set workingPath to empty to prevent URDFLoader from prepending paths
-            loader.workingPath = '';
+            // Extract just the folder name (e.g., "a_cabinet_with_five_drawers_1")
+            const urdfFolderName = urdfDir.split('/').filter(p => p).pop();
 
             // Set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
                 try {
-                    // Since we set workingPath to empty, URDFLoader will pass the raw path from URDF
-                    // We need to manually construct the full path
+                    // URDFLoader tends to prepend the URDF directory to paths
+                    // We need to detect and handle this duplication
                     let finalPath = path;
 
-                    // Remove any existing "./" prefix to avoid issues
+                    // Remove any existing "./" prefix
                     if (finalPath.startsWith('./')) {
                         finalPath = finalPath.substring(2);
                     }
 
-                    // Build the complete path: urdfDir + meshPath
-                    finalPath = urdfDir + finalPath;
+                    // Check if the path already contains the URDF folder name
+                    // If it does, URDFLoader has already prepended the directory
+                    if (finalPath.includes(urdfFolderName + '/')) {
+                        // Path already includes the directory, just add "./"
+                        finalPath = './' + finalPath;
+                    } else {
+                        // Path doesn't include directory, add the full urdfDir
+                        finalPath = urdfDir + finalPath;
+                    }
 
                     console.log('Loading mesh:', finalPath);
 

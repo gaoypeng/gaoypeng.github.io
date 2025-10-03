@@ -191,9 +191,24 @@ class URDFViewer {
 
             // Set the path for loading meshes
             const urdfPath = this.urdfData.urdfPath;
-            const urdfDir = urdfPath.substring(0, urdfPath.lastIndexOf('/'));
+            const urdfDir = urdfPath.substring(0, urdfPath.lastIndexOf('/') + 1); // Include trailing slash
+
+            // Set package path for mesh loading
             loader.packages = {
-                packageName: urdfDir // Default to same directory as URDF
+                '': urdfDir // Empty string key for default package
+            };
+
+            // Also set the load mesh callback for OBJ files
+            loader.loadMeshCb = (path, manager, onComplete) => {
+                const objLoader = new THREE.OBJLoader(manager);
+                objLoader.load(
+                    urdfDir + path,
+                    onComplete,
+                    undefined,
+                    (error) => {
+                        console.error('Error loading mesh:', path, error);
+                    }
+                );
             };
 
             loader.load(
@@ -211,9 +226,13 @@ class URDFViewer {
                     resolve();
                 },
                 (xhr) => {
-                    // Progress callback - check if xhr is valid
-                    if (xhr && xhr.loaded && xhr.total) {
-                        console.log(`Loading ${urdfPath}: ${(xhr.loaded / xhr.total * 100).toFixed(2)}%`);
+                    // Progress callback - URDFLoader may pass null
+                    if (xhr && xhr.loaded !== undefined && xhr.total !== undefined) {
+                        const percent = (xhr.loaded / xhr.total * 100).toFixed(2);
+                        console.log(`Loading ${urdfPath}: ${percent}%`);
+                    } else if (xhr === null) {
+                        // URDFLoader passes null when using fetch API
+                        console.log(`Loading ${urdfPath}...`);
                     }
                 },
                 (error) => {

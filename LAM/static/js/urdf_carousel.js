@@ -199,23 +199,36 @@ class URDFViewer {
             // Set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
                 try {
-                    // Remove leading ./ if present
-                    let cleanPath = path;
-                    if (cleanPath.startsWith('./')) {
-                        cleanPath = cleanPath.substring(2);
+                    console.log('RAW path from URDFLoader:', path);
+                    console.log('urdfDir:', urdfDir);
+
+                    // Check if path already contains the directory structure
+                    // If URDFLoader already prepended something, path might start with urdf_examples/
+                    let finalPath = path;
+
+                    // If path starts with ./, remove it
+                    if (finalPath.startsWith('./')) {
+                        finalPath = finalPath.substring(2);
                     }
 
-                    // Construct full URL relative to URDF file location
-                    const fullPath = urdfDir + cleanPath;
-                    console.log('Resolving mesh path:', path, '->', fullPath);
+                    // If path already contains urdf_examples/, it's been prepended by URDFLoader
+                    // In that case, just prepend ./
+                    if (finalPath.includes('urdf_examples/')) {
+                        finalPath = './' + finalPath;
+                    } else {
+                        // Otherwise, construct full path
+                        finalPath = urdfDir + finalPath;
+                    }
+
+                    console.log('FINAL path:', finalPath);
 
                     const objLoader = new THREE.OBJLoader(manager);
                     objLoader.load(
-                        fullPath,
+                        finalPath,
                         onComplete,
                         undefined,
                         (error) => {
-                            console.error('Error loading mesh from:', fullPath, error);
+                            console.error('Error loading mesh from:', finalPath, error);
                         }
                     );
                 } catch (err) {

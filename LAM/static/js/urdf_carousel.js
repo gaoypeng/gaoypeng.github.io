@@ -225,13 +225,17 @@ class URDFViewer {
 
                     resolve();
                 },
-                (xhr) => {
-                    // Progress callback - URDFLoader may pass null
-                    if (xhr && xhr.loaded !== undefined && xhr.total !== undefined) {
-                        const percent = (xhr.loaded / xhr.total * 100).toFixed(2);
-                        console.log(`Loading ${urdfPath}: ${percent}%`);
-                    } else if (xhr === null) {
-                        // URDFLoader passes null when using fetch API
+                (progressEvent) => {
+                    // URDFLoader sometimes forwards null or events without progress metrics.
+                    if (progressEvent && typeof progressEvent === 'object') {
+                        const { loaded, total } = progressEvent;
+                        if (typeof loaded === 'number' && typeof total === 'number' && total > 0) {
+                            const percent = ((loaded / total) * 100).toFixed(2);
+                            console.log(`Loading ${urdfPath}: ${percent}%`);
+                        } else {
+                            console.log(`Loading ${urdfPath}...`);
+                        }
+                    } else {
                         console.log(`Loading ${urdfPath}...`);
                     }
                 },

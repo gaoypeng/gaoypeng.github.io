@@ -189,38 +189,27 @@ class URDFViewer {
 
             const loader = new URDFLoaderClass();
 
-            // Set the path for loading meshes
-            const urdfPath = this.urdfData.urdfPath;
-            const urdfDir = urdfPath.substring(0, urdfPath.lastIndexOf('/') + 1); // Include trailing slash
-
-            // Don't use packages - we'll handle path resolution in loadMeshCb
-            // URDFLoader passes the relative path from URDF file to loadMeshCb
+            // URDFLoader automatically prepends the URDF file's directory to mesh paths
+            // So if URDF is at ./urdf_examples/cabinet/generated.urdf
+            // and mesh is at "obj_parts/part.obj" in the URDF file
+            // URDFLoader will pass "urdf_examples/cabinet/obj_parts/part.obj" to loadMeshCb
+            // We just need to prepend "./" to make it relative to the page root
 
             // Set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
                 try {
-                    console.log('RAW path from URDFLoader:', path);
-                    console.log('urdfDir:', urdfDir);
-
-                    // Check if path already contains the directory structure
-                    // If URDFLoader already prepended something, path might start with urdf_examples/
+                    // URDFLoader already prepended the directory, just add "./" prefix
                     let finalPath = path;
 
-                    // If path starts with ./, remove it
+                    // Remove any existing "./" prefix to avoid duplication
                     if (finalPath.startsWith('./')) {
                         finalPath = finalPath.substring(2);
                     }
 
-                    // If path already contains urdf_examples/, it's been prepended by URDFLoader
-                    // In that case, just prepend ./
-                    if (finalPath.includes('urdf_examples/')) {
-                        finalPath = './' + finalPath;
-                    } else {
-                        // Otherwise, construct full path
-                        finalPath = urdfDir + finalPath;
-                    }
+                    // Add "./" prefix for relative path resolution
+                    finalPath = './' + finalPath;
 
-                    console.log('FINAL path:', finalPath);
+                    console.log('Loading mesh:', finalPath);
 
                     const objLoader = new THREE.OBJLoader(manager);
                     objLoader.load(

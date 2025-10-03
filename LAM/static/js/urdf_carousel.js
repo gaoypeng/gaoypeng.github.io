@@ -275,18 +275,14 @@ class URDFViewer {
                     console.log(`URDF loaded successfully: ${urdfPath}`, robot);
                     this.robot = robot;
 
-                    // Apply blue-toned pastel colors per link
-                    this.colorizeLinks(robot);
-
-                    // Ensure proper geometry attributes and visibility
+                    // Ensure proper geometry attributes first
                     robot.traverse((child) => {
                         if (child.isMesh) {
                             // Ensure proper geometry attributes
-                            if (!child.geometry.attributes.normal) {
-                                child.geometry.computeVertexNormals();
-                            }
-                            // Compute bounding box and sphere for the geometry
                             if (child.geometry) {
+                                if (!child.geometry.attributes.normal) {
+                                    child.geometry.computeVertexNormals();
+                                }
                                 child.geometry.computeBoundingBox();
                                 child.geometry.computeBoundingSphere();
                             }
@@ -297,6 +293,9 @@ class URDFViewer {
                             console.log(`Mesh found: ${child.name}, vertices: ${child.geometry.attributes.position?.count}`);
                         }
                     });
+
+                    // Apply blue-toned pastel colors per link (after geometry setup)
+                    this.colorizeLinks(robot);
 
                     this.scene.add(robot);
 
@@ -425,26 +424,14 @@ class URDFViewer {
 
             const color = this.linkColors.get(owner) || new THREE.Color(0x87CEEB);
 
-            // Create or update material
-            if (!node.material) {
-                node.material = new THREE.MeshPhongMaterial({
-                    color: color,
-                    shininess: 30,
-                    specular: 0x444444
-                });
-            } else if (Array.isArray(node.material)) {
-                node.material = node.material.map((m) => {
-                    const mm = m.clone();
-                    if (mm.color) mm.color.copy(color);
-                    mm.needsUpdate = true;
-                    return mm;
-                });
-            } else {
-                const mm = node.material.clone();
-                if (mm.color) mm.color.copy(color);
-                mm.needsUpdate = true;
-                node.material = mm;
-            }
+            // Always create new material to ensure colors are applied
+            node.material = new THREE.MeshPhongMaterial({
+                color: color,
+                shininess: 30,
+                specular: 0x444444,
+                wireframe: false
+            });
+            node.material.needsUpdate = true;
         });
     }
 
@@ -454,36 +441,35 @@ class URDFViewer {
         this.showWireframe = !this.showWireframe;
 
         this.robot.traverse((child) => {
-            if (child.material) {
+            if (child.isMesh && child.material) {
                 child.material.wireframe = this.showWireframe;
 
-                // Darker blue for wireframe mode
                 if (this.showWireframe) {
+                    // Darker blue for wireframe mode
                     child.material.wireframeLinewidth = 1.5;
                     if (child.material.color) {
-                        child.material.color = new THREE.Color(0x3366CC);
+                        child.material.color.set(0x3366CC);
                     }
                 } else {
-                    child.material.wireframeLinewidth = 1.0;
                     // Restore original link colors
-                    if (child.isMesh) {
-                        let p = child;
-                        let owner = null;
-                        while (p) {
-                            if (p.isURDFLink) {
-                                owner = p;
-                                break;
-                            }
-                            p = p.parent;
+                    let p = child;
+                    let owner = null;
+                    while (p) {
+                        if (p.isURDFLink) {
+                            owner = p;
+                            break;
                         }
-                        if (owner && this.linkColors.has(owner)) {
-                            const color = this.linkColors.get(owner);
-                            if (child.material.color) {
-                                child.material.color.copy(color);
-                            }
-                        }
+                        p = p.parent;
                     }
+
+                    const color = this.linkColors.get(owner) || new THREE.Color(0x87CEEB);
+                    if (child.material.color) {
+                        child.material.color.copy(color);
+                    }
+                    child.material.wireframeLinewidth = 1.0;
                 }
+
+                child.material.needsUpdate = true;
             }
         });
     }

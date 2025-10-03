@@ -284,6 +284,11 @@ class URDFViewer {
                             if (!child.geometry.attributes.normal) {
                                 child.geometry.computeVertexNormals();
                             }
+                            // Compute bounding box and sphere for the geometry
+                            if (child.geometry) {
+                                child.geometry.computeBoundingBox();
+                                child.geometry.computeBoundingSphere();
+                            }
                             // Make sure mesh is visible
                             child.visible = true;
                             child.castShadow = true;
@@ -298,13 +303,41 @@ class URDFViewer {
                     this.extractJoints(robot);
                     console.log(`Extracted ${Object.keys(this.joints).length} joints`);
 
-                    // Auto-fit camera
-                    this.fitCameraToObject(robot);
+                    // Auto-fit camera with retry mechanism (based on reference implementation)
+                    let retryCount = 0;
+                    const maxRetries = 8;
+                    const retryInterval = 300; // ms
 
-                    // Force a render
-                    if (this.renderer && this.scene && this.camera) {
-                        this.renderer.render(this.scene, this.camera);
-                    }
+                    const tryCenterView = () => {
+                        const testBox = new THREE.Box3().setFromObject(robot);
+                        const testSize = testBox.getSize(new THREE.Vector3());
+                        const maxDim = Math.max(testSize.x, testSize.y, testSize.z);
+
+                        if (maxDim > 0.001) {
+                            this.fitCameraToObject(robot);
+                            console.log(`Centered camera successfully after ${retryCount} retries`);
+
+                            // Force a render after successful positioning
+                            if (this.renderer && this.scene && this.camera) {
+                                this.renderer.render(this.scene, this.camera);
+                            }
+                        } else if (retryCount < maxRetries) {
+                            retryCount++;
+                            console.log(`Bounding box not ready (maxDim: ${maxDim}), retrying center... (${retryCount}/${maxRetries})`);
+                            setTimeout(tryCenterView, retryInterval);
+                        } else {
+                            console.warn('Max retries reached, centering anyway');
+                            this.fitCameraToObject(robot);
+
+                            // Force a render even if positioning failed
+                            if (this.renderer && this.scene && this.camera) {
+                                this.renderer.render(this.scene, this.camera);
+                            }
+                        }
+                    };
+
+                    // Start the retry mechanism after a short delay
+                    setTimeout(tryCenterView, 200);
 
                     resolve();
                 },

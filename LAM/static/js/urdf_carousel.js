@@ -200,15 +200,38 @@ class URDFViewer {
 
             // Also set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
-                const objLoader = new THREE.OBJLoader(manager);
-                objLoader.load(
-                    urdfDir + path,
-                    onComplete,
-                    undefined,
-                    (error) => {
-                        console.error('Error loading mesh:', path, error);
+                try {
+                    const isAbsolute = typeof path === 'string' && /^(https?:)?\/\//i.test(path);
+                    const hasExplicitRelativePrefix = typeof path === 'string' && /^(\.\.\/|\.\/|\/)/.test(path);
+
+                    let resolvedUrl = path;
+
+                    if (!isAbsolute) {
+                        if (typeof window !== 'undefined') {
+                            if (hasExplicitRelativePrefix) {
+                                resolvedUrl = new URL(path, window.location.href).href;
+                            } else {
+                                const baseUrl = new URL(urdfDir, window.location.href);
+                                resolvedUrl = new URL(path, baseUrl).href;
+                            }
+                        } else if (!hasExplicitRelativePrefix) {
+                            resolvedUrl = urdfDir + path;
+                        }
                     }
-                );
+
+                    const objLoader = new THREE.OBJLoader(manager);
+
+                    objLoader.load(
+                        resolvedUrl,
+                        onComplete,
+                        undefined,
+                        (error) => {
+                            console.error('Error loading mesh:', path, 'resolved to', resolvedUrl, error);
+                        }
+                    );
+                } catch (err) {
+                    console.error('Failed to resolve mesh path:', path, err);
+                }
             };
 
             loader.load(

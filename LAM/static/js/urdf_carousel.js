@@ -170,16 +170,13 @@ class URDFViewer {
         this.renderer.setPixelRatio(window.devicePixelRatio || 1);
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        if ('physicallyCorrectLights' in this.renderer) {
-            this.renderer.physicallyCorrectLights = true;
-        }
         if (this.renderer.outputColorSpace !== undefined) {
             this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         } else if (this.renderer.outputEncoding !== undefined) {
             this.renderer.outputEncoding = THREE.sRGBEncoding;
         }
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.0;
+        this.renderer.toneMappingExposure = 1.2;
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -218,7 +215,7 @@ class URDFViewer {
         this.lightRig = lightRig;
 
         // Base ambient keeps interiors readable but still allows contrast
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.18);
         lightRig.add(ambientLight);
 
         // Hemisphere provides soft sky / ground gradients
@@ -227,7 +224,7 @@ class URDFViewer {
         lightRig.add(hemiLight);
 
         // Key directional light casts the main, soft shadow
-        const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        const keyLight = new THREE.DirectionalLight(0xffffff, 3.0);
         keyLight.position.set(6, 9, 7);
         keyLight.castShadow = true;
         keyLight.shadow.mapSize.set(2048, 2048);
@@ -241,18 +238,18 @@ class URDFViewer {
         lightRig.add(keyLight);
 
         // Fill light lifts the dark side
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.45);
+        const fillLight = new THREE.DirectionalLight(0xffffff, 1.4);
         fillLight.position.set(-7, 5, 3);
         lightRig.add(fillLight);
 
         // Rim / back light to outline the silhouette against the background
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.3);
         rimLight.position.set(1, 4, -6);
         lightRig.add(rimLight);
 
         // Subtle bounce from below reduces pitch-black undersides
-        const bounceLight = new THREE.PointLight(0xffffff, 0.3, 25, 2);
-        bounceLight.position.set(0, 1.2, 0);
+        const bounceLight = new THREE.PointLight(0xffffff, 0.8, 25, 2);
+        bounceLight.position.set(0, 1.5, 0);
         lightRig.add(bounceLight);
 
         if (this.shadowPlane) {
@@ -485,21 +482,18 @@ class URDFViewer {
 
             // Apply material with assigned color
             try {
+                const createMaterial = () => new THREE.MeshStandardMaterial({
+                    color: color.clone(),
+                    metalness: 0.05,
+                    roughness: 0.35,
+                    envMapIntensity: 1.0,
+                    flatShading: false
+                });
+
                 if (Array.isArray(node.material)) {
-                    node.material = node.material.map((m) => {
-                        const mm = new THREE.MeshPhongMaterial({
-                            color: color.clone(),
-                            shininess: 60,
-                            specular: 0x222222
-                        });
-                        return mm;
-                    });
+                    node.material = node.material.map(() => createMaterial());
                 } else {
-                    node.material = new THREE.MeshPhongMaterial({
-                        color: color.clone(),
-                        shininess: 60,
-                        specular: 0x222222
-                    });
+                    node.material = createMaterial();
                 }
                 node.material.needsUpdate = true;
             } catch (e) {

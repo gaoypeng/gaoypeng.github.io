@@ -339,23 +339,36 @@ class URDFViewer {
 
                     // Apply blue-toned pastel colors per link (after geometry setup)
                     this.colorizeLinks(robot);
+                    console.log('Colorize links completed');
 
                     // Enable shadows on the root robot object
                     robot.castShadow = true;
                     robot.receiveShadow = true;
 
                     this.scene.add(robot);
+                    console.log('Robot added to scene');
 
                     // Double-check shadow settings after adding to scene
                     let shadowMeshCount = 0;
+                    let visibleMeshCount = 0;
                     robot.traverse((child) => {
                         if (child.isMesh) {
                             child.castShadow = true;
                             child.receiveShadow = true;
+                            child.visible = true;  // Ensure visibility
                             shadowMeshCount++;
+                            if (child.visible && child.material) {
+                                visibleMeshCount++;
+                            }
                         }
                     });
-                    console.log(`Shadow enabled on ${shadowMeshCount} meshes after scene add`);
+                    console.log(`Shadow enabled on ${shadowMeshCount} meshes, ${visibleMeshCount} visible meshes after scene add`);
+
+                    // Force an immediate render to show the model
+                    if (this.renderer && this.scene && this.camera) {
+                        this.renderer.render(this.scene, this.camera);
+                        console.log('Forced initial render after model load');
+                    }
 
                     // Store joint references
                     this.extractJoints(robot);
@@ -490,7 +503,11 @@ class URDFViewer {
                     color: color.clone(),
                     shininess: 50,
                     specular: 0x666666,
-                    flatShading: false
+                    flatShading: false,
+                    transparent: false,
+                    opacity: 1.0,
+                    visible: true,
+                    side: THREE.DoubleSide
                 });
 
                 if (Array.isArray(node.material)) {
@@ -500,9 +517,12 @@ class URDFViewer {
                 }
                 node.material.needsUpdate = true;
 
-                // Ensure shadow properties are set
+                // Ensure mesh visibility and shadow properties
+                node.visible = true;
                 node.castShadow = true;
                 node.receiveShadow = true;
+
+                console.log(`Applied material to mesh: ${node.name}, color:`, color);
             } catch (e) {
                 console.warn('Failed to apply material:', e);
             }

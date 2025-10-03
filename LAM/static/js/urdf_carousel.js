@@ -188,7 +188,13 @@ class URDFViewer {
             }
 
             const loader = new URDFLoaderClass();
+
+            // Set the path for loading meshes
             const urdfPath = this.urdfData.urdfPath;
+            const urdfDir = urdfPath.substring(0, urdfPath.lastIndexOf('/'));
+            loader.packages = {
+                packageName: urdfDir // Default to same directory as URDF
+            };
 
             loader.load(
                 urdfPath,
@@ -205,7 +211,10 @@ class URDFViewer {
                     resolve();
                 },
                 (xhr) => {
-                    console.log(`Loading ${urdfPath}: ${(xhr.loaded / xhr.total * 100).toFixed(2)}%`);
+                    // Progress callback - check if xhr is valid
+                    if (xhr && xhr.loaded && xhr.total) {
+                        console.log(`Loading ${urdfPath}: ${(xhr.loaded / xhr.total * 100).toFixed(2)}%`);
+                    }
                 },
                 (error) => {
                     console.error('Error loading URDF:', error);

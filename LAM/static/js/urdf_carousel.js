@@ -12,10 +12,12 @@ class URDFCarouselViewer {
         this.init();
     }
 
-    init() {
+    async init() {
+        console.log('Initializing URDF Carousel with', this.urdfDataList.length, 'items');
         this.createCarouselStructure();
-        this.loadAllViewers();
+        await this.loadAllViewers();
         this.setupNavigation();
+        console.log('URDF Carousel initialization complete');
     }
 
     createCarouselStructure() {

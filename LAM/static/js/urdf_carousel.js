@@ -193,44 +193,42 @@ class URDFViewer {
             const urdfPath = this.urdfData.urdfPath;
             const urdfDir = urdfPath.substring(0, urdfPath.lastIndexOf('/') + 1);
 
-            // Extract just the folder name (e.g., "a_cabinet_with_five_drawers_1")
-            const urdfFolderName = urdfDir.split('/').filter(p => p).pop();
-
             // Set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
                 try {
-                    // URDFLoader tends to prepend the URDF directory to paths
-                    // We need to detect and handle this duplication
-                    let finalPath = path;
+                    const isAbsolute = typeof path === 'string' && /^(https?:)?\/\//i.test(path);
+                    let resolvedUrl = path;
 
-                    // Remove any existing "./" prefix
-                    if (finalPath.startsWith('./')) {
-                        finalPath = finalPath.substring(2);
+                    if (!isAbsolute) {
+                        const hasExplicitRelativePrefix = /^(\.\.\/|\.\/|\/)/.test(path);
+                        const normalizedUrdfDir = urdfDir.replace(/^\.\//, '').replace(/\/+$/, '') + '/';
+                        const normalizedPath = path.replace(/^\.\//, '');
+
+                        if (typeof window !== 'undefined') {
+                            if (hasExplicitRelativePrefix) {
+                                resolvedUrl = new URL(path, window.location.href).href;
+                            } else if (normalizedPath.startsWith(normalizedUrdfDir)) {
+                                resolvedUrl = new URL(`./${normalizedPath}`, window.location.href).href;
+                            } else {
+                                const baseUrl = new URL(urdfDir, window.location.href);
+                                resolvedUrl = new URL(path, baseUrl).href;
+                            }
+                        } else {
+                            resolvedUrl = hasExplicitRelativePrefix ? path : urdfDir + path;
+                        }
                     }
-
-                    // Check if the path already contains the URDF folder name
-                    // If it does, URDFLoader has already prepended the directory
-                    if (finalPath.includes(urdfFolderName + '/')) {
-                        // Path already includes the directory, just add "./"
-                        finalPath = './' + finalPath;
-                    } else {
-                        // Path doesn't include directory, add the full urdfDir
-                        finalPath = urdfDir + finalPath;
-                    }
-
-                    console.log('Loading mesh:', finalPath);
 
                     const objLoader = new THREE.OBJLoader(manager);
                     objLoader.load(
-                        finalPath,
+                        resolvedUrl,
                         onComplete,
                         undefined,
                         (error) => {
-                            console.error('Error loading mesh from:', finalPath, error);
+                            console.error('Error loading mesh:', path, 'resolved to', resolvedUrl, error);
                         }
                     );
                 } catch (err) {
-                    console.error('Failed to load mesh:', path, err);
+                    console.error('Failed to resolve mesh path:', path, err);
                 }
             };
 

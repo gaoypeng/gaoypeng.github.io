@@ -165,9 +165,12 @@ class URDFViewer {
         // Renderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(width, height);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.outputEncoding = THREE.sRGBEncoding;
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 1.2;
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -179,29 +182,59 @@ class URDFViewer {
             this.controls.update();
         }
 
-        // Don't add grid or axes helpers for cleaner look
+        // Add a subtle ground plane for shadows
+        const groundGeometry = new THREE.PlaneGeometry(20, 20);
+        const groundMaterial = new THREE.ShadowMaterial({
+            opacity: 0.3,
+            color: 0x000000
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -0.01;
+        ground.receiveShadow = true;
+        this.scene.add(ground);
 
         // Resize handler
         window.addEventListener('resize', () => this.resize());
     }
 
     setupLighting() {
-        // Ambient light - darker for better contrast
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+        // Ambient light - subtle base illumination
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
         this.scene.add(ambientLight);
 
-        // Main directional light
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
-        mainLight.position.set(10, 10, 5);
+        // Hemisphere light for natural outdoor lighting
+        const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
+        hemisphereLight.position.set(0, 20, 0);
+        this.scene.add(hemisphereLight);
+
+        // Main directional light (sun-like)
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        mainLight.position.set(10, 15, 10);
         mainLight.castShadow = true;
+
+        // Shadow configuration
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
+        mainLight.shadow.camera.near = 0.5;
+        mainLight.shadow.camera.far = 50;
+        mainLight.shadow.camera.left = -10;
+        mainLight.shadow.camera.right = 10;
+        mainLight.shadow.camera.top = 10;
+        mainLight.shadow.camera.bottom = -10;
+        mainLight.shadow.bias = -0.0005;
+
         this.scene.add(mainLight);
 
         // Fill light to reduce harsh shadows
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
-        fillLight.position.set(-5, 5, 5);
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        fillLight.position.set(-5, 10, -5);
         this.scene.add(fillLight);
+
+        // Back light for rim lighting effect
+        const backLight = new THREE.DirectionalLight(0xffffff, 0.2);
+        backLight.position.set(0, 10, -10);
+        this.scene.add(backLight);
     }
 
     async loadURDF() {
@@ -427,9 +460,13 @@ class URDFViewer {
             // Always create new material to ensure colors are applied
             node.material = new THREE.MeshPhongMaterial({
                 color: color,
-                shininess: 30,
-                specular: 0x444444,
-                wireframe: false
+                shininess: 50,
+                specular: 0x222222,
+                emissive: 0x000000,
+                emissiveIntensity: 0.1,
+                reflectivity: 0.5,
+                wireframe: false,
+                flatShading: false
             });
             node.material.needsUpdate = true;
         });

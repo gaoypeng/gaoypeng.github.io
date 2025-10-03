@@ -189,25 +189,27 @@ class URDFViewer {
 
             const loader = new URDFLoaderClass();
 
-            // URDFLoader automatically prepends the URDF file's directory to mesh paths
-            // So if URDF is at ./urdf_examples/cabinet/generated.urdf
-            // and mesh is at "obj_parts/part.obj" in the URDF file
-            // URDFLoader will pass "urdf_examples/cabinet/obj_parts/part.obj" to loadMeshCb
-            // We just need to prepend "./" to make it relative to the page root
+            // Get the URDF directory path
+            const urdfPath = this.urdfData.urdfPath;
+            const urdfDir = urdfPath.substring(0, urdfPath.lastIndexOf('/') + 1);
+
+            // CRITICAL: Set workingPath to empty to prevent URDFLoader from prepending paths
+            loader.workingPath = '';
 
             // Set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
                 try {
-                    // URDFLoader already prepended the directory, just add "./" prefix
+                    // Since we set workingPath to empty, URDFLoader will pass the raw path from URDF
+                    // We need to manually construct the full path
                     let finalPath = path;
 
-                    // Remove any existing "./" prefix to avoid duplication
+                    // Remove any existing "./" prefix to avoid issues
                     if (finalPath.startsWith('./')) {
                         finalPath = finalPath.substring(2);
                     }
 
-                    // Add "./" prefix for relative path resolution
-                    finalPath = './' + finalPath;
+                    // Build the complete path: urdfDir + meshPath
+                    finalPath = urdfDir + finalPath;
 
                     console.log('Loading mesh:', finalPath);
 

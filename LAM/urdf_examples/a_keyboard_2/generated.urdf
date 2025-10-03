@@ -1,0 +1,1244 @@
+<?xml version="1.0"?>
+<robot name="a_keyboard_2">
+  <link name="key_r2_c0">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c0.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c0.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="base">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/base.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/base.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c6">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c6.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c6.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c8">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c8.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c8.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c2">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c2.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c2.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c5">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c5.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c5.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_ctrl_r">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_ctrl_r.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_ctrl_r.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c10">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c10.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c10.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_alt_r">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_alt_r.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_alt_r.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c0">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c0.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c0.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_win_l">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_win_l.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_win_l.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c6">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c6.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c6.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c4">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c4.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c4.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c5">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c5.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c5.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c5">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c5.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c5.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c0">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c0.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c0.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c5">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c5.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c5.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c1">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c1.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c1.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c4">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c4.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c4.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c6">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c6.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c6.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c2">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c2.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c2.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c7">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c7.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c7.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_ctrl_l">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_ctrl_l.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_ctrl_l.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_alt_l">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_alt_l.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_alt_l.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c9">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c9.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c9.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c6">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c6.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c6.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c1">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c1.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c1.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c8">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c8.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c8.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c0">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c0.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c0.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c3">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c3.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c3.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c3">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c3.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c3.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c8">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c8.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c8.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c2">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c2.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c2.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c7">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c7.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c7.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c3">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c3.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c3.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="spacebar">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/spacebar.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/spacebar.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c4">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c4.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c4.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c4">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c4.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c4.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c9">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c9.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c9.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c9">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c9.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c9.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c1">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c1.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c1.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c7">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c7.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c7.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c8">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c8.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c8.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c10">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c10.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c10.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r3_c9">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c9.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r3_c9.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c10">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c10.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c10.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c11">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c11.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c11.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r1_c11">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c11.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r1_c11.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r2_c2">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c2.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r2_c2.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c7">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c7.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c7.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c3">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c3.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c3.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <link name="key_r0_c1">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c1.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/key_r0_c1.obj" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+  <joint name="base_to_key_r0_c0" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c1" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c1" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c2" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c3" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c3" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c4" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c4" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c5" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c6" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c6" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c7" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c7" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c8" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c8" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c9" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c9" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c10" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c10" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r0_c11" type="prismatic">
+    <parent link="base" />
+    <child link="key_r0_c11" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c0" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c1" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c1" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c2" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c3" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c3" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c4" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c4" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c5" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c6" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c6" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c7" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c7" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c8" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c8" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c9" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c9" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c10" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c10" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r1_c11" type="prismatic">
+    <parent link="base" />
+    <child link="key_r1_c11" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c0" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c1" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c1" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c2" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c3" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c3" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c4" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c4" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c5" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c6" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c6" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c7" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c7" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c8" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c8" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c9" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c9" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r2_c10" type="prismatic">
+    <parent link="base" />
+    <child link="key_r2_c10" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c0" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c1" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c1" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c2" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c3" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c3" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c4" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c4" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c5" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c6" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c6" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c7" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c7" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c8" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c8" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_r3_c9" type="prismatic">
+    <parent link="base" />
+    <child link="key_r3_c9" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_ctrl_l" type="prismatic">
+    <parent link="base" />
+    <child link="key_ctrl_l" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_win_l" type="prismatic">
+    <parent link="base" />
+    <child link="key_win_l" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_alt_l" type="prismatic">
+    <parent link="base" />
+    <child link="key_alt_l" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_spacebar" type="prismatic">
+    <parent link="base" />
+    <child link="spacebar" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_alt_r" type="prismatic">
+    <parent link="base" />
+    <child link="key_alt_r" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+  <joint name="base_to_key_ctrl_r" type="prismatic">
+    <parent link="base" />
+    <child link="key_ctrl_r" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.4" upper="0.0" effort="1.0" velocity="0.5" />
+  </joint>
+</robot>

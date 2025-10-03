@@ -201,32 +201,23 @@ class URDFViewer {
             // Also set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
                 try {
-                    const isAbsolute = typeof path === 'string' && /^(https?:)?\/\//i.test(path);
-                    const hasExplicitRelativePrefix = typeof path === 'string' && /^(\.\.\/|\.\/|\/)/.test(path);
-
-                    let resolvedUrl = path;
-
-                    if (!isAbsolute) {
-                        if (typeof window !== 'undefined') {
-                            if (hasExplicitRelativePrefix) {
-                                resolvedUrl = new URL(path, window.location.href).href;
-                            } else {
-                                const baseUrl = new URL(urdfDir, window.location.href);
-                                resolvedUrl = new URL(path, baseUrl).href;
-                            }
-                        } else if (!hasExplicitRelativePrefix) {
-                            resolvedUrl = urdfDir + path;
-                        }
+                    // Clean the path - remove any ./ prefix
+                    let cleanPath = path;
+                    if (cleanPath.startsWith('./')) {
+                        cleanPath = cleanPath.substring(2);
                     }
 
-                    const objLoader = new THREE.OBJLoader(manager);
+                    // Build the complete URL
+                    const fullPath = urdfDir + cleanPath;
+                    console.log('Loading mesh from:', fullPath);
 
+                    const objLoader = new THREE.OBJLoader(manager);
                     objLoader.load(
-                        resolvedUrl,
+                        fullPath,
                         onComplete,
                         undefined,
                         (error) => {
-                            console.error('Error loading mesh:', path, 'resolved to', resolvedUrl, error);
+                            console.error('Error loading mesh:', cleanPath, 'from', fullPath, error);
                         }
                     );
                 } catch (err) {

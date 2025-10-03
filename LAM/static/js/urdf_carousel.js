@@ -134,8 +134,22 @@ class URDFViewer {
 
     initThreeJS() {
         const container = document.getElementById(this.canvasId);
-        const width = container.clientWidth || 400;
+        // Ensure container has size
+        if (!container) {
+            console.error(`Container ${this.canvasId} not found`);
+            return;
+        }
+
+        // Set explicit size if needed
+        if (container.clientWidth === 0 || container.clientHeight === 0) {
+            container.style.width = '100%';
+            container.style.height = '400px';
+        }
+
+        const width = container.clientWidth || 600;
         const height = container.clientHeight || 400;
+
+        console.log(`Initializing Three.js for ${this.canvasId} with size ${width}x${height}`);
 
         // Scene
         this.scene = new THREE.Scene();
@@ -144,12 +158,14 @@ class URDFViewer {
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
         this.camera.position.set(2, 2, 2);
+        this.camera.lookAt(0, 0, 0);
 
         // Renderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(width, height);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -157,11 +173,17 @@ class URDFViewer {
             this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
             this.controls.enableDamping = true;
             this.controls.dampingFactor = 0.05;
+            this.controls.target.set(0, 0, 0);
+            this.controls.update();
         }
 
         // Grid helper
         const gridHelper = new THREE.GridHelper(10, 10);
         this.scene.add(gridHelper);
+
+        // Axes helper for debugging
+        const axesHelper = new THREE.AxesHelper(5);
+        this.scene.add(axesHelper);
 
         // Resize handler
         window.addEventListener('resize', () => this.resize());
@@ -254,6 +276,25 @@ class URDFViewer {
                     clearTimeout(loadTimeout);
                     console.log(`URDF loaded successfully: ${urdfPath}`, robot);
                     this.robot = robot;
+
+                    // Apply materials to meshes
+                    robot.traverse((child) => {
+                        if (child.isMesh) {
+                            // Ensure mesh has a material
+                            if (!child.material) {
+                                child.material = new THREE.MeshPhongMaterial({
+                                    color: 0x7777ff,
+                                    shininess: 30
+                                });
+                            }
+                            // Make sure mesh is visible
+                            child.visible = true;
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            console.log(`Mesh found: ${child.name}, vertices: ${child.geometry.attributes.position?.count}`);
+                        }
+                    });
+
                     this.scene.add(robot);
 
                     // Store joint references
@@ -262,6 +303,11 @@ class URDFViewer {
 
                     // Auto-fit camera
                     this.fitCameraToObject(robot);
+
+                    // Force a render
+                    if (this.renderer && this.scene && this.camera) {
+                        this.renderer.render(this.scene, this.camera);
+                    }
 
                     resolve();
                 },
@@ -349,23 +395,53 @@ class URDFViewer {
     }
 
     fitCameraToObject(object) {
+        if (!object) {
+            console.warn('No object to fit camera to');
+            return;
+        }
+
         const box = new THREE.Box3().setFromObject(object);
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
+
+        console.log(`Fitting camera to object with size: ${size.x}, ${size.y}, ${size.z}`);
+        console.log(`Object center: ${center.x}, ${center.y}, ${center.z}`);
+
+        // Check for valid bounding box
+        if (!isFinite(size.x) || !isFinite(size.y) || !isFinite(size.z) ||
+            (size.x === 0 && size.y === 0 && size.z === 0)) {
+            console.warn('Invalid bounding box, using default camera position');
+            this.camera.position.set(3, 3, 3);
+            this.camera.lookAt(0, 0, 0);
+            if (this.controls) {
+                this.controls.target.set(0, 0, 0);
+                this.controls.update();
+            }
+            return;
+        }
 
         const maxDim = Math.max(size.x, size.y, size.z);
         const fov = this.camera.fov * (Math.PI / 180);
         let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
 
-        cameraZ *= 1.5; // Add some margin
+        cameraZ *= 2; // Add some margin
 
-        this.camera.position.set(center.x + cameraZ, center.y + cameraZ, center.z + cameraZ);
+        this.camera.position.set(
+            center.x + cameraZ * 0.5,
+            center.y + cameraZ * 0.5,
+            center.z + cameraZ
+        );
         this.camera.lookAt(center);
 
         if (this.controls) {
             this.controls.target.copy(center);
             this.controls.update();
         }
+
+        // Update near/far planes
+        this.camera.near = cameraZ / 100;
+        this.camera.far = cameraZ * 100;
+        this.camera.updateProjectionMatrix();
     }
 
     animate() {
@@ -375,7 +451,15 @@ class URDFViewer {
             this.controls.update();
         }
 
-        this.renderer.render(this.scene, this.camera);
+        // Ensure renderer exists
+        if (this.renderer && this.scene && this.camera) {
+            this.renderer.render(this.scene, this.camera);
+        } else {
+            console.warn(`Missing renderer components for ${this.canvasId}:`,
+                        'renderer:', !!this.renderer,
+                        'scene:', !!this.scene,
+                        'camera:', !!this.camera);
+        }
     }
 
     resize() {

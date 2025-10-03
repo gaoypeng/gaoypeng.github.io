@@ -130,8 +130,8 @@ class URDFViewer {
 
     async load() {
         this.initThreeJS();
+        this.setupLighting();  // Setup lighting before loading URDF
         await this.loadURDF();
-        this.setupLighting();
         this.createJointControls();
         this.animate();
     }
@@ -168,11 +168,19 @@ class URDFViewer {
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(width, height);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
+
+        // Enable shadow mapping
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        if (this.renderer.outputEncoding !== undefined) {
+
+        // Set color encoding
+        if (this.renderer.outputColorSpace !== undefined) {
+            this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+        } else if (this.renderer.outputEncoding !== undefined) {
             this.renderer.outputEncoding = THREE.sRGBEncoding;
         }
+
+        console.log('Renderer shadow map enabled:', this.renderer.shadowMap.enabled);
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -192,6 +200,7 @@ class URDFViewer {
 
     setupLighting() {
         // Enhanced lighting for better contrast and shadows
+        console.log('Setting up lighting system...');
 
         // Ambient light - reduced for more contrast
         const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
@@ -211,6 +220,7 @@ class URDFViewer {
         mainLight.shadow.camera.far = 50;
         mainLight.shadow.bias = -0.0001;
         this.scene.add(mainLight);
+        console.log('Main light added, castShadow:', mainLight.castShadow);
 
         // Fill light - from opposite side
         const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
@@ -222,6 +232,8 @@ class URDFViewer {
         rimLight.position.set(0, 10, -10);
         this.scene.add(rimLight);
 
+        console.log('Total lights in scene:', this.scene.children.filter(c => c.isLight).length);
+
         // Add ground plane for shadow receiving
         const groundGeometry = new THREE.PlaneGeometry(50, 50);
         const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.35 });
@@ -230,6 +242,7 @@ class URDFViewer {
         ground.position.y = -0.01;
         ground.receiveShadow = true;
         this.scene.add(ground);
+        console.log('Ground plane added, receiveShadow:', ground.receiveShadow);
     }
 
     async loadURDF() {
@@ -304,8 +317,10 @@ class URDFViewer {
                     this.robot = robot;
 
                     // Ensure proper geometry attributes first
+                    let meshCount = 0;
                     robot.traverse((child) => {
                         if (child.isMesh) {
+                            meshCount++;
                             // Ensure proper geometry attributes
                             if (child.geometry) {
                                 if (!child.geometry.attributes.normal) {
@@ -314,13 +329,13 @@ class URDFViewer {
                                 child.geometry.computeBoundingBox();
                                 child.geometry.computeBoundingSphere();
                             }
-                            // Make sure mesh is visible
+                            // Make sure mesh is visible and shadows enabled
                             child.visible = true;
                             child.castShadow = true;
                             child.receiveShadow = true;
-                            console.log(`Mesh found: ${child.name}, vertices: ${child.geometry.attributes.position?.count}`);
                         }
                     });
+                    console.log(`Total meshes found: ${meshCount}, all configured for shadows`);
 
                     // Apply blue-toned pastel colors per link (after geometry setup)
                     this.colorizeLinks(robot);
@@ -469,6 +484,10 @@ class URDFViewer {
                     node.material = createMaterial();
                 }
                 node.material.needsUpdate = true;
+
+                // Ensure shadow properties are set
+                node.castShadow = true;
+                node.receiveShadow = true;
             } catch (e) {
                 console.warn('Failed to apply material:', e);
             }

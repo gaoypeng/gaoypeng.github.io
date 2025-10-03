@@ -123,6 +123,7 @@ class URDFViewer {
         this.joints = {};
         this.animationId = null;
         this.showWireframe = false;
+        this.linkColors = new Map();
     }
 
     async load() {
@@ -178,28 +179,51 @@ class URDFViewer {
             this.controls.update();
         }
 
+        // Add a subtle grid for spatial reference
+        const gridHelper = new THREE.GridHelper(10, 20, 0x888888, 0xcccccc);
+        gridHelper.material.opacity = 0.2;
+        gridHelper.material.transparent = true;
+        gridHelper.position.y = -0.01;
+        this.scene.add(gridHelper);
+
         // Resize handler
         window.addEventListener('resize', () => this.resize());
     }
 
     setupLighting() {
-        // Simple lighting setup matching reference
-        // Ambient light
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+        // Enhanced lighting for better part distinction
+        // Brighter ambient light
+        const ambientLight = new THREE.AmbientLight(0x606060, 0.6);
         this.scene.add(ambientLight);
 
-        // Main light
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
-        mainLight.position.set(10, 10, 5);
+        // Hemisphere light for sky/ground lighting
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.4);
+        hemiLight.position.set(0, 20, 0);
+        this.scene.add(hemiLight);
+
+        // Main directional light
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        mainLight.position.set(5, 10, 5);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
+        mainLight.shadow.camera.near = 0.1;
+        mainLight.shadow.camera.far = 50;
+        mainLight.shadow.camera.left = -10;
+        mainLight.shadow.camera.right = 10;
+        mainLight.shadow.camera.top = 10;
+        mainLight.shadow.camera.bottom = -10;
         this.scene.add(mainLight);
 
-        // Fill light
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
-        fillLight.position.set(-5, 5, 5);
+        // Side fill light
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        fillLight.position.set(-10, 8, 0);
         this.scene.add(fillLight);
+
+        // Back light for edge definition
+        const backLight = new THREE.DirectionalLight(0xffffff, 0.3);
+        backLight.position.set(0, 5, -10);
+        this.scene.add(backLight);
     }
 
     async loadURDF() {
@@ -375,20 +399,77 @@ class URDFViewer {
         traverse(robot);
     }
 
-    // Apply consistent light blue color to all meshes
+    // Apply distinct colors per URDF link for better part distinction
     colorizeLinks(root) {
-        // Apply uniform color to all meshes for better visibility
+        const phi = (Math.sqrt(5) - 1) / 2; // golden ratio conjugate ~0.618
+        let idx = 0;
+
+        // First collect all links in stable order
+        const links = [];
+        root.traverse((node) => {
+            if (node.isURDFLink) links.push(node);
+        });
+
+        // Sort links by name for deterministic coloring
+        links.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+        // Generate distinct pastel colors using golden ratio
+        const colorForIndex = (i) => {
+            const h = (i * phi) % 1; // Distribute across full hue range
+            const s = 0.45; // Moderate saturation for pleasant colors
+            const l = 0.75; // Light values for pastel effect
+            const c = new THREE.Color();
+            c.setHSL(h, s, l);
+            return c;
+        };
+
+        // Assign colors to links
+        links.forEach((link) => {
+            const c = colorForIndex(idx++);
+            this.linkColors.set(link, c);
+        });
+
+        // Apply colors to meshes under each link
         root.traverse((node) => {
             if (!node.isMesh) return;
 
-            // Simple material matching reference - light blue
-            node.material = new THREE.MeshPhongMaterial({
-                color: 0x87CEEB,  // Light blue color
-                shininess: 30,
-                specular: 0x444444,
-                wireframe: false
-            });
-            node.material.needsUpdate = true;
+            // Find owning link
+            let p = node;
+            let owner = null;
+            while (p) {
+                if (p.isURDFLink) {
+                    owner = p;
+                    break;
+                }
+                p = p.parent;
+            }
+            if (!owner) return;
+
+            const color = this.linkColors.get(owner);
+            if (!color) return;
+
+            // Apply material with assigned color
+            try {
+                if (Array.isArray(node.material)) {
+                    node.material = node.material.map((m) => {
+                        const mm = new THREE.MeshPhongMaterial({
+                            color: color.clone(),
+                            shininess: 60,
+                            specular: 0x222222
+                        });
+                        return mm;
+                    });
+                } else {
+                    node.material = new THREE.MeshPhongMaterial({
+                        color: color.clone(),
+                        shininess: 60,
+                        specular: 0x222222
+                    });
+                }
+                node.material.needsUpdate = true;
+            } catch (e) {
+                console.warn('Failed to apply material:', e);
+            }
         });
     }
 
@@ -402,15 +483,27 @@ class URDFViewer {
                 child.material.wireframe = this.showWireframe;
 
                 if (this.showWireframe) {
-                    // Darker blue for wireframe mode
+                    // Darker color for wireframe mode
                     child.material.wireframeLinewidth = 1.5;
                     if (child.material.color) {
                         child.material.color.set(0x3366CC);
                     }
                 } else {
-                    // Restore light blue color
-                    if (child.material.color) {
-                        child.material.color.set(0x87CEEB);
+                    // Restore original link colors
+                    let p = child;
+                    let owner = null;
+                    while (p) {
+                        if (p.isURDFLink) {
+                            owner = p;
+                            break;
+                        }
+                        p = p.parent;
+                    }
+                    if (owner && this.linkColors.has(owner)) {
+                        const color = this.linkColors.get(owner);
+                        if (child.material.color) {
+                            child.material.color.copy(color);
+                        }
                     }
                     child.material.wireframeLinewidth = 1.0;
                 }

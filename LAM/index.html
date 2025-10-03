@@ -26,14 +26,6 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
-
-  <!-- Three.js and URDF Loader -->
-  <script src="https://unpkg.com/three@0.145.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.145.0/examples/js/controls/OrbitControls.js"></script>
-  <script src="./static/js/OBJLoader.js"></script>
-  <script src="./static/js/URDFLoader.js"></script>
-  <script src="./static/js/adaptive_camera.js"></script>
-  <script src="./static/js/urdf_carousel.js"></script>
 </head>
 <body>
 
@@ -283,10 +275,32 @@
   </div>
 </footer>
 
+<!-- Three.js and URDF Loader - Load before initialization -->
+<script src="https://unpkg.com/three@0.145.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.145.0/examples/js/controls/OrbitControls.js"></script>
+<script src="./static/js/OBJLoader.js"></script>
+<script src="./static/js/URDFLoader.js"></script>
+<script src="./static/js/adaptive_camera.js"></script>
+<script src="./static/js/urdf_carousel.js"></script>
 
 <script>
-// Initialize URDF Carousel Viewer
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for all scripts to load
+window.addEventListener('load', function() {
+    console.log('Checking dependencies...');
+    console.log('THREE available:', typeof THREE !== 'undefined');
+    console.log('THREE.OrbitControls available:', typeof THREE.OrbitControls !== 'undefined');
+    console.log('URDFLoader available:', typeof URDFLoader !== 'undefined');
+    console.log('THREE.URDFLoader available:', typeof THREE.URDFLoader !== 'undefined');
+
+    // Ensure URDFLoader is available on THREE namespace
+    if (typeof URDFLoader !== 'undefined' && typeof THREE.URDFLoader === 'undefined') {
+        THREE.URDFLoader = URDFLoader;
+        console.log('Attached URDFLoader to THREE namespace');
+    }
+});
+
+// Initialize URDF Carousel Viewer after all dependencies are loaded
+function initURDFViewer() {
     // Define URDF data for the carousel
     const urdfDataList = [
         {
@@ -302,14 +316,31 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add more objects here as needed
     ];
 
+    // Ensure URDFLoader is available
+    if (typeof URDFLoader !== 'undefined' && typeof THREE.URDFLoader === 'undefined') {
+        THREE.URDFLoader = URDFLoader;
+    }
+
     // Initialize the carousel viewer
     try {
         const viewer = new URDFCarouselViewer('urdf-carousel-viewer', urdfDataList);
         console.log('URDF Carousel Viewer initialized successfully');
     } catch (error) {
         console.error('Error initializing URDF Carousel Viewer:', error);
+        console.error('Error details:', error.stack);
     }
-});
+}
+
+// Wait for both DOM and all scripts to be ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Give a small delay to ensure all scripts are executed
+        setTimeout(initURDFViewer, 100);
+    });
+} else {
+    // DOM already loaded
+    setTimeout(initURDFViewer, 100);
+}
 </script>
 
 </body>

@@ -177,13 +177,17 @@ class URDFViewer {
 
     async loadURDF() {
         return new Promise((resolve, reject) => {
-            if (typeof THREE.URDFLoader === 'undefined') {
-                console.error('URDFLoader not available');
+            // Check for URDFLoader in multiple possible locations
+            const URDFLoaderClass = THREE.URDFLoader || window.URDFLoader;
+
+            if (typeof URDFLoaderClass === 'undefined') {
+                console.error('URDFLoader not available. THREE:', THREE);
+                console.error('window.URDFLoader:', window.URDFLoader);
                 reject(new Error('URDFLoader not available'));
                 return;
             }
 
-            const loader = new THREE.URDFLoader();
+            const loader = new URDFLoaderClass();
             const urdfPath = this.urdfData.urdfPath;
 
             loader.load(

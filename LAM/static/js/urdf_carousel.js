@@ -157,7 +157,7 @@ class URDFViewer {
 
         // Scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xffffff);  // White background
+        this.scene.background = new THREE.Color(0xf4f5f7);  // Soft gray background for contrast
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
@@ -180,7 +180,9 @@ class URDFViewer {
             this.renderer.outputEncoding = THREE.sRGBEncoding;
         }
 
-        console.log('Renderer shadow map enabled:', this.renderer.shadowMap.enabled);
+        // Mild tone mapping keeps highlights from blowing out
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 1.05;
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -192,57 +194,53 @@ class URDFViewer {
             this.controls.update();
         }
 
-        // Clean white background - no grid or shadow plane needed
-
         // Resize handler
         window.addEventListener('resize', () => this.resize());
     }
 
     setupLighting() {
-        // Enhanced lighting for better contrast and shadows
-        console.log('Setting up lighting system...');
-
-        // Ambient light - reduced for more contrast
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
+        // Rebalanced lighting inspired by desktop viewer setup for immediate contrast
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
         this.scene.add(ambientLight);
 
-        // Main light with shadow - stronger intensity
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
-        mainLight.position.set(10, 10, 5);
-        mainLight.castShadow = true;
-        mainLight.shadow.mapSize.width = 2048;
-        mainLight.shadow.mapSize.height = 2048;
-        mainLight.shadow.camera.left = -10;
-        mainLight.shadow.camera.right = 10;
-        mainLight.shadow.camera.top = 10;
-        mainLight.shadow.camera.bottom = -10;
-        mainLight.shadow.camera.near = 0.5;
-        mainLight.shadow.camera.far = 50;
-        mainLight.shadow.bias = -0.0001;
-        this.scene.add(mainLight);
-        console.log('Main light added, castShadow:', mainLight.castShadow);
+        const hemiLight = new THREE.HemisphereLight(0xf0f4ff, 0x1e1e1e, 0.55);
+        hemiLight.position.set(0, 6, 0);
+        this.scene.add(hemiLight);
 
-        // Fill light - from opposite side
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
-        fillLight.position.set(-5, 5, -5);
+        const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+        keyLight.position.set(7, 9, 6);
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.width = 2048;
+        keyLight.shadow.mapSize.height = 2048;
+        keyLight.shadow.camera.left = -10;
+        keyLight.shadow.camera.right = 10;
+        keyLight.shadow.camera.top = 10;
+        keyLight.shadow.camera.bottom = -10;
+        keyLight.shadow.camera.near = 0.3;
+        keyLight.shadow.camera.far = 40;
+        keyLight.shadow.bias = -0.00015;
+        this.scene.add(keyLight);
+
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.9);
+        fillLight.position.set(-6, 4.5, 2.5);
         this.scene.add(fillLight);
 
-        // Rim light for edge definition
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.6);
-        rimLight.position.set(0, 10, -10);
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        rimLight.position.set(1, 4.5, -6);
         this.scene.add(rimLight);
 
-        console.log('Total lights in scene:', this.scene.children.filter(c => c.isLight).length);
+        const bounceLight = new THREE.PointLight(0xe0e4ff, 0.45, 20, 1.8);
+        bounceLight.position.set(0, 1.1, 0);
+        this.scene.add(bounceLight);
 
-        // Add ground plane for shadow receiving
-        const groundGeometry = new THREE.PlaneGeometry(50, 50);
-        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.35 });
+        // Ground plane to catch soft shadows and anchor the object visually
+        const groundGeometry = new THREE.PlaneGeometry(40, 40);
+        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.4 });
         const ground = new THREE.Mesh(groundGeometry, groundMaterial);
         ground.rotation.x = -Math.PI / 2;
-        ground.position.y = -0.01;
+        ground.position.y = -0.015;
         ground.receiveShadow = true;
         this.scene.add(ground);
-        console.log('Ground plane added, receiveShadow:', ground.receiveShadow);
     }
 
     async loadURDF() {

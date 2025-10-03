@@ -212,45 +212,37 @@ class URDFViewer {
             // Set the load mesh callback for OBJ files
             loader.loadMeshCb = (path, manager, onComplete) => {
                 try {
-                    const isAbsolute = typeof path === 'string' && /^(https?:)?\/\//i.test(path);
-                    let resolvedUrl = path;
+                    // Simple path resolution - URDFLoader already adds the directory
+                    let finalPath = path;
 
-                    if (!isAbsolute) {
-                        const normalizedUrdfDir = urdfDir.replace(/^\.\//, '').replace(/\/+$/, '');
-                        const normalizedPath = path.replace(/^\.\//, '');
-
-                        if (typeof window !== 'undefined') {
-                            if (path.startsWith('/')) {
-                                resolvedUrl = new URL(path, window.location.origin).href;
-                            } else if (normalizedPath.startsWith(normalizedUrdfDir)) {
-                                resolvedUrl = new URL(`./${normalizedPath}`, window.location.href).href;
-                            } else {
-                                const baseUrl = new URL(urdfDir, window.location.href);
-                                resolvedUrl = new URL(path, baseUrl).href;
-                            }
-                        } else {
-                            if (path.startsWith('/')) {
-                                resolvedUrl = path;
-                            } else if (normalizedPath.startsWith(normalizedUrdfDir)) {
-                                resolvedUrl = `./${normalizedPath}`;
-                            } else {
-                                resolvedUrl = urdfDir + path.replace(/^\.\//, '');
-                            }
-                        }
+                    // Remove any leading ./
+                    if (finalPath.startsWith('./')) {
+                        finalPath = finalPath.substring(2);
                     }
 
-                    console.log('URDF mesh request:', { path, resolvedUrl });
+                    // Check if the path already contains the URDF folder structure
+                    // If it contains "urdf_examples/[folder_name]/" it means URDFLoader already added it
+                    if (finalPath.includes('urdf_examples/')) {
+                        // Path already has the directory, just add ./
+                        finalPath = './' + finalPath;
+                    } else {
+                        // Path doesn't have directory, add the full urdfDir
+                        finalPath = urdfDir + finalPath;
+                    }
+
+                    console.log('Loading mesh:', path, ' -> ', finalPath);
+
                     const objLoader = new THREE.OBJLoader(manager);
                     objLoader.load(
-                        resolvedUrl,
+                        finalPath,
                         onComplete,
                         undefined,
                         (error) => {
-                            console.error('Error loading mesh:', path, 'resolved to', resolvedUrl, error);
+                            console.error('Error loading mesh:', path, 'from', finalPath, error);
                         }
                     );
                 } catch (err) {
-                    console.error('Failed to resolve mesh path:', path, err);
+                    console.error('Failed to load mesh:', path, err);
                 }
             };
 

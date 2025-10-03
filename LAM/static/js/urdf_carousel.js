@@ -124,6 +124,8 @@ class URDFViewer {
         this.animationId = null;
         this.showWireframe = false;
         this.linkColors = new Map();
+        this.lightRig = null;
+        this.shadowPlane = null;
     }
 
     async load() {
@@ -168,6 +170,16 @@ class URDFViewer {
         this.renderer.setPixelRatio(window.devicePixelRatio || 1);
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        if ('physicallyCorrectLights' in this.renderer) {
+            this.renderer.physicallyCorrectLights = true;
+        }
+        if (this.renderer.outputColorSpace !== undefined) {
+            this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+        } else if (this.renderer.outputEncoding !== undefined) {
+            this.renderer.outputEncoding = THREE.sRGBEncoding;
+        }
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 1.0;
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -181,49 +193,72 @@ class URDFViewer {
 
         // Add a subtle grid for spatial reference
         const gridHelper = new THREE.GridHelper(10, 20, 0x888888, 0xcccccc);
-        gridHelper.material.opacity = 0.2;
+        gridHelper.material.opacity = 0.15;
         gridHelper.material.transparent = true;
         gridHelper.position.y = -0.01;
         this.scene.add(gridHelper);
+
+        // Soft shadow receiver gives the model a grounded look
+        const shadowMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
+        const shadowPlane = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), shadowMaterial);
+        shadowPlane.rotation.x = -Math.PI / 2;
+        shadowPlane.position.y = -0.02;
+        shadowPlane.receiveShadow = true;
+        this.scene.add(shadowPlane);
+        this.shadowPlane = shadowPlane;
 
         // Resize handler
         window.addEventListener('resize', () => this.resize());
     }
 
     setupLighting() {
-        // Enhanced lighting for better part distinction
-        // Brighter ambient light
-        const ambientLight = new THREE.AmbientLight(0x606060, 0.6);
-        this.scene.add(ambientLight);
+        // Assemble a light rig inspired by the desktop URDF visualizers for richer shading
+        const lightRig = new THREE.Group();
+        this.scene.add(lightRig);
+        this.lightRig = lightRig;
 
-        // Hemisphere light for sky/ground lighting
-        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.4);
-        hemiLight.position.set(0, 20, 0);
-        this.scene.add(hemiLight);
+        // Base ambient keeps interiors readable but still allows contrast
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
+        lightRig.add(ambientLight);
 
-        // Main directional light
-        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        mainLight.position.set(5, 10, 5);
-        mainLight.castShadow = true;
-        mainLight.shadow.mapSize.width = 2048;
-        mainLight.shadow.mapSize.height = 2048;
-        mainLight.shadow.camera.near = 0.1;
-        mainLight.shadow.camera.far = 50;
-        mainLight.shadow.camera.left = -10;
-        mainLight.shadow.camera.right = 10;
-        mainLight.shadow.camera.top = 10;
-        mainLight.shadow.camera.bottom = -10;
-        this.scene.add(mainLight);
+        // Hemisphere provides soft sky / ground gradients
+        const hemiLight = new THREE.HemisphereLight(0xf5f7ff, 0x2f2f2f, 0.65);
+        hemiLight.position.set(0, 6, 0);
+        lightRig.add(hemiLight);
 
-        // Side fill light
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
-        fillLight.position.set(-10, 8, 0);
-        this.scene.add(fillLight);
+        // Key directional light casts the main, soft shadow
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        keyLight.position.set(6, 9, 7);
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.set(2048, 2048);
+        keyLight.shadow.camera.near = 0.1;
+        keyLight.shadow.camera.far = 40;
+        keyLight.shadow.camera.left = -12;
+        keyLight.shadow.camera.right = 12;
+        keyLight.shadow.camera.top = 12;
+        keyLight.shadow.camera.bottom = -12;
+        keyLight.shadow.bias = -1e-4;
+        lightRig.add(keyLight);
 
-        // Back light for edge definition
-        const backLight = new THREE.DirectionalLight(0xffffff, 0.3);
-        backLight.position.set(0, 5, -10);
-        this.scene.add(backLight);
+        // Fill light lifts the dark side
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.45);
+        fillLight.position.set(-7, 5, 3);
+        lightRig.add(fillLight);
+
+        // Rim / back light to outline the silhouette against the background
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        rimLight.position.set(1, 4, -6);
+        lightRig.add(rimLight);
+
+        // Subtle bounce from below reduces pitch-black undersides
+        const bounceLight = new THREE.PointLight(0xffffff, 0.3, 25, 2);
+        bounceLight.position.set(0, 1.2, 0);
+        lightRig.add(bounceLight);
+
+        if (this.shadowPlane) {
+            keyLight.target = this.shadowPlane;
+            keyLight.target.updateMatrixWorld();
+        }
     }
 
     async loadURDF() {

@@ -177,13 +177,7 @@ class URDFViewer {
             this.controls.update();
         }
 
-        // Grid helper
-        const gridHelper = new THREE.GridHelper(10, 10);
-        this.scene.add(gridHelper);
-
-        // Axes helper for debugging
-        const axesHelper = new THREE.AxesHelper(5);
-        this.scene.add(axesHelper);
+        // Don't add grid or axes helpers for cleaner look
 
         // Resize handler
         window.addEventListener('resize', () => this.resize());
@@ -277,15 +271,18 @@ class URDFViewer {
                     console.log(`URDF loaded successfully: ${urdfPath}`, robot);
                     this.robot = robot;
 
-                    // Apply materials to meshes
+                    // Apply light blue materials to meshes (matching reference implementation)
                     robot.traverse((child) => {
                         if (child.isMesh) {
-                            // Ensure mesh has a material
-                            if (!child.material) {
-                                child.material = new THREE.MeshPhongMaterial({
-                                    color: 0x7777ff,
-                                    shininess: 30
-                                });
+                            // Replace material with a light blue phong material
+                            child.material = new THREE.MeshPhongMaterial({
+                                color: 0x87CEEB,  // Light blue color
+                                shininess: 30,
+                                specular: 0x444444
+                            });
+                            // Ensure proper geometry attributes
+                            if (!child.geometry.attributes.normal) {
+                                child.geometry.computeVertexNormals();
                             }
                             // Make sure mesh is visible
                             child.visible = true;
@@ -400,6 +397,9 @@ class URDFViewer {
             return;
         }
 
+        // Ensure matrix is updated
+        object.updateMatrixWorld(true);
+
         const box = new THREE.Box3().setFromObject(object);
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
@@ -407,11 +407,16 @@ class URDFViewer {
         console.log(`Fitting camera to object with size: ${size.x}, ${size.y}, ${size.z}`);
         console.log(`Object center: ${center.x}, ${center.y}, ${center.z}`);
 
-        // Check for valid bounding box
+        // Check for valid bounding box with small tolerance
         if (!isFinite(size.x) || !isFinite(size.y) || !isFinite(size.z) ||
-            (size.x === 0 && size.y === 0 && size.z === 0)) {
+            (size.x < 0.001 && size.y < 0.001 && size.z < 0.001)) {
             console.warn('Invalid bounding box, using default camera position');
-            this.camera.position.set(3, 3, 3);
+            const defaultDistance = 5;
+            this.camera.position.set(
+                defaultDistance * 0.7,
+                defaultDistance * 0.5,
+                defaultDistance * 0.8
+            );
             this.camera.lookAt(0, 0, 0);
             if (this.controls) {
                 this.controls.target.set(0, 0, 0);
@@ -420,28 +425,75 @@ class URDFViewer {
             return;
         }
 
+        // Adaptive camera positioning (based on reference implementation)
         const maxDim = Math.max(size.x, size.y, size.z);
         const fov = this.camera.fov * (Math.PI / 180);
-        let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+        const aspectRatio = this.camera.aspect;
 
-        cameraZ *= 2; // Add some margin
+        // Calculate distances for each dimension
+        let distanceForHeight = size.y / (2 * Math.tan(fov / 2));
+        let distanceForWidth = size.x / (2 * Math.tan(fov / 2) * aspectRatio);
+        let distanceForDepth = size.z / (2 * Math.tan(fov / 2));
 
-        this.camera.position.set(
-            center.x + cameraZ * 0.5,
-            center.y + cameraZ * 0.5,
-            center.z + cameraZ
-        );
+        // Choose optimal distance with buffer
+        let optimalDistance = Math.max(distanceForHeight, distanceForWidth, distanceForDepth) * 1.5;
+
+        // Adjust minimum distance based on object size
+        if (maxDim < 0.5) {
+            optimalDistance = Math.max(optimalDistance, maxDim * 3);
+        } else if (maxDim < 2) {
+            optimalDistance = Math.max(optimalDistance, maxDim * 2.5);
+        } else {
+            optimalDistance = Math.max(optimalDistance, maxDim * 2);
+        }
+
+        // Smart camera position based on object shape
+        const isFlat = size.y < size.x * 0.3 && size.y < size.z * 0.3;
+        const isTall = size.y > size.x * 2 && size.y > size.z * 2;
+        const isWide = size.x > size.z * 2;
+        const isDeep = size.z > size.x * 2;
+
+        let cameraX, cameraY, cameraZ;
+
+        if (isFlat) {
+            // Flat objects - view from above
+            const angle = Math.PI / 6;
+            cameraX = center.x + optimalDistance * Math.sin(angle) * 0.7;
+            cameraY = center.y + optimalDistance * 0.9;
+            cameraZ = center.z + optimalDistance * Math.cos(angle) * 0.7;
+        } else if (isTall) {
+            // Tall objects - view from side
+            const angle = Math.PI / 4;
+            cameraX = center.x + optimalDistance * Math.cos(angle);
+            cameraY = center.y + size.y * 0.2;
+            cameraZ = center.z + optimalDistance * Math.sin(angle);
+        } else {
+            // Standard isometric view with slight adjustments
+            const xRatio = 0.7 + (size.x / maxDim) * 0.2;
+            const yRatio = 0.6 + (size.y / maxDim) * 0.4;
+            const zRatio = 0.8 + (size.z / maxDim) * 0.2;
+
+            cameraX = center.x + optimalDistance * xRatio;
+            cameraY = center.y + optimalDistance * yRatio;
+            cameraZ = center.z + optimalDistance * zRatio;
+        }
+
+        this.camera.position.set(cameraX, cameraY, cameraZ);
         this.camera.lookAt(center);
+
+        // Update near/far planes
+        this.camera.near = optimalDistance * 0.01;
+        this.camera.far = optimalDistance * 100;
+        this.camera.updateProjectionMatrix();
 
         if (this.controls) {
             this.controls.target.copy(center);
+            this.controls.minDistance = optimalDistance * 0.3;
+            this.controls.maxDistance = optimalDistance * 4;
             this.controls.update();
         }
 
-        // Update near/far planes
-        this.camera.near = cameraZ / 100;
-        this.camera.far = cameraZ * 100;
-        this.camera.updateProjectionMatrix();
+        console.log(`Camera positioned - Distance: ${optimalDistance.toFixed(2)}, Shape: ${isFlat ? 'flat' : isTall ? 'tall' : isWide ? 'wide' : isDeep ? 'deep' : 'standard'}`);
     }
 
     animate() {

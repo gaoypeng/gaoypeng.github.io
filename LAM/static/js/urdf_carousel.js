@@ -56,9 +56,16 @@ class URDFCarouselViewer {
 
     async loadAllViewers() {
         for (let i = 0; i < this.urdfDataList.length; i++) {
-            const viewer = new URDFViewer(`viewer-${i}`, `controls-${i}`, this.urdfDataList[i]);
-            this.viewers.push(viewer);
-            await viewer.load();
+            try {
+                console.log(`Loading viewer ${i} for ${this.urdfDataList[i].name}`);
+                const viewer = new URDFViewer(`viewer-${i}`, `controls-${i}`, this.urdfDataList[i]);
+                this.viewers.push(viewer);
+                await viewer.load();
+                console.log(`Successfully loaded viewer ${i}`);
+            } catch (error) {
+                console.error(`Failed to load viewer ${i} for ${this.urdfDataList[i].name}:`, error);
+                // Continue loading other viewers even if one fails
+            }
         }
     }
 
@@ -177,12 +184,19 @@ class URDFViewer {
 
     async loadURDF() {
         return new Promise((resolve, reject) => {
+            // Add timeout for loading
+            const loadTimeout = setTimeout(() => {
+                console.error(`Timeout loading URDF: ${this.urdfData.urdfPath}`);
+                reject(new Error('URDF loading timeout after 30 seconds'));
+            }, 30000);
+
             // Check for URDFLoader in multiple possible locations
             const URDFLoaderClass = THREE.URDFLoader || window.URDFLoader;
 
             if (typeof URDFLoaderClass === 'undefined') {
                 console.error('URDFLoader not available. THREE:', THREE);
                 console.error('window.URDFLoader:', window.URDFLoader);
+                clearTimeout(loadTimeout);
                 reject(new Error('URDFLoader not available'));
                 return;
             }
@@ -238,14 +252,19 @@ class URDFViewer {
                 }
             };
 
+            console.log(`Starting URDF load from: ${urdfPath}`);
+
             loader.load(
                 urdfPath,
                 (robot) => {
+                    clearTimeout(loadTimeout);
+                    console.log(`URDF loaded successfully: ${urdfPath}`, robot);
                     this.robot = robot;
                     this.scene.add(robot);
 
                     // Store joint references
                     this.extractJoints(robot);
+                    console.log(`Extracted ${Object.keys(this.joints).length} joints`);
 
                     // Auto-fit camera
                     this.fitCameraToObject(robot);
@@ -260,14 +279,16 @@ class URDFViewer {
                             const percent = ((loaded / total) * 100).toFixed(2);
                             console.log(`Loading ${urdfPath}: ${percent}%`);
                         } else {
-                            console.log(`Loading ${urdfPath}...`);
+                            console.log(`Progress event for ${urdfPath}:`, progressEvent);
                         }
                     } else {
                         console.log(`Loading ${urdfPath}...`);
                     }
                 },
                 (error) => {
-                    console.error('Error loading URDF:', error);
+                    clearTimeout(loadTimeout);
+                    console.error(`Error loading URDF from ${urdfPath}:`, error);
+                    console.error('Error details:', error.stack || error);
                     reject(error);
                 }
             );

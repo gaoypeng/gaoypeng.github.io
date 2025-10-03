@@ -200,13 +200,12 @@ class URDFViewer {
                     let resolvedUrl = path;
 
                     if (!isAbsolute) {
-                        const hasExplicitRelativePrefix = /^(\.\.\/|\.\/|\/)/.test(path);
-                        const normalizedUrdfDir = urdfDir.replace(/^\.\//, '').replace(/\/+$/, '') + '/';
+                        const normalizedUrdfDir = urdfDir.replace(/^\.\//, '').replace(/\/+$/, '');
                         const normalizedPath = path.replace(/^\.\//, '');
 
                         if (typeof window !== 'undefined') {
-                            if (hasExplicitRelativePrefix) {
-                                resolvedUrl = new URL(path, window.location.href).href;
+                            if (path.startsWith('/')) {
+                                resolvedUrl = new URL(path, window.location.origin).href;
                             } else if (normalizedPath.startsWith(normalizedUrdfDir)) {
                                 resolvedUrl = new URL(`./${normalizedPath}`, window.location.href).href;
                             } else {
@@ -214,10 +213,17 @@ class URDFViewer {
                                 resolvedUrl = new URL(path, baseUrl).href;
                             }
                         } else {
-                            resolvedUrl = hasExplicitRelativePrefix ? path : urdfDir + path;
+                            if (path.startsWith('/')) {
+                                resolvedUrl = path;
+                            } else if (normalizedPath.startsWith(normalizedUrdfDir)) {
+                                resolvedUrl = `./${normalizedPath}`;
+                            } else {
+                                resolvedUrl = urdfDir + path.replace(/^\.\//, '');
+                            }
                         }
                     }
 
+                    console.log('URDF mesh request:', { path, resolvedUrl });
                     const objLoader = new THREE.OBJLoader(manager);
                     objLoader.load(
                         resolvedUrl,

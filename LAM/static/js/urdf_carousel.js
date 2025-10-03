@@ -340,7 +340,22 @@ class URDFViewer {
                     // Apply blue-toned pastel colors per link (after geometry setup)
                     this.colorizeLinks(robot);
 
+                    // Enable shadows on the root robot object
+                    robot.castShadow = true;
+                    robot.receiveShadow = true;
+
                     this.scene.add(robot);
+
+                    // Double-check shadow settings after adding to scene
+                    let shadowMeshCount = 0;
+                    robot.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            shadowMeshCount++;
+                        }
+                    });
+                    console.log(`Shadow enabled on ${shadowMeshCount} meshes after scene add`);
 
                     // Store joint references
                     this.extractJoints(robot);

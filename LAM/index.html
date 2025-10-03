@@ -1,58 +1,272 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>LAM Project | Yipeng Gao</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- 根相对路径,确保在子目录也能加载到主站的样式 -->
-  <link rel="stylesheet" href="/stylesheet.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <meta charset="utf-8">
+  <meta name="description"
+        content="LAM: Language-Augmented Model for enhanced multimodal understanding.">
+  <meta name="keywords" content="LAM, Vision-Language Models, Multimodal AI">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LAM: Language-Augmented Model</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 </head>
 <body>
-  <table style="width:100%;max-width:800px;border:0;border-spacing:0;margin:0 auto;">
-    <tbody>
-      <tr><td style="padding:20px 0;">
-        <p style="margin:0;"><a href="/">← Back to Home</a></p>
-        <h1 style="margin:10px 0 0;">LAM: Language-Augmented Model</h1>
-        <p style="margin:6px 0 16px;color:#555;">A research project on language-augmented models for computer vision.</p>
 
-        <p>
-          This project explores the integration of language models with vision systems to enhance understanding and generation capabilities.
-          <!-- <a href="https://arxiv.org/abs/xxxx.xxxxx" target="_blank">paper</a> |
-          <a href="https://github.com/yourrepo" target="_blank">code</a> |
-          <a href="/projects/LAM/demo.html">demo</a> -->
-        </p>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://gaoypeng.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
 
-        <!-- <img src="/images/lam_teaser.jpg" alt="LAM teaser" style="width:100%;max-width:800px;border-radius:8px;" /> -->
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://gaoypeng.github.io">
+            Home
+          </a>
+        </div>
+      </div>
+    </div>
 
-        <h2>Abstract</h2>
-        <p>
-          This project investigates novel approaches to combining language and vision modalities for improved performance on multimodal tasks.
-          By leveraging pre-trained language models and vision encoders, we aim to develop systems that can better understand and reason about visual content through natural language.
-        </p>
+  </div>
+</nav>
 
-        <h2>Highlights</h2>
-        <ul>
-          <li>Integration of language models with vision systems</li>
-          <li>Enhanced multimodal understanding capabilities</li>
-          <li>Applications in vision-language tasks</li>
-        </ul>
 
-        <h2>BibTeX</h2>
-        <pre style="white-space:pre-wrap;background:#f6f8fa;padding:12px;border-radius:6px;">
-@inproceedings{gao2025lam,
-  title={LAM: Language-Augmented Model},
-  author={Yipeng Gao},
-  booktitle={Conference},
-  year={2025}
-}
-        </pre>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">LAM: Language-Augmented Model</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://gaoypeng.github.io">Yipeng Gao</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#">Author 2</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#">Author 3</a><sup>2</sup>
+            </span>
+          </div>
 
-        <p style="text-align:right;font-size:small;margin-top:24px;">
-          Last updated: 2025-10-02
-        </p>
-      </td></tr>
-    </tbody>
-  </table>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Southern California,</span>
+            <span class="author-block"><sup>2</sup>Institution 2</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- Placeholder for teaser image or video -->
+      <img src="./static/images/teaser.jpg" alt="LAM Teaser" style="width:100%; border-radius:10px;">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">LAM</span> integrates language models with vision systems to enhance
+        multimodal understanding and generation capabilities.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            This project investigates novel approaches to combining language and vision modalities
+            for improved performance on multimodal tasks. By leveraging pre-trained language models
+            and vision encoders, we develop systems that can better understand and reason about
+            visual content through natural language.
+          </p>
+          <p>
+            Our approach introduces a language-augmented framework that seamlessly integrates
+            linguistic understanding with visual perception. This enables more robust and
+            generalizable vision-language models capable of handling complex reasoning tasks.
+          </p>
+          <p>
+            We demonstrate that <span class="dnerf">LAM</span> achieves state-of-the-art performance
+            on various multimodal benchmarks, showing significant improvements in tasks such as
+            visual question answering, image captioning, and cross-modal retrieval.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Method Overview. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Our method consists of three key components:
+          </p>
+          <ul>
+            <li><strong>Language-Vision Fusion:</strong> A novel fusion mechanism that effectively
+            combines visual features with linguistic representations.</li>
+            <li><strong>Cross-Modal Attention:</strong> Attention mechanisms that enable fine-grained
+            alignment between language and vision modalities.</li>
+            <li><strong>Contextual Reasoning:</strong> Enhanced reasoning capabilities through
+            language-guided visual understanding.</li>
+          </ul>
+        </div>
+
+        <!-- Placeholder for method diagram -->
+        <div class="content has-text-centered">
+          <img src="./static/images/method.jpg" alt="Method Overview" style="width:100%; max-width:800px; border-radius:10px;">
+        </div>
+
+      </div>
+    </div>
+    <!--/ Method Overview. -->
+
+    <!-- Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            We evaluate our method on multiple benchmark datasets and demonstrate significant
+            improvements over existing approaches in various vision-language tasks.
+          </p>
+        </div>
+
+        <!-- Placeholder for results visualization -->
+        <div class="content has-text-centered">
+          <img src="./static/images/results.jpg" alt="Results" style="width:100%; max-width:800px; border-radius:10px;">
+        </div>
+
+      </div>
+    </div>
+    <!--/ Results. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{gao2025lam,
+  author    = {Gao, Yipeng and others},
+  title     = {LAM: Language-Augmented Model},
+  booktitle = {Conference},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://gaoypeng.github.io">
+        <i class="fas fa-home"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/gaoypeng" class="external-link">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>

@@ -50,6 +50,10 @@
     display: block;
     width: 100% !important;
     height: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 .viewer-info {
@@ -62,6 +66,7 @@
     border-radius: 8px;
     max-width: 300px;
     backdrop-filter: blur(10px);
+    z-index: 2;
 }
 
 .viewer-info h4 {

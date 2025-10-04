@@ -31,10 +31,11 @@ class URDFCarouselViewer {
                 <div class="urdf-viewer-grid" id="urdf-viewer-grid">
                     ${this.urdfDataList.map((data, idx) => `
                         <div class="urdf-viewer-item ${idx === 0 ? 'active' : ''}" data-index="${idx}">
-                            <div class="viewer-canvas" id="viewer-${idx}"></div>
-                            <div class="viewer-info">
-                                <h4>${data.name}</h4>
-                                <p>${data.description || ''}</p>
+                            <div class="viewer-canvas" id="viewer-${idx}">
+                                <div class="viewer-info">
+                                    <h4>${data.name}</h4>
+                                    <p>${data.description || ''}</p>
+                                </div>
                             </div>
                             <div class="viewer-controls" id="controls-${idx}">
                                 <div class="joint-controls-container"></div>
@@ -126,6 +127,7 @@ class URDFViewer {
         this.linkColors = new Map();
         this.lightRig = null;
         this.shadowPlane = null;
+        this.wireframeButton = null;
     }
 
     async load() {
@@ -157,7 +159,7 @@ class URDFViewer {
 
         // Scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xf4f5f7);  // Soft gray background for contrast
+        this.scene.background = new THREE.Color(0xdadce0);  // Light gray backdrop for shading contrast
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
@@ -165,9 +167,10 @@ class URDFViewer {
         this.camera.lookAt(0, 0, 0);
 
         // Renderer with shadow support
-        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         this.renderer.setSize(width, height);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
+        this.renderer.setClearColor(0xffffff, 0);
 
         // Enable shadow mapping
         this.renderer.shadowMap.enabled = true;
@@ -182,7 +185,7 @@ class URDFViewer {
 
         // Mild tone mapping keeps highlights from blowing out
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.05;
+        this.renderer.toneMappingExposure = 0.95;  // Slightly reduced exposure for more natural tones
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -199,48 +202,49 @@ class URDFViewer {
     }
 
     setupLighting() {
-        // Rebalanced lighting inspired by desktop viewer setup for immediate contrast
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
+        // Softer ambient light for base illumination
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
         this.scene.add(ambientLight);
 
-        const hemiLight = new THREE.HemisphereLight(0xf0f4ff, 0x1e1e1e, 0.55);
-        hemiLight.position.set(0, 6, 0);
-        this.scene.add(hemiLight);
-
-        const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
-        keyLight.position.set(7, 9, 6);
+        // Main key light - reduced intensity for more natural lighting
+        const keyLight = new THREE.DirectionalLight(0xffffff, 0.9);
+        keyLight.position.set(5, 7, 6);
         keyLight.castShadow = true;
         keyLight.shadow.mapSize.width = 2048;
         keyLight.shadow.mapSize.height = 2048;
-        keyLight.shadow.camera.left = -10;
-        keyLight.shadow.camera.right = 10;
-        keyLight.shadow.camera.top = 10;
-        keyLight.shadow.camera.bottom = -10;
-        keyLight.shadow.camera.near = 0.3;
-        keyLight.shadow.camera.far = 40;
-        keyLight.shadow.bias = -0.00015;
+        keyLight.shadow.camera.left = -12;
+        keyLight.shadow.camera.right = 12;
+        keyLight.shadow.camera.top = 12;
+        keyLight.shadow.camera.bottom = -12;
+        keyLight.shadow.camera.near = 0.2;
+        keyLight.shadow.camera.far = 45;
+        keyLight.shadow.bias = -0.0001;
         this.scene.add(keyLight);
+        this.scene.add(keyLight.target);
 
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.9);
-        fillLight.position.set(-6, 4.5, 2.5);
+        // Softer fill light for shadow detail
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.35);
+        fillLight.position.set(-6, 5, 3.5);
         this.scene.add(fillLight);
 
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        rimLight.position.set(1, 4.5, -6);
+        // Subtle rim light for edge definition
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.25);
+        rimLight.position.set(0, 9, -8);
         this.scene.add(rimLight);
 
-        const bounceLight = new THREE.PointLight(0xe0e4ff, 0.45, 20, 1.8);
-        bounceLight.position.set(0, 1.1, 0);
+        // Gentle bounce light
+        const bounceLight = new THREE.PointLight(0xffffff, 0.2, 40, 2);
+        bounceLight.position.set(0, 2.5, 0);
         this.scene.add(bounceLight);
 
-        // Ground plane to catch soft shadows and anchor the object visually
-        const groundGeometry = new THREE.PlaneGeometry(40, 40);
-        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.4 });
+        const groundGeometry = new THREE.PlaneGeometry(60, 60);
+        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.25 });
         const ground = new THREE.Mesh(groundGeometry, groundMaterial);
         ground.rotation.x = -Math.PI / 2;
-        ground.position.y = -0.015;
+        ground.position.y = -0.02;
         ground.receiveShadow = true;
         this.scene.add(ground);
+        this.shadowPlane = ground;
     }
 
     async loadURDF() {
@@ -345,6 +349,10 @@ class URDFViewer {
 
                     this.scene.add(robot);
                     console.log('Robot added to scene');
+
+                    // Ensure default shaded materials are visible before user interaction
+                    this.applyInitialMaterialState();
+                    console.log('Initial material state applied');
 
                     // Double-check shadow settings after adding to scene
                     let shadowMeshCount = 0;
@@ -460,11 +468,11 @@ class URDFViewer {
         // Sort links by name for deterministic coloring
         links.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
-        // Generate distinct colors using golden ratio - deeper colors for better shading
+        // Generate distinct colors using golden ratio - softer colors for natural appearance
         const colorForIndex = (i) => {
             const h = (i * phi) % 1; // Distribute across full hue range
-            const s = 0.65; // Higher saturation for richer colors
-            const l = 0.50; // Medium lightness for better light/shadow contrast
+            const s = 0.40; // Moderate saturation for softer, more natural colors
+            const l = 0.55; // Slightly brighter for better appearance with reduced lighting
             const c = new THREE.Color();
             c.setHSL(h, s, l);
             return c;
@@ -480,27 +488,18 @@ class URDFViewer {
         root.traverse((node) => {
             if (!node.isMesh) return;
 
-            // Find owning link
-            let p = node;
-            let owner = null;
-            while (p) {
-                if (p.isURDFLink) {
-                    owner = p;
-                    break;
-                }
-                p = p.parent;
-            }
+            const owner = this.findOwningLink(node);
             if (!owner) return;
 
             const color = this.linkColors.get(owner);
             if (!color) return;
 
-            // Apply material with assigned color - using MeshPhongMaterial for better lighting response
+            // Apply material with assigned color - using MeshPhongMaterial with softer reflections
             try {
                 const createMaterial = () => new THREE.MeshPhongMaterial({
                     color: color.clone(),
-                    shininess: 50,
-                    specular: 0x666666,
+                    shininess: 30,           // Reduced shininess for softer highlights
+                    specular: 0x333333,      // Darker specular for less intense reflections
                     flatShading: false,
                     transparent: false,
                     opacity: 1.0,
@@ -531,6 +530,13 @@ class URDFViewer {
         if (!this.robot) return;
 
         this.showWireframe = !this.showWireframe;
+        this.updateMaterialsForWireframeState();
+    }
+
+    updateMaterialsForWireframeState(options = {}) {
+        if (!this.robot) return;
+
+        const { syncButton = true } = options;
 
         this.robot.traverse((child) => {
             if (child.isMesh && child.material) {
@@ -544,20 +550,10 @@ class URDFViewer {
                     }
                 } else {
                     // Restore original link colors
-                    let p = child;
-                    let owner = null;
-                    while (p) {
-                        if (p.isURDFLink) {
-                            owner = p;
-                            break;
-                        }
-                        p = p.parent;
-                    }
-                    if (owner && this.linkColors.has(owner)) {
+                    const owner = this.findOwningLink(child);
+                    if (owner && this.linkColors.has(owner) && child.material.color) {
                         const color = this.linkColors.get(owner);
-                        if (child.material.color) {
-                            child.material.color.copy(color);
-                        }
+                        child.material.color.copy(color);
                     }
                     child.material.wireframeLinewidth = 1.0;
                 }
@@ -565,6 +561,41 @@ class URDFViewer {
                 child.material.needsUpdate = true;
             }
         });
+
+        // Force a render so the updated materials appear immediately
+        if (this.renderer && this.scene && this.camera) {
+            this.renderer.render(this.scene, this.camera);
+        }
+
+        if (syncButton) {
+            this.updateWireframeButtonStyle();
+        }
+    }
+
+    findOwningLink(node) {
+        let current = node;
+        while (current) {
+            if (current.isURDFLink) {
+                return current;
+            }
+            current = current.parent;
+        }
+        return null;
+    }
+
+    applyInitialMaterialState() {
+        if (!this.robot) return;
+
+        this.showWireframe = true;
+        this.updateMaterialsForWireframeState({ syncButton: false });
+
+        this.showWireframe = false;
+        this.updateMaterialsForWireframeState({ syncButton: false });
+    }
+
+    updateWireframeButtonStyle() {
+        if (!this.wireframeButton) return;
+        this.wireframeButton.style.background = this.showWireframe ? '#2196F3' : '#4CAF50';
     }
 
     createJointControls() {
@@ -588,9 +619,10 @@ class URDFViewer {
             ">📐 Toggle Wireframe</button>
         `;
         const wireframeBtn = wireframeDiv.querySelector('.wireframe-toggle');
+        this.wireframeButton = wireframeBtn;
+        this.updateWireframeButtonStyle();
         wireframeBtn.addEventListener('click', () => {
             this.toggleWireframe();
-            wireframeBtn.style.background = this.showWireframe ? '#2196F3' : '#4CAF50';
         });
         controlsContainer.appendChild(wireframeDiv);
 

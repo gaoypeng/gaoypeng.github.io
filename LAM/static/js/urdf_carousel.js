@@ -204,9 +204,9 @@ class URDFViewer {
             this.renderer.outputEncoding = THREE.sRGBEncoding;
         }
 
-        // Brighter tone mapping for clear visibility
+        // Maximum tone mapping for brightest visibility
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.3;  // Increased exposure for brighter appearance
+        this.renderer.toneMappingExposure = 1.8;  // Maximum exposure for very bright appearance
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -225,15 +225,15 @@ class URDFViewer {
     setupLighting() {
         console.log(`[${this.canvasId}] Setting up enhanced lighting system...`);
         
-        // Bright ambient light for clear visibility
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        // Very bright ambient light for maximum visibility
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
         this.scene.add(ambientLight);
-        console.log(`[${this.canvasId}] Added ambient light: intensity 0.8`);
+        console.log(`[${this.canvasId}] Added ambient light: intensity 1.2`);
 
-        // Strong main key light for clear illumination
-        const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        // Extra strong main key light for bright illumination
+        const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
         keyLight.position.set(5, 7, 6);
-        console.log(`[${this.canvasId}] Added key light: intensity 1.5`);
+        console.log(`[${this.canvasId}] Added key light: intensity 2.0`);
         keyLight.castShadow = true;
         keyLight.shadow.mapSize.width = 2048;
         keyLight.shadow.mapSize.height = 2048;
@@ -247,25 +247,30 @@ class URDFViewer {
         this.scene.add(keyLight);
         this.scene.add(keyLight.target);
 
-        // Bright fill light to reduce harsh shadows
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        // Extra bright fill light to reduce harsh shadows
+        const fillLight = new THREE.DirectionalLight(0xffffff, 1.0);
         fillLight.position.set(-6, 5, 3.5);
         this.scene.add(fillLight);
 
-        // Additional top light for better overall visibility
-        const topLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        // Very bright top light for excellent overall visibility
+        const topLight = new THREE.DirectionalLight(0xffffff, 0.8);
         topLight.position.set(0, 10, 0);
         this.scene.add(topLight);
 
-        // Rim light for edge definition
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        // Enhanced rim light for better edge definition
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.6);
         rimLight.position.set(0, 9, -8);
         this.scene.add(rimLight);
 
-        // Bright bounce light for better color visibility
-        const bounceLight = new THREE.PointLight(0xffffff, 0.5, 40, 2);
+        // Extra bright bounce light for excellent color visibility
+        const bounceLight = new THREE.PointLight(0xffffff, 0.8, 40, 2);
         bounceLight.position.set(0, 2.5, 0);
         this.scene.add(bounceLight);
+
+        // Additional side light for better overall brightness
+        const sideLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        sideLight.position.set(8, 4, 8);
+        this.scene.add(sideLight);
 
         const groundGeometry = new THREE.PlaneGeometry(60, 60);
         const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });

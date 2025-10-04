@@ -180,7 +180,7 @@ class URDFViewer {
 
         // Scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xf5f5f5);  // Very light background for maximum contrast
+        this.scene.background = new THREE.Color(0xf0f0f0);  // Medium gray background for good contrast
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
@@ -197,16 +197,13 @@ class URDFViewer {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-        // Set color encoding
-        if (this.renderer.outputColorSpace !== undefined) {
-            this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-        } else if (this.renderer.outputEncoding !== undefined) {
+        // Set color encoding (use outputEncoding for better compatibility)
+        if (this.renderer.outputEncoding !== undefined) {
             this.renderer.outputEncoding = THREE.sRGBEncoding;
+        } else if (this.renderer.outputColorSpace !== undefined) {
+            this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         }
 
-        // Maximum tone mapping for brightest visibility
-        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.8;  // Maximum exposure for very bright appearance
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -223,65 +220,29 @@ class URDFViewer {
     }
 
     setupLighting() {
-        console.log(`[${this.canvasId}] Setting up enhanced lighting system...`);
+        console.log(`[${this.canvasId}] Setting up lighting system (based on urdf_grid_visualizer)...`);
         
-        // Very bright ambient light for maximum visibility
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+        // Ambient light - provides base illumination
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
         this.scene.add(ambientLight);
-        console.log(`[${this.canvasId}] Added ambient light: intensity 1.2`);
+        console.log(`[${this.canvasId}] Added ambient light: color 0x404040, intensity 0.6`);
 
-        // Extra strong main key light for bright illumination
-        const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
-        keyLight.position.set(5, 7, 6);
-        console.log(`[${this.canvasId}] Added key light: intensity 2.0`);
-        keyLight.castShadow = true;
-        keyLight.shadow.mapSize.width = 2048;
-        keyLight.shadow.mapSize.height = 2048;
-        keyLight.shadow.camera.left = -12;
-        keyLight.shadow.camera.right = 12;
-        keyLight.shadow.camera.top = 12;
-        keyLight.shadow.camera.bottom = -12;
-        keyLight.shadow.camera.near = 0.2;
-        keyLight.shadow.camera.far = 45;
-        keyLight.shadow.bias = -0.0001;
-        this.scene.add(keyLight);
-        this.scene.add(keyLight.target);
+        // Main directional light - primary light source
+        const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        mainLight.position.set(10, 10, 5);
+        mainLight.castShadow = true;
+        mainLight.shadow.mapSize.width = 2048;
+        mainLight.shadow.mapSize.height = 2048;
+        this.scene.add(mainLight);
+        console.log(`[${this.canvasId}] Added main light: position (10, 10, 5), intensity 1.0`);
 
-        // Extra bright fill light to reduce harsh shadows
-        const fillLight = new THREE.DirectionalLight(0xffffff, 1.0);
-        fillLight.position.set(-6, 5, 3.5);
+        // Fill light - reduces harsh shadows
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        fillLight.position.set(-5, 5, 5);
         this.scene.add(fillLight);
+        console.log(`[${this.canvasId}] Added fill light: position (-5, 5, 5), intensity 0.5`);
 
-        // Very bright top light for excellent overall visibility
-        const topLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        topLight.position.set(0, 10, 0);
-        this.scene.add(topLight);
-
-        // Enhanced rim light for better edge definition
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.6);
-        rimLight.position.set(0, 9, -8);
-        this.scene.add(rimLight);
-
-        // Extra bright bounce light for excellent color visibility
-        const bounceLight = new THREE.PointLight(0xffffff, 0.8, 40, 2);
-        bounceLight.position.set(0, 2.5, 0);
-        this.scene.add(bounceLight);
-
-        // Additional side light for better overall brightness
-        const sideLight = new THREE.DirectionalLight(0xffffff, 0.7);
-        sideLight.position.set(8, 4, 8);
-        this.scene.add(sideLight);
-
-        const groundGeometry = new THREE.PlaneGeometry(60, 60);
-        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
-        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-        ground.rotation.x = -Math.PI / 2;
-        ground.position.y = -0.02;
-        ground.receiveShadow = true;
-        this.scene.add(ground);
-        this.shadowPlane = ground;
-        
-        console.log(`[${this.canvasId}] Lighting setup complete. Total lights: 5, Ground plane added.`);
+        console.log(`[${this.canvasId}] Lighting setup complete. Simple 3-light system for clear visibility.`);
     }
 
     async loadURDF() {
@@ -542,11 +503,11 @@ class URDFViewer {
         // Sort links by name for deterministic coloring
         links.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
-        // Generate distinct colors using golden ratio - bright and vibrant colors
+        // Generate distinct pastel colors using golden ratio (based on urdf_grid_visualizer)
         const colorForIndex = (i) => {
-            const h = (i * phi) % 1; // Distribute across full hue range
-            const s = 0.70; // Higher saturation for more vibrant, visible colors
-            const l = 0.70; // Much brighter for clear visibility
+            const h = (i * phi) % 1; // Distribute across full hue range (0-1)
+            const s = 0.35; // Moderate saturation for pastel appearance
+            const l = 0.75; // High lightness for pastel, clear visibility
             const c = new THREE.Color();
             c.setHSL(h, s, l);
             console.log(`Color ${i}: HSL(${h.toFixed(2)}, ${s}, ${l}) = RGB(${c.r.toFixed(2)}, ${c.g.toFixed(2)}, ${c.b.toFixed(2)})`);
@@ -569,22 +530,20 @@ class URDFViewer {
             const color = this.linkColors.get(owner);
             if (!color) return;
 
-            // Apply material with assigned color - using MeshPhongMaterial with bright reflections
+            // Apply material with assigned color - MeshPhongMaterial for good lighting response
             try {
-                const emissiveColor = color.clone().multiplyScalar(0.1);
                 const createMaterial = () => {
                     const mat = new THREE.MeshPhongMaterial({
                         color: color.clone(),
-                        shininess: 60,           // Higher shininess for clear highlights
-                        specular: 0x666666,      // Brighter specular for visible reflections
-                        emissive: emissiveColor, // Slight emissive glow
+                        shininess: 30,           // Moderate shininess
+                        specular: 0x444444,      // Moderate specular for subtle reflections
                         flatShading: false,
                         transparent: false,
                         opacity: 1.0,
                         visible: true,
                         side: THREE.DoubleSide
                     });
-                    console.log(`Created material - color: RGB(${color.r.toFixed(2)}, ${color.g.toFixed(2)}, ${color.b.toFixed(2)}), emissive: RGB(${emissiveColor.r.toFixed(2)}, ${emissiveColor.g.toFixed(2)}, ${emissiveColor.b.toFixed(2)})`);
+                    console.log(`Created material - color: RGB(${color.r.toFixed(2)}, ${color.g.toFixed(2)}, ${color.b.toFixed(2)})`);
                     return mat;
                 };
 

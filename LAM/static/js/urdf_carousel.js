@@ -330,7 +330,15 @@ class URDFViewer {
                     const objLoader = new THREE.OBJLoader(manager);
                     objLoader.load(
                         finalPath,
-                        onComplete,
+                        (result) => {
+                            console.log('OBJ loaded:', finalPath, 'Type:', result.type, 'Children:', result.children.length);
+                            if (result.children && result.children.length > 0) {
+                                result.children.forEach((child, idx) => {
+                                    console.log(`  Child ${idx}: type=${child.type}, isMesh=${child.isMesh}, geometry=${!!child.geometry}`);
+                                });
+                            }
+                            onComplete(result);
+                        },
                         undefined,
                         (error) => {
                             console.error('Error loading mesh:', path, 'from', finalPath, error);

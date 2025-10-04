@@ -202,13 +202,17 @@ class URDFViewer {
     }
 
     setupLighting() {
+        console.log(`[${this.canvasId}] Setting up enhanced lighting system...`);
+        
         // Bright ambient light for clear visibility
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         this.scene.add(ambientLight);
+        console.log(`[${this.canvasId}] Added ambient light: intensity 0.8`);
 
         // Strong main key light for clear illumination
         const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
         keyLight.position.set(5, 7, 6);
+        console.log(`[${this.canvasId}] Added key light: intensity 1.5`);
         keyLight.castShadow = true;
         keyLight.shadow.mapSize.width = 2048;
         keyLight.shadow.mapSize.height = 2048;
@@ -250,6 +254,8 @@ class URDFViewer {
         ground.receiveShadow = true;
         this.scene.add(ground);
         this.shadowPlane = ground;
+        
+        console.log(`[${this.canvasId}] Lighting setup complete. Total lights: 5, Ground plane added.`);
     }
 
     async loadURDF() {
@@ -480,6 +486,7 @@ class URDFViewer {
             const l = 0.70; // Much brighter for clear visibility
             const c = new THREE.Color();
             c.setHSL(h, s, l);
+            console.log(`Color ${i}: HSL(${h.toFixed(2)}, ${s}, ${l}) = RGB(${c.r.toFixed(2)}, ${c.g.toFixed(2)}, ${c.b.toFixed(2)})`);
             return c;
         };
 
@@ -501,17 +508,22 @@ class URDFViewer {
 
             // Apply material with assigned color - using MeshPhongMaterial with bright reflections
             try {
-                const createMaterial = () => new THREE.MeshPhongMaterial({
-                    color: color.clone(),
-                    shininess: 60,           // Higher shininess for clear highlights
-                    specular: 0x666666,      // Brighter specular for visible reflections
-                    emissive: color.clone().multiplyScalar(0.1), // Slight emissive glow
-                    flatShading: false,
-                    transparent: false,
-                    opacity: 1.0,
-                    visible: true,
-                    side: THREE.DoubleSide
-                });
+                const emissiveColor = color.clone().multiplyScalar(0.1);
+                const createMaterial = () => {
+                    const mat = new THREE.MeshPhongMaterial({
+                        color: color.clone(),
+                        shininess: 60,           // Higher shininess for clear highlights
+                        specular: 0x666666,      // Brighter specular for visible reflections
+                        emissive: emissiveColor, // Slight emissive glow
+                        flatShading: false,
+                        transparent: false,
+                        opacity: 1.0,
+                        visible: true,
+                        side: THREE.DoubleSide
+                    });
+                    console.log(`Created material - color: RGB(${color.r.toFixed(2)}, ${color.g.toFixed(2)}, ${color.b.toFixed(2)}), emissive: RGB(${emissiveColor.r.toFixed(2)}, ${emissiveColor.g.toFixed(2)}, ${emissiveColor.b.toFixed(2)})`);
+                    return mat;
+                };
 
                 if (Array.isArray(node.material)) {
                     node.material = node.material.map(() => createMaterial());
@@ -525,7 +537,7 @@ class URDFViewer {
                 node.castShadow = true;
                 node.receiveShadow = true;
 
-                console.log(`Applied material to mesh: ${node.name}, color:`, color);
+                console.log(`Applied material to mesh: ${node.name}, owner: ${owner.name}`);
             } catch (e) {
                 console.warn('Failed to apply material:', e);
             }

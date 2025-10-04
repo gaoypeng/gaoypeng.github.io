@@ -1,0 +1,920 @@
+[
+  {
+    "joint_name": "base_to_key_r0_c0",
+    "parent": "base",
+    "child": "key_r0_c0",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c1",
+    "parent": "base",
+    "child": "key_r0_c1",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c2",
+    "parent": "base",
+    "child": "key_r0_c2",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c3",
+    "parent": "base",
+    "child": "key_r0_c3",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c4",
+    "parent": "base",
+    "child": "key_r0_c4",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c5",
+    "parent": "base",
+    "child": "key_r0_c5",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c6",
+    "parent": "base",
+    "child": "key_r0_c6",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c7",
+    "parent": "base",
+    "child": "key_r0_c7",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c8",
+    "parent": "base",
+    "child": "key_r0_c8",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c9",
+    "parent": "base",
+    "child": "key_r0_c9",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c10",
+    "parent": "base",
+    "child": "key_r0_c10",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r0_c11",
+    "parent": "base",
+    "child": "key_r0_c11",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c0",
+    "parent": "base",
+    "child": "key_r1_c0",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c1",
+    "parent": "base",
+    "child": "key_r1_c1",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c2",
+    "parent": "base",
+    "child": "key_r1_c2",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c3",
+    "parent": "base",
+    "child": "key_r1_c3",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c4",
+    "parent": "base",
+    "child": "key_r1_c4",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c5",
+    "parent": "base",
+    "child": "key_r1_c5",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c6",
+    "parent": "base",
+    "child": "key_r1_c6",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c7",
+    "parent": "base",
+    "child": "key_r1_c7",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c8",
+    "parent": "base",
+    "child": "key_r1_c8",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c9",
+    "parent": "base",
+    "child": "key_r1_c9",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c10",
+    "parent": "base",
+    "child": "key_r1_c10",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r1_c11",
+    "parent": "base",
+    "child": "key_r1_c11",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c0",
+    "parent": "base",
+    "child": "key_r2_c0",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c1",
+    "parent": "base",
+    "child": "key_r2_c1",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c2",
+    "parent": "base",
+    "child": "key_r2_c2",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c3",
+    "parent": "base",
+    "child": "key_r2_c3",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c4",
+    "parent": "base",
+    "child": "key_r2_c4",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c5",
+    "parent": "base",
+    "child": "key_r2_c5",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c6",
+    "parent": "base",
+    "child": "key_r2_c6",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c7",
+    "parent": "base",
+    "child": "key_r2_c7",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c8",
+    "parent": "base",
+    "child": "key_r2_c8",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c9",
+    "parent": "base",
+    "child": "key_r2_c9",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r2_c10",
+    "parent": "base",
+    "child": "key_r2_c10",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c0",
+    "parent": "base",
+    "child": "key_r3_c0",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c1",
+    "parent": "base",
+    "child": "key_r3_c1",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c2",
+    "parent": "base",
+    "child": "key_r3_c2",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c3",
+    "parent": "base",
+    "child": "key_r3_c3",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c4",
+    "parent": "base",
+    "child": "key_r3_c4",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c5",
+    "parent": "base",
+    "child": "key_r3_c5",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c6",
+    "parent": "base",
+    "child": "key_r3_c6",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c7",
+    "parent": "base",
+    "child": "key_r3_c7",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c8",
+    "parent": "base",
+    "child": "key_r3_c8",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_r3_c9",
+    "parent": "base",
+    "child": "key_r3_c9",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_ctrl_l",
+    "parent": "base",
+    "child": "key_ctrl_l",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_win_l",
+    "parent": "base",
+    "child": "key_win_l",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_alt_l",
+    "parent": "base",
+    "child": "key_alt_l",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_spacebar",
+    "parent": "base",
+    "child": "spacebar",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_alt_r",
+    "parent": "base",
+    "child": "key_alt_r",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  },
+  {
+    "joint_name": "base_to_key_ctrl_r",
+    "parent": "base",
+    "child": "key_ctrl_r",
+    "type": "prismatic",
+    "axis": [
+      0,
+      -1,
+      0
+    ],
+    "limit": {
+      "lower": -0.4,
+      "upper": 0.0,
+      "effort": 1.0,
+      "velocity": 0.5
+    },
+    "notes": "Key press motion along the negative Y-axis (vertical down). Limits based on typical key travel. Joint origin is omitted as mesh files define relative placement."
+  }
+]

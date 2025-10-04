@@ -1,0 +1,25 @@
+2025-09-23 07:06:57,724 - INFO - Improved code validated successfully on attempt 1
+2025-09-23 07:06:57,724 - INFO - [92mCode improved in iteration 2[0m
+2025-09-23 07:06:57,727 - INFO - [94mVLM feedback iteration 3/4[0m
+2025-09-23 07:06:57,741 - INFO - Running export process...
+2025-09-23 07:06:57,817 - INFO - Rendering mesh from 4 angles for iteration 3...
+2025-09-23 07:06:57,818 - INFO - Loading mesh from: /lab/yipeng/generated_art_objects/test_09_23_gpt5_color_articulation_feedback/a_camera_1/pipeline_logs/stage_2_2_VLM_feedback/iteration_3/combined_assembly.obj
+2025-09-23 07:06:57,833 - INFO - Loaded mesh with 2027 vertices and 1960 faces
+2025-09-23 07:06:57,842 - INFO - Successfully extracted and merged Three.js info for /lab/yipeng/generated_art_objects/test_09_23_gpt5_color_articulation_feedback/a_bicycle_1
+2025-09-23 07:06:57,843 - INFO - [94mExporting to final mesh format...[0m
+2025-09-23 07:06:57,909 - INFO - Running export process...
+2025-09-23 07:06:57,980 - INFO - Mesh has 248 connected components
+2025-09-23 07:06:57,981 - WARNING - No links file found and mesh has 248 components. This may be slow.
+2025-09-23 07:06:57,981 - INFO - Using per-component coloring: 248 colors
+2025-09-23 07:06:58,039 - ERROR - Both EGL and OSMesa rendering failed: 'EGLPlatform' object has no attribute 'OSMesa', 'EGLPlatform' object has no attribute 'OSMesa'
+2025-09-23 07:06:58,039 - ERROR - Failed to render angle front_right_top: 'EGLPlatform' object has no attribute 'OSMesa'
+2025-09-23 07:06:58,106 - ERROR - Both EGL and OSMesa rendering failed: 'EGLPlatform' object has no attribute 'OSMesa', 'EGLPlatform' object has no attribute 'OSMesa'
+2025-09-23 07:06:58,106 - ERROR - Failed to render angle front_left_top: 'EGLPlatform' object has no attribute 'OSMesa'
+2025-09-23 07:06:58,171 - ERROR - Both EGL and OSMesa rendering failed: 'EGLPlatform' object has no attribute 'OSMesa', 'EGLPlatform' object has no attribute 'OSMesa'
+2025-09-23 07:06:58,171 - ERROR - Failed to render angle back_right_top: 'EGLPlatform' object has no attribute 'OSMesa'
+2025-09-23 07:06:58,236 - ERROR - Both EGL and OSMesa rendering failed: 'EGLPlatform' object has no attribute 'OSMesa', 'EGLPlatform' object has no attribute 'OSMesa'
+2025-09-23 07:06:58,236 - ERROR - Failed to render angle back_left_top: 'EGLPlatform' object has no attribute 'OSMesa'
+2025-09-23 07:06:58,239 - ERROR - Failed to load or render mesh: Failed to render any images
+2025-09-23 07:06:58,239 - WARNING - Rendering failed for iteration 3: Failed to render any images
+2025-09-23 07:06:58,242 - INFO - [92mUpdated export.js with VLM-improved code[0m
+2025-09-23 07:06:58,245 - INFO - [92mCode improved through VLM feedback[0m

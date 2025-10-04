@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<robot name="a_cabinet_with_five_drawers_1">
+  <link name="cabinet_leg_1">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_leg_1.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_leg_1.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_1_frame">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_1_frame.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_1_frame.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_2_frame">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_2_frame.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_2_frame.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_3_front_panel">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_3_front_panel.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_3_front_panel.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_4_front_panel">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_4_front_panel.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_4_front_panel.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_1_handle">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_1_handle.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_1_handle.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_2_handle">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_2_handle.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_2_handle.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_3_frame">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_3_frame.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_3_frame.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="cabinet_leg_3">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_leg_3.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_leg_3.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_2_front_panel">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_2_front_panel.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_2_front_panel.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_5_frame">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_5_frame.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_5_frame.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="cabinet_leg_2">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_leg_2.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_leg_2.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="cabinet_leg_4">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_leg_4.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_leg_4.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_4_handle">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_4_handle.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_4_handle.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_4_frame">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_4_frame.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_4_frame.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_1_front_panel">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_1_front_panel.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_1_front_panel.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_3_handle">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_3_handle.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_3_handle.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="cabinet_frame">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_frame.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/cabinet_frame.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_5_front_panel">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_5_front_panel.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_5_front_panel.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer_5_handle">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_5_handle.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/drawer_5_handle.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="cabinet_frame_to_leg_1" type="fixed">
+    <parent link="cabinet_frame" />
+    <child link="cabinet_leg_1" />
+    
+    
+  </joint>
+  <joint name="cabinet_frame_to_leg_2" type="fixed">
+    <parent link="cabinet_frame" />
+    <child link="cabinet_leg_2" />
+    
+    
+  </joint>
+  <joint name="cabinet_frame_to_leg_3" type="fixed">
+    <parent link="cabinet_frame" />
+    <child link="cabinet_leg_3" />
+    
+    
+  </joint>
+  <joint name="cabinet_frame_to_leg_4" type="fixed">
+    <parent link="cabinet_frame" />
+    <child link="cabinet_leg_4" />
+    
+    
+  </joint>
+  <joint name="drawer_1_slide" type="prismatic">
+    <parent link="cabinet_frame" />
+    <child link="drawer_1_frame" />
+    <axis xyz="0 0 1" />
+    <limit lower="0.0" upper="2.0" effort="20.0" velocity="0.2" />
+  </joint>
+  <joint name="drawer_1_front_panel_attach" type="fixed">
+    <parent link="drawer_1_frame" />
+    <child link="drawer_1_front_panel" />
+    
+    
+  </joint>
+  <joint name="drawer_1_handle_attach" type="fixed">
+    <parent link="drawer_1_front_panel" />
+    <child link="drawer_1_handle" />
+    
+    
+  </joint>
+  <joint name="drawer_2_slide" type="prismatic">
+    <parent link="cabinet_frame" />
+    <child link="drawer_2_frame" />
+    <axis xyz="0 0 1" />
+    <limit lower="0.0" upper="2.0" effort="20.0" velocity="0.2" />
+  </joint>
+  <joint name="drawer_2_front_panel_attach" type="fixed">
+    <parent link="drawer_2_frame" />
+    <child link="drawer_2_front_panel" />
+    
+    
+  </joint>
+  <joint name="drawer_2_handle_attach" type="fixed">
+    <parent link="drawer_2_front_panel" />
+    <child link="drawer_2_handle" />
+    
+    
+  </joint>
+  <joint name="drawer_3_slide" type="prismatic">
+    <parent link="cabinet_frame" />
+    <child link="drawer_3_frame" />
+    <axis xyz="0 0 1" />
+    <limit lower="0.0" upper="2.0" effort="20.0" velocity="0.2" />
+  </joint>
+  <joint name="drawer_3_front_panel_attach" type="fixed">
+    <parent link="drawer_3_frame" />
+    <child link="drawer_3_front_panel" />
+    
+    
+  </joint>
+  <joint name="drawer_3_handle_attach" type="fixed">
+    <parent link="drawer_3_front_panel" />
+    <child link="drawer_3_handle" />
+    
+    
+  </joint>
+  <joint name="drawer_4_slide" type="prismatic">
+    <parent link="cabinet_frame" />
+    <child link="drawer_4_frame" />
+    <axis xyz="0 0 1" />
+    <limit lower="0.0" upper="2.0" effort="20.0" velocity="0.2" />
+  </joint>
+  <joint name="drawer_4_front_panel_attach" type="fixed">
+    <parent link="drawer_4_frame" />
+    <child link="drawer_4_front_panel" />
+    
+    
+  </joint>
+  <joint name="drawer_4_handle_attach" type="fixed">
+    <parent link="drawer_4_front_panel" />
+    <child link="drawer_4_handle" />
+    
+    
+  </joint>
+  <joint name="drawer_5_slide" type="prismatic">
+    <parent link="cabinet_frame" />
+    <child link="drawer_5_frame" />
+    <axis xyz="0 0 1" />
+    <limit lower="0.0" upper="2.0" effort="20.0" velocity="0.2" />
+  </joint>
+  <joint name="drawer_5_front_panel_attach" type="fixed">
+    <parent link="drawer_5_frame" />
+    <child link="drawer_5_front_panel" />
+    
+    
+  </joint>
+  <joint name="drawer_5_handle_attach" type="fixed">
+    <parent link="drawer_5_front_panel" />
+    <child link="drawer_5_handle" />
+    
+    
+  </joint>
+</robot>

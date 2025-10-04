@@ -47,13 +47,13 @@
 }
 
 .viewer-canvas canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
 }
 
 .viewer-info {
@@ -66,7 +66,8 @@
     border-radius: 8px;
     max-width: 300px;
     backdrop-filter: blur(10px);
-    z-index: 2;
+    z-index: 5;
+    pointer-events: none;
 }
 
 .viewer-info h4 {

@@ -1,0 +1,250 @@
+[
+  {
+    "joint_name": "cabinet_frame_to_leg_1",
+    "parent": "cabinet_frame",
+    "child": "cabinet_leg_1",
+    "type": "fixed",
+    "notes": "Leg 1 is rigidly attached to the underside of the cabinet frame."
+  },
+  {
+    "joint_name": "cabinet_frame_to_leg_2",
+    "parent": "cabinet_frame",
+    "child": "cabinet_leg_2",
+    "type": "fixed",
+    "notes": "Leg 2 is rigidly attached to the underside of the cabinet frame."
+  },
+  {
+    "joint_name": "cabinet_frame_to_leg_3",
+    "parent": "cabinet_frame",
+    "child": "cabinet_leg_3",
+    "type": "fixed",
+    "notes": "Leg 3 is rigidly attached to the underside of the cabinet frame."
+  },
+  {
+    "joint_name": "cabinet_frame_to_leg_4",
+    "parent": "cabinet_frame",
+    "child": "cabinet_leg_4",
+    "type": "fixed",
+    "notes": "Leg 4 is rigidly attached to the underside of the cabinet frame."
+  },
+  {
+    "joint_name": "drawer_1_slide",
+    "parent": "cabinet_frame",
+    "child": "drawer_1_frame",
+    "type": "prismatic",
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "origin": {
+      "xyz": [
+        0,
+        2.45,
+        0
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ]
+    },
+    "limit": {
+      "lower": 0.0,
+      "upper": 2.0,
+      "effort": 20.0,
+      "velocity": 0.2
+    },
+    "notes": "Drawer 1 translates along +Z to open. Origin placed at the geometric centre of the closed drawer inside the cabinet (y≈2.45 m). Upper limit ≈ 2 m allows the drawer to pull out roughly half of its 3.7 m depth."
+  },
+  {
+    "joint_name": "drawer_1_front_panel_attach",
+    "parent": "drawer_1_frame",
+    "child": "drawer_1_front_panel",
+    "type": "fixed",
+    "notes": "Front panel is rigidly fixed to drawer 1 frame."
+  },
+  {
+    "joint_name": "drawer_1_handle_attach",
+    "parent": "drawer_1_front_panel",
+    "child": "drawer_1_handle",
+    "type": "fixed",
+    "notes": "Handle is rigidly fixed to drawer 1 front panel."
+  },
+  {
+    "joint_name": "drawer_2_slide",
+    "parent": "cabinet_frame",
+    "child": "drawer_2_frame",
+    "type": "prismatic",
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "origin": {
+      "xyz": [
+        0,
+        4.1,
+        0
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ]
+    },
+    "limit": {
+      "lower": 0.0,
+      "upper": 2.0,
+      "effort": 20.0,
+      "velocity": 0.2
+    },
+    "notes": "Drawer 2 translates along +Z to open. Origin y≈4.10 m at centre height of the closed drawer."
+  },
+  {
+    "joint_name": "drawer_2_front_panel_attach",
+    "parent": "drawer_2_frame",
+    "child": "drawer_2_front_panel",
+    "type": "fixed",
+    "notes": "Front panel is rigidly fixed to drawer 2 frame."
+  },
+  {
+    "joint_name": "drawer_2_handle_attach",
+    "parent": "drawer_2_front_panel",
+    "child": "drawer_2_handle",
+    "type": "fixed",
+    "notes": "Handle is rigidly fixed to drawer 2 front panel."
+  },
+  {
+    "joint_name": "drawer_3_slide",
+    "parent": "cabinet_frame",
+    "child": "drawer_3_frame",
+    "type": "prismatic",
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "origin": {
+      "xyz": [
+        0,
+        5.75,
+        0
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ]
+    },
+    "limit": {
+      "lower": 0.0,
+      "upper": 2.0,
+      "effort": 20.0,
+      "velocity": 0.2
+    },
+    "notes": "Drawer 3 translates along +Z to open. Origin y≈5.75 m at centre height of the closed drawer."
+  },
+  {
+    "joint_name": "drawer_3_front_panel_attach",
+    "parent": "drawer_3_frame",
+    "child": "drawer_3_front_panel",
+    "type": "fixed",
+    "notes": "Front panel is rigidly fixed to drawer 3 frame."
+  },
+  {
+    "joint_name": "drawer_3_handle_attach",
+    "parent": "drawer_3_front_panel",
+    "child": "drawer_3_handle",
+    "type": "fixed",
+    "notes": "Handle is rigidly fixed to drawer 3 front panel."
+  },
+  {
+    "joint_name": "drawer_4_slide",
+    "parent": "cabinet_frame",
+    "child": "drawer_4_frame",
+    "type": "prismatic",
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "origin": {
+      "xyz": [
+        0,
+        7.4,
+        0
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ]
+    },
+    "limit": {
+      "lower": 0.0,
+      "upper": 2.0,
+      "effort": 20.0,
+      "velocity": 0.2
+    },
+    "notes": "Drawer 4 translates along +Z to open. Origin y≈7.40 m at centre height of the closed drawer."
+  },
+  {
+    "joint_name": "drawer_4_front_panel_attach",
+    "parent": "drawer_4_frame",
+    "child": "drawer_4_front_panel",
+    "type": "fixed",
+    "notes": "Front panel is rigidly fixed to drawer 4 frame."
+  },
+  {
+    "joint_name": "drawer_4_handle_attach",
+    "parent": "drawer_4_front_panel",
+    "child": "drawer_4_handle",
+    "type": "fixed",
+    "notes": "Handle is rigidly fixed to drawer 4 front panel."
+  },
+  {
+    "joint_name": "drawer_5_slide",
+    "parent": "cabinet_frame",
+    "child": "drawer_5_frame",
+    "type": "prismatic",
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "origin": {
+      "xyz": [
+        0,
+        9.05,
+        0
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ]
+    },
+    "limit": {
+      "lower": 0.0,
+      "upper": 2.0,
+      "effort": 20.0,
+      "velocity": 0.2
+    },
+    "notes": "Drawer 5 translates along +Z to open. Origin y≈9.05 m at centre height of the closed drawer."
+  },
+  {
+    "joint_name": "drawer_5_front_panel_attach",
+    "parent": "drawer_5_frame",
+    "child": "drawer_5_front_panel",
+    "type": "fixed",
+    "notes": "Front panel is rigidly fixed to drawer 5 frame."
+  },
+  {
+    "joint_name": "drawer_5_handle_attach",
+    "parent": "drawer_5_front_panel",
+    "child": "drawer_5_handle",
+    "type": "fixed",
+    "notes": "Handle is rigidly fixed to drawer 5 front panel."
+  }
+]

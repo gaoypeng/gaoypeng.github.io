@@ -159,7 +159,7 @@ class URDFViewer {
 
         // Scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xdadce0);  // Light gray backdrop for shading contrast
+        this.scene.background = new THREE.Color(0xf5f5f5);  // Very light background for maximum contrast
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
@@ -183,9 +183,9 @@ class URDFViewer {
             this.renderer.outputEncoding = THREE.sRGBEncoding;
         }
 
-        // Mild tone mapping keeps highlights from blowing out
+        // Brighter tone mapping for clear visibility
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 0.95;  // Slightly reduced exposure for more natural tones
+        this.renderer.toneMappingExposure = 1.3;  // Increased exposure for brighter appearance
         container.appendChild(this.renderer.domElement);
 
         // Controls
@@ -202,12 +202,12 @@ class URDFViewer {
     }
 
     setupLighting() {
-        // Softer ambient light for base illumination
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        // Bright ambient light for clear visibility
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         this.scene.add(ambientLight);
 
-        // Main key light - reduced intensity for more natural lighting
-        const keyLight = new THREE.DirectionalLight(0xffffff, 0.9);
+        // Strong main key light for clear illumination
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
         keyLight.position.set(5, 7, 6);
         keyLight.castShadow = true;
         keyLight.shadow.mapSize.width = 2048;
@@ -222,23 +222,28 @@ class URDFViewer {
         this.scene.add(keyLight);
         this.scene.add(keyLight.target);
 
-        // Softer fill light for shadow detail
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.35);
+        // Bright fill light to reduce harsh shadows
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.7);
         fillLight.position.set(-6, 5, 3.5);
         this.scene.add(fillLight);
 
-        // Subtle rim light for edge definition
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.25);
+        // Additional top light for better overall visibility
+        const topLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        topLight.position.set(0, 10, 0);
+        this.scene.add(topLight);
+
+        // Rim light for edge definition
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.4);
         rimLight.position.set(0, 9, -8);
         this.scene.add(rimLight);
 
-        // Gentle bounce light
-        const bounceLight = new THREE.PointLight(0xffffff, 0.2, 40, 2);
+        // Bright bounce light for better color visibility
+        const bounceLight = new THREE.PointLight(0xffffff, 0.5, 40, 2);
         bounceLight.position.set(0, 2.5, 0);
         this.scene.add(bounceLight);
 
         const groundGeometry = new THREE.PlaneGeometry(60, 60);
-        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.25 });
+        const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
         const ground = new THREE.Mesh(groundGeometry, groundMaterial);
         ground.rotation.x = -Math.PI / 2;
         ground.position.y = -0.02;
@@ -468,11 +473,11 @@ class URDFViewer {
         // Sort links by name for deterministic coloring
         links.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
-        // Generate distinct colors using golden ratio - softer colors for natural appearance
+        // Generate distinct colors using golden ratio - bright and vibrant colors
         const colorForIndex = (i) => {
             const h = (i * phi) % 1; // Distribute across full hue range
-            const s = 0.40; // Moderate saturation for softer, more natural colors
-            const l = 0.55; // Slightly brighter for better appearance with reduced lighting
+            const s = 0.70; // Higher saturation for more vibrant, visible colors
+            const l = 0.70; // Much brighter for clear visibility
             const c = new THREE.Color();
             c.setHSL(h, s, l);
             return c;
@@ -494,12 +499,13 @@ class URDFViewer {
             const color = this.linkColors.get(owner);
             if (!color) return;
 
-            // Apply material with assigned color - using MeshPhongMaterial with softer reflections
+            // Apply material with assigned color - using MeshPhongMaterial with bright reflections
             try {
                 const createMaterial = () => new THREE.MeshPhongMaterial({
                     color: color.clone(),
-                    shininess: 30,           // Reduced shininess for softer highlights
-                    specular: 0x333333,      // Darker specular for less intense reflections
+                    shininess: 60,           // Higher shininess for clear highlights
+                    specular: 0x666666,      // Brighter specular for visible reflections
+                    emissive: color.clone().multiplyScalar(0.1), // Slight emissive glow
                     flatShading: false,
                     transparent: false,
                     opacity: 1.0,

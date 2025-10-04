@@ -358,105 +358,52 @@ class URDFViewer {
                     console.log(`URDF loaded successfully: ${urdfPath}`, robot);
                     this.robot = robot;
 
-                    // Ensure proper geometry attributes first
-                    let meshCount = 0;
-                    robot.traverse((child) => {
-                        if (child.isMesh) {
-                            meshCount++;
-                            // Ensure proper geometry attributes
-                            if (child.geometry) {
-                                if (!child.geometry.attributes.normal) {
-                                    child.geometry.computeVertexNormals();
+                    // Wait for meshes to load asynchronously
+                    const setupMeshes = () => {
+                        // Ensure proper geometry attributes first
+                        let meshCount = 0;
+                        robot.traverse((child) => {
+                            if (child.isMesh) {
+                                meshCount++;
+                                console.log(`Found mesh: ${child.name}, type: ${child.type}, hasGeometry: ${!!child.geometry}`);
+                                // Ensure proper geometry attributes
+                                if (child.geometry) {
+                                    if (!child.geometry.attributes.normal) {
+                                        child.geometry.computeVertexNormals();
+                                    }
+                                    child.geometry.computeBoundingBox();
+                                    child.geometry.computeBoundingSphere();
                                 }
-                                child.geometry.computeBoundingBox();
-                                child.geometry.computeBoundingSphere();
+                                // Make sure mesh is visible and shadows enabled
+                                child.visible = true;
+                                child.castShadow = true;
+                                child.receiveShadow = true;
                             }
-                            // Make sure mesh is visible and shadows enabled
-                            child.visible = true;
-                            child.castShadow = true;
-                            child.receiveShadow = true;
-                        }
-                    });
-                    console.log(`Total meshes found: ${meshCount}, all configured for shadows`);
-
-                    // Apply blue-toned pastel colors per link (after geometry setup)
-                    this.colorizeLinks(robot);
-                    console.log('Colorize links completed');
-
-                    // Enable shadows on the root robot object
-                    robot.castShadow = true;
-                    robot.receiveShadow = true;
-
-                    this.scene.add(robot);
-                    console.log('Robot added to scene');
-
-                    // Ensure default shaded materials are visible before user interaction
-                    this.applyInitialMaterialState();
-                    console.log('Initial material state applied');
-
-                    // Double-check shadow settings after adding to scene
-                    let shadowMeshCount = 0;
-                    let visibleMeshCount = 0;
-                    robot.traverse((child) => {
-                        if (child.isMesh) {
-                            child.castShadow = true;
-                            child.receiveShadow = true;
-                            child.visible = true;  // Ensure visibility
-                            shadowMeshCount++;
-                            if (child.visible && child.material) {
-                                visibleMeshCount++;
-                            }
-                        }
-                    });
-                    console.log(`Shadow enabled on ${shadowMeshCount} meshes, ${visibleMeshCount} visible meshes after scene add`);
-
-                    // Force an immediate render to show the model
-                    if (this.renderer && this.scene && this.camera) {
-                        this.renderer.render(this.scene, this.camera);
-                        console.log('Forced initial render after model load');
-                    }
-
-                    // Store joint references
-                    this.extractJoints(robot);
-                    console.log(`Extracted ${Object.keys(this.joints).length} joints`);
-
-                    // Auto-fit camera with retry mechanism (based on reference implementation)
-                    let retryCount = 0;
-                    const maxRetries = 8;
-                    const retryInterval = 300; // ms
-
-                    const tryCenterView = () => {
-                        const testBox = new THREE.Box3().setFromObject(robot);
-                        const testSize = testBox.getSize(new THREE.Vector3());
-                        const maxDim = Math.max(testSize.x, testSize.y, testSize.z);
-
-                        if (maxDim > 0.001) {
-                            this.fitCameraToObject(robot);
-                            console.log(`Centered camera successfully after ${retryCount} retries`);
-
-                            // Force a render after successful positioning
-                            if (this.renderer && this.scene && this.camera) {
-                                this.renderer.render(this.scene, this.camera);
-                            }
-                        } else if (retryCount < maxRetries) {
-                            retryCount++;
-                            console.log(`Bounding box not ready (maxDim: ${maxDim}), retrying center... (${retryCount}/${maxRetries})`);
-                            setTimeout(tryCenterView, retryInterval);
-                        } else {
-                            console.warn('Max retries reached, centering anyway');
-                            this.fitCameraToObject(robot);
-
-                            // Force a render even if positioning failed
-                            if (this.renderer && this.scene && this.camera) {
-                                this.renderer.render(this.scene, this.camera);
-                            }
-                        }
+                        });
+                        console.log(`Total meshes found: ${meshCount}, all configured for shadows`);
+                        return meshCount;
                     };
 
-                    // Start the retry mechanism after a short delay
-                    setTimeout(tryCenterView, 200);
-
-                    resolve();
+                    // Try multiple times to find meshes (OBJs load asynchronously)
+                    let attempts = 0;
+                    const maxAttempts = 10;
+                    const checkMeshes = () => {
+                        const count = setupMeshes();
+                        attempts++;
+                        
+                        if (count === 0 && attempts < maxAttempts) {
+                            console.log(`No meshes found yet, retrying... (${attempts}/${maxAttempts})`);
+                            setTimeout(checkMeshes, 200);
+                        } else if (count > 0) {
+                            console.log(`Successfully found ${count} meshes after ${attempts} attempts`);
+                            this.finalizeMeshSetup();
+                        } else {
+                            console.warn(`No meshes found after ${maxAttempts} attempts`);
+                            this.finalizeMeshSetup();
+                        }
+                    };
+                    
+                    checkMeshes();
                 },
                 (progressEvent) => {
                     // URDFLoader sometimes forwards null or events without progress metrics.
@@ -480,6 +427,88 @@ class URDFViewer {
                 }
             );
         });
+    }
+
+    finalizeMeshSetup() {
+        const robot = this.robot;
+        if (!robot) return;
+
+        // Apply blue-toned pastel colors per link (after geometry setup)
+        this.colorizeLinks(robot);
+        console.log('Colorize links completed');
+
+        // Enable shadows on the root robot object
+        robot.castShadow = true;
+        robot.receiveShadow = true;
+
+        this.scene.add(robot);
+        console.log('Robot added to scene');
+
+        // Ensure default shaded materials are visible before user interaction
+        this.applyInitialMaterialState();
+        console.log('Initial material state applied');
+
+        // Double-check shadow settings after adding to scene
+        let shadowMeshCount = 0;
+        let visibleMeshCount = 0;
+        robot.traverse((child) => {
+            if (child.isMesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+                child.visible = true;  // Ensure visibility
+                shadowMeshCount++;
+                if (child.visible && child.material) {
+                    visibleMeshCount++;
+                }
+            }
+        });
+        console.log(`Shadow enabled on ${shadowMeshCount} meshes, ${visibleMeshCount} visible meshes after scene add`);
+
+        // Force an immediate render to show the model
+        if (this.renderer && this.scene && this.camera) {
+            this.renderer.render(this.scene, this.camera);
+            console.log('Forced initial render after model load');
+        }
+
+        // Store joint references
+        this.extractJoints(robot);
+        console.log(`Extracted ${Object.keys(this.joints).length} joints`);
+
+        // Auto-fit camera with retry mechanism (based on reference implementation)
+        let retryCount = 0;
+        const maxRetries = 8;
+        const retryInterval = 300; // ms
+
+        const tryCenterView = () => {
+            const testBox = new THREE.Box3().setFromObject(robot);
+            const testSize = testBox.getSize(new THREE.Vector3());
+            const maxDim = Math.max(testSize.x, testSize.y, testSize.z);
+
+            if (maxDim > 0.001) {
+                this.fitCameraToObject(robot);
+                console.log(`Centered camera successfully after ${retryCount} retries`);
+
+                // Force a render after successful positioning
+                if (this.renderer && this.scene && this.camera) {
+                    this.renderer.render(this.scene, this.camera);
+                }
+            } else if (retryCount < maxRetries) {
+                retryCount++;
+                console.log(`Bounding box not ready (maxDim: ${maxDim}), retrying center... (${retryCount}/${maxRetries})`);
+                setTimeout(tryCenterView, retryInterval);
+            } else {
+                console.warn('Max retries reached, centering anyway');
+                this.fitCameraToObject(robot);
+
+                // Force a render even if positioning failed
+                if (this.renderer && this.scene && this.camera) {
+                    this.renderer.render(this.scene, this.camera);
+                }
+            }
+        };
+
+        // Start the retry mechanism after a short delay
+        setTimeout(tryCenterView, 200);
     }
 
     extractJoints(robot) {

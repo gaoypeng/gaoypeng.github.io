@@ -180,7 +180,7 @@ class URDFViewer {
 
         // Scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xf0f0f0);  // Medium gray background for good contrast
+        this.scene.background = new THREE.Color(0xe8e8e8);  // Light gray background for better contrast
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
@@ -220,29 +220,35 @@ class URDFViewer {
     }
 
     setupLighting() {
-        console.log(`[${this.canvasId}] Setting up lighting system (based on urdf_grid_visualizer)...`);
+        console.log(`[${this.canvasId}] Setting up enhanced lighting system for better color visibility...`);
         
-        // Ambient light - provides base illumination
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+        // Brighter ambient light for better base illumination
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         this.scene.add(ambientLight);
-        console.log(`[${this.canvasId}] Added ambient light: color 0x404040, intensity 0.6`);
+        console.log(`[${this.canvasId}] Added ambient light: color 0xffffff, intensity 0.8`);
 
-        // Main directional light - primary light source
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        // Strong main directional light - primary light source
+        const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
         mainLight.position.set(10, 10, 5);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
         this.scene.add(mainLight);
-        console.log(`[${this.canvasId}] Added main light: position (10, 10, 5), intensity 1.0`);
+        console.log(`[${this.canvasId}] Added main light: position (10, 10, 5), intensity 1.2`);
 
-        // Fill light - reduces harsh shadows
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        // Strong fill light - reduces harsh shadows and brightens colors
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
         fillLight.position.set(-5, 5, 5);
         this.scene.add(fillLight);
-        console.log(`[${this.canvasId}] Added fill light: position (-5, 5, 5), intensity 0.5`);
+        console.log(`[${this.canvasId}] Added fill light: position (-5, 5, 5), intensity 0.8`);
 
-        console.log(`[${this.canvasId}] Lighting setup complete. Simple 3-light system for clear visibility.`);
+        // Additional back light for better overall visibility
+        const backLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        backLight.position.set(0, 5, -5);
+        this.scene.add(backLight);
+        console.log(`[${this.canvasId}] Added back light: position (0, 5, -5), intensity 0.6`);
+
+        console.log(`[${this.canvasId}] Lighting setup complete. 4-light system for maximum color visibility.`);
     }
 
     async loadURDF() {
@@ -503,11 +509,11 @@ class URDFViewer {
         // Sort links by name for deterministic coloring
         links.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
-        // Generate distinct pastel colors using golden ratio (based on urdf_grid_visualizer)
+        // Generate vibrant, distinct colors using golden ratio for better visibility
         const colorForIndex = (i) => {
             const h = (i * phi) % 1; // Distribute across full hue range (0-1)
-            const s = 0.35; // Moderate saturation for pastel appearance
-            const l = 0.75; // High lightness for pastel, clear visibility
+            const s = 0.70; // High saturation for vibrant, clearly visible colors
+            const l = 0.60; // Medium-high lightness for good contrast and visibility
             const c = new THREE.Color();
             c.setHSL(h, s, l);
             console.log(`Color ${i}: HSL(${h.toFixed(2)}, ${s}, ${l}) = RGB(${c.r.toFixed(2)}, ${c.g.toFixed(2)}, ${c.b.toFixed(2)})`);
@@ -530,20 +536,20 @@ class URDFViewer {
             const color = this.linkColors.get(owner);
             if (!color) return;
 
-            // Apply material with assigned color - MeshPhongMaterial for good lighting response
+            // Apply material with assigned color - MeshPhongMaterial with enhanced reflectivity
             try {
                 const createMaterial = () => {
                     const mat = new THREE.MeshPhongMaterial({
                         color: color.clone(),
-                        shininess: 30,           // Moderate shininess
-                        specular: 0x444444,      // Moderate specular for subtle reflections
+                        shininess: 80,           // High shininess for strong highlights
+                        specular: 0x999999,      // Bright specular for visible reflections
                         flatShading: false,
                         transparent: false,
                         opacity: 1.0,
                         visible: true,
                         side: THREE.DoubleSide
                     });
-                    console.log(`Created material - color: RGB(${color.r.toFixed(2)}, ${color.g.toFixed(2)}, ${color.b.toFixed(2)})`);
+                    console.log(`Created material - color: RGB(${color.r.toFixed(2)}, ${color.g.toFixed(2)}, ${color.b.toFixed(2)}), shininess: 80, specular: 0x999999`);
                     return mat;
                 };
 

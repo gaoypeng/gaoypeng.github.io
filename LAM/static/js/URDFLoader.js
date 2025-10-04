@@ -1132,6 +1132,24 @@
                 const loader = new ColladaLoader_js.ColladaLoader(manager);
                 loader.load(path, dae => done(dae.scene));
 
+            } else if (/\.obj$/i.test(path)) {
+
+                // Fallback OBJ support using global THREE.OBJLoader (included separately)
+                try {
+                    const ObjLoader = THREE__namespace.OBJLoader || (typeof THREE !== 'undefined' ? THREE.OBJLoader : null);
+                    if (!ObjLoader) {
+                        console.warn('URDFLoader: OBJLoader not found on THREE namespace to load', path);
+                        done(null, new Error('OBJLoader not available'));
+                        return;
+                    }
+
+                    const loader = new ObjLoader(manager);
+                    loader.load(path, obj => done(obj), undefined, err => done(null, err));
+                } catch (e) {
+                    console.warn('URDFLoader: Failed to initialize OBJLoader for', path, e);
+                    done(null, e);
+                }
+
             } else {
 
                 console.warn(`URDFLoader: Could not load model at ${ path }.\nNo loader available`);

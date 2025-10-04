@@ -131,11 +131,32 @@ class URDFViewer {
     }
 
     async load() {
-        this.initThreeJS();
-        this.setupLighting();  // Setup lighting before loading URDF
-        await this.loadURDF();
-        this.createJointControls();
-        this.animate();
+        console.log(`[${this.canvasId}] Starting load sequence...`);
+        
+        try {
+            console.log(`[${this.canvasId}] Step 1: Initializing Three.js...`);
+            this.initThreeJS();
+            console.log(`[${this.canvasId}] Step 1 complete. Scene:`, !!this.scene, 'Camera:', !!this.camera, 'Renderer:', !!this.renderer);
+            
+            console.log(`[${this.canvasId}] Step 2: Setting up lighting...`);
+            this.setupLighting();
+            console.log(`[${this.canvasId}] Step 2 complete.`);
+            
+            console.log(`[${this.canvasId}] Step 3: Loading URDF...`);
+            await this.loadURDF();
+            console.log(`[${this.canvasId}] Step 3 complete.`);
+            
+            console.log(`[${this.canvasId}] Step 4: Creating joint controls...`);
+            this.createJointControls();
+            console.log(`[${this.canvasId}] Step 4 complete.`);
+            
+            console.log(`[${this.canvasId}] Step 5: Starting animation...`);
+            this.animate();
+            console.log(`[${this.canvasId}] Load sequence complete!`);
+        } catch (error) {
+            console.error(`[${this.canvasId}] Error during load:`, error);
+            console.error(`[${this.canvasId}] Error stack:`, error.stack);
+        }
     }
 
     initThreeJS() {

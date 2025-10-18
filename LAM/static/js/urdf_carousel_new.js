@@ -362,19 +362,21 @@ class URDFViewer {
                     const checkMeshes = () => {
                         const count = setupMeshes();
                         attempts++;
-                        
+
                         if (count === 0 && attempts < maxAttempts) {
                             console.log(`No meshes found yet, retrying... (${attempts}/${maxAttempts})`);
                             setTimeout(checkMeshes, 200);
                         } else if (count > 0) {
                             console.log(`Successfully found ${count} meshes after ${attempts} attempts`);
                             this.finalizeMeshSetup();
+                            resolve(); // Resolve after setup is complete
                         } else {
                             console.warn(`No meshes found after ${maxAttempts} attempts`);
                             this.finalizeMeshSetup();
+                            resolve(); // Resolve even if no meshes found
                         }
                     };
-                    
+
                     checkMeshes();
                 },
                 (progressEvent) => {

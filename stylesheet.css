@@ -133,3 +133,45 @@ h2 {
 span.highlight {
   background-color: #ffffd0;
 }
+
+/* Tab system styles */
+.tab-container {
+  margin: 20px 0;
+}
+
+.tab-buttons {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  color: #333;
+}
+
+.tab-button.active {
+  color: #333;
+  border-bottom-color: #ffffd0;
+  background-color: #ffffd0;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+}

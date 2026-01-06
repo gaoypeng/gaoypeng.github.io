@@ -180,7 +180,7 @@ class URDFViewer {
 
         // Scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xe8e8e8);  // Light gray background for better contrast
+        this.scene.background = new THREE.Color(0x3a3a3a);  // Darker gray background for less eye strain
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
@@ -220,35 +220,35 @@ class URDFViewer {
     }
 
     setupLighting() {
-        console.log(`[${this.canvasId}] Setting up enhanced lighting system for better color visibility...`);
+        console.log(`[${this.canvasId}] Setting up balanced lighting system for comfortable viewing...`);
         
-        // Brighter ambient light for better base illumination
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        // Moderate ambient light for softer base illumination
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
         this.scene.add(ambientLight);
-        console.log(`[${this.canvasId}] Added ambient light: color 0xffffff, intensity 0.8`);
+        console.log(`[${this.canvasId}] Added ambient light: color 0xffffff, intensity 0.45`);
 
-        // Strong main directional light - primary light source
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        // Main directional light - softer primary light source
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.7);
         mainLight.position.set(10, 10, 5);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
         this.scene.add(mainLight);
-        console.log(`[${this.canvasId}] Added main light: position (10, 10, 5), intensity 1.2`);
+        console.log(`[${this.canvasId}] Added main light: position (10, 10, 5), intensity 0.7`);
 
-        // Strong fill light - reduces harsh shadows and brightens colors
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        // Softer fill light - reduces harsh shadows
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
         fillLight.position.set(-5, 5, 5);
         this.scene.add(fillLight);
-        console.log(`[${this.canvasId}] Added fill light: position (-5, 5, 5), intensity 0.8`);
+        console.log(`[${this.canvasId}] Added fill light: position (-5, 5, 5), intensity 0.4`);
 
-        // Additional back light for better overall visibility
-        const backLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        // Subtle back light for depth
+        const backLight = new THREE.DirectionalLight(0xffffff, 0.3);
         backLight.position.set(0, 5, -5);
         this.scene.add(backLight);
-        console.log(`[${this.canvasId}] Added back light: position (0, 5, -5), intensity 0.6`);
+        console.log(`[${this.canvasId}] Added back light: position (0, 5, -5), intensity 0.3`);
 
-        console.log(`[${this.canvasId}] Lighting setup complete. 4-light system for maximum color visibility.`);
+        console.log(`[${this.canvasId}] Lighting setup complete. Balanced 4-light system.`);
     }
 
     async loadURDF() {

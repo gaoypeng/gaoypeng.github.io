@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="a_globe_1">
+  <link name="axis_pins">
+    <visual>
+      <geometry>
+        <mesh filename="links/axis_pins_refined.obj" />
+      </geometry>
+      <origin xyz="0.0 -2.8 0.0" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/axis_pins_refined.obj" />
+      </geometry>
+      <origin xyz="0.0 -2.8 0.0" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="meridian_arch">
+    <visual>
+      <geometry>
+        <mesh filename="links/meridian_arch_refined.obj" />
+      </geometry>
+      <origin xyz="0.0 -2.8 0.0" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/meridian_arch_refined.obj" />
+      </geometry>
+      <origin xyz="0.0 -2.8 0.0" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="base_stand">
+    <visual>
+      <geometry>
+        <mesh filename="links/base_stand_refined.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/base_stand_refined.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="globe_sphere">
+    <visual>
+      <geometry>
+        <mesh filename="links/globe_sphere_refined.obj" />
+      </geometry>
+      <origin xyz="0.0 -2.567768208278347 1.1164973929906892" rpy="-0.41015237421866746 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/globe_sphere_refined.obj" />
+      </geometry>
+      <origin xyz="0.0 -2.567768208278347 1.1164973929906892" rpy="-0.41015237421866746 0.0 0.0" />
+    </collision>
+  </link>
+  <joint name="base_to_meridian_swivel" type="continuous">
+    <parent link="base_stand" />
+    <child link="meridian_arch" />
+    <origin xyz="0 2.8 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    
+  </joint>
+  <joint name="meridian_to_pins_weld" type="fixed">
+    <parent link="meridian_arch" />
+    <child link="axis_pins" />
+    
+    
+  </joint>
+  <joint name="globe_spin_axis" type="continuous">
+    <parent link="meridian_arch" />
+    <child link="globe_sphere" />
+    <origin xyz="0 0 0" rpy="0.41015237421866746 0 0" />
+    <axis xyz="0 1 0" />
+    
+  </joint>
+</robot>

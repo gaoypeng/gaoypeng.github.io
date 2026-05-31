@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<robot name="a_clock_1">
+  <link name="hour_hand">
+    <visual>
+      <geometry>
+        <mesh filename="links/hour_hand.obj" />
+      </geometry>
+      <origin xyz="0.0 0.0 -1.45" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/hour_hand.obj" />
+      </geometry>
+      <origin xyz="0.0 0.0 -1.45" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="clock_face">
+    <visual>
+      <geometry>
+        <mesh filename="links/clock_face.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/clock_face.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="minute_hand">
+    <visual>
+      <geometry>
+        <mesh filename="links/minute_hand.obj" />
+      </geometry>
+      <origin xyz="0.0 0.0 -1.75" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/minute_hand.obj" />
+      </geometry>
+      <origin xyz="0.0 0.0 -1.75" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="second_hand">
+    <visual>
+      <geometry>
+        <mesh filename="links/second_hand.obj" />
+      </geometry>
+      <origin xyz="0.0 0.0 -2.05" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/second_hand.obj" />
+      </geometry>
+      <origin xyz="0.0 0.0 -2.05" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <joint name="clock_face_to_hour_hand" type="continuous">
+    <parent link="clock_face" />
+    <child link="hour_hand" />
+    <origin xyz="0 0 1.45" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    
+  </joint>
+  <joint name="clock_face_to_minute_hand" type="continuous">
+    <parent link="clock_face" />
+    <child link="minute_hand" />
+    <origin xyz="0 0 1.75" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    
+  </joint>
+  <joint name="clock_face_to_second_hand" type="continuous">
+    <parent link="clock_face" />
+    <child link="second_hand" />
+    <origin xyz="0 0 2.05" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    
+  </joint>
+</robot>

@@ -1,0 +1,372 @@
+<?xml version="1.0"?>
+<robot name="a_ferris_wheel_1">
+  <link name="cabin_3">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_3.obj" />
+      </geometry>
+      <origin xyz="0.0 -62.7163859753386 -11.480502970952696" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_3.obj" />
+      </geometry>
+      <origin xyz="0.0 -62.7163859753386 -11.480502970952696" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_13">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_13.obj" />
+      </geometry>
+      <origin xyz="0.0 -7.2836140246614 -11.480502970952701" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_13.obj" />
+      </geometry>
+      <origin xyz="0.0 -7.2836140246614 -11.480502970952701" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_9">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_9.obj" />
+      </geometry>
+      <origin xyz="0.0 -23.519497029047308 27.716385975338607" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_9.obj" />
+      </geometry>
+      <origin xyz="0.0 -23.519497029047308 27.716385975338607" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_15">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_15.obj" />
+      </geometry>
+      <origin xyz="0.0 -23.519497029047287 -27.716385975338596" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_15.obj" />
+      </geometry>
+      <origin xyz="0.0 -23.519497029047287 -27.716385975338596" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_12">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_12.obj" />
+      </geometry>
+      <origin xyz="0.0 -5.0 5.510910596163089e-15" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_12.obj" />
+      </geometry>
+      <origin xyz="0.0 -5.0 5.510910596163089e-15" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_0">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_0.obj" />
+      </geometry>
+      <origin xyz="0.0 -35.0 -30.0" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_0.obj" />
+      </geometry>
+      <origin xyz="0.0 -35.0 -30.0" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_2">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_2.obj" />
+      </geometry>
+      <origin xyz="0.0 -56.21320343559643 -21.213203435596427" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_2.obj" />
+      </geometry>
+      <origin xyz="0.0 -56.21320343559643 -21.213203435596427" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_7">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_7.obj" />
+      </geometry>
+      <origin xyz="0.0 -46.4805029709527 27.716385975338603" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_7.obj" />
+      </geometry>
+      <origin xyz="0.0 -46.4805029709527 27.716385975338603" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_4">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_4.obj" />
+      </geometry>
+      <origin xyz="0.0 -65.0 -1.83697019872103e-15" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_4.obj" />
+      </geometry>
+      <origin xyz="0.0 -65.0 -1.83697019872103e-15" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_5">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_5.obj" />
+      </geometry>
+      <origin xyz="0.0 -62.7163859753386 11.480502970952692" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_5.obj" />
+      </geometry>
+      <origin xyz="0.0 -62.7163859753386 11.480502970952692" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_6">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_6.obj" />
+      </geometry>
+      <origin xyz="0.0 -56.21320343559643 21.213203435596423" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_6.obj" />
+      </geometry>
+      <origin xyz="0.0 -56.21320343559643 21.213203435596423" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_1">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_1.obj" />
+      </geometry>
+      <origin xyz="0.0 -46.48050297095269 -27.716385975338603" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_1.obj" />
+      </geometry>
+      <origin xyz="0.0 -46.48050297095269 -27.716385975338603" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_10">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_10.obj" />
+      </geometry>
+      <origin xyz="0.0 -13.786796564403577 21.21320343559643" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_10.obj" />
+      </geometry>
+      <origin xyz="0.0 -13.786796564403577 21.21320343559643" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_11">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_11.obj" />
+      </geometry>
+      <origin xyz="0.0 -7.283614024661404 11.48050297095271" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_11.obj" />
+      </geometry>
+      <origin xyz="0.0 -7.283614024661404 11.48050297095271" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="support_structure">
+    <visual>
+      <geometry>
+        <mesh filename="links/support_structure.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/support_structure.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="cabin_8">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_8.obj" />
+      </geometry>
+      <origin xyz="0.0 -35.00000000000001 30.0" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_8.obj" />
+      </geometry>
+      <origin xyz="0.0 -35.00000000000001 30.0" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="wheel_structure">
+    <visual>
+      <geometry>
+        <mesh filename="links/wheel_structure.obj" />
+      </geometry>
+      <origin xyz="0.0 -35.0 0.0" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/wheel_structure.obj" />
+      </geometry>
+      <origin xyz="0.0 -35.0 0.0" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="cabin_14">
+    <visual>
+      <geometry>
+        <mesh filename="links/cabin_14.obj" />
+      </geometry>
+      <origin xyz="0.0 -13.78679656440357 -21.21320343559642" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="links/cabin_14.obj" />
+      </geometry>
+      <origin xyz="0.0 -13.78679656440357 -21.21320343559642" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <joint name="support_to_wheel_joint" type="continuous">
+    <parent link="support_structure" />
+    <child link="wheel_structure" />
+    <origin xyz="0 35 0" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    
+  </joint>
+  <joint name="wheel_to_cabin_0_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_0" />
+    <origin xyz="0 0 30" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_1_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_1" />
+    <origin xyz="0 11.480502970952694 27.716385975338603" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_2_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_2" />
+    <origin xyz="0 21.213203435596423 21.213203435596427" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_3_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_3" />
+    <origin xyz="0 27.716385975338603 11.480502970952696" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_4_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_4" />
+    <origin xyz="0 30 1.83697019872103e-15" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_5_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_5" />
+    <origin xyz="0 27.716385975338603 -11.480502970952692" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_6_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_6" />
+    <origin xyz="0 21.213203435596427 -21.213203435596423" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_7_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_7" />
+    <origin xyz="0 11.480502970952697 -27.716385975338603" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_8_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_8" />
+    <origin xyz="0 3.67394039744206e-15 -30" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_9_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_9" />
+    <origin xyz="0 -11.48050297095269 -27.716385975338607" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_10_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_10" />
+    <origin xyz="0 -21.213203435596423 -21.21320343559643" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_11_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_11" />
+    <origin xyz="0 -27.716385975338596 -11.48050297095271" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_12_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_12" />
+    <origin xyz="0 -30 -5.510910596163089e-15" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_13_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_13" />
+    <origin xyz="0 -27.7163859753386 11.480502970952701" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_14_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_14" />
+    <origin xyz="0 -21.21320343559643 21.21320343559642" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+  <joint name="wheel_to_cabin_15_joint" type="revolute">
+    <parent link="wheel_structure" />
+    <child link="cabin_15" />
+    <origin xyz="0 -11.480502970952712 27.716385975338596" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0" />
+  </joint>
+</robot>

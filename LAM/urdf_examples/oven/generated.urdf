@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<robot name="an_oven_3">
+  <link name="ventilation_grill">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/ventilation_grill.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/ventilation_grill.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="oven_body">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/oven_body.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/oven_body.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="heating_element_top">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/heating_element_top.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/heating_element_top.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="heating_element_bottom">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/heating_element_bottom.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/heating_element_bottom.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="oven_handle">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/oven_handle.obj" />
+      </geometry>
+      <origin xyz="0.0 2.95 -2.45" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/oven_handle.obj" />
+      </geometry>
+      <origin xyz="0.0 2.95 -2.45" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="wire_rack_2">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/wire_rack_2.obj" />
+      </geometry>
+      <origin xyz="0.0 -1.1 0" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/wire_rack_2.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="oven_door">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/oven_door.obj" />
+      </geometry>
+      <origin xyz="0.0 2.95 -2.45" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/oven_door.obj" />
+      </geometry>
+      <origin xyz="0.0 2.95 -2.45" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="control_panel">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/control_panel.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/control_panel.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="glass_viewing_window">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/glass_viewing_window.obj" />
+      </geometry>
+      <origin xyz="0.0 2.95 -2.45" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/glass_viewing_window.obj" />
+      </geometry>
+      <origin xyz="0.0 2.95 -2.45" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="control_knob_2">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/control_knob_2.obj" />
+      </geometry>
+      <origin xyz="-1.5 -2.25 -2.775" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/control_knob_2.obj" />
+      </geometry>
+      <origin xyz="-1.5 -2.25 -2.775" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <link name="oven_light">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/oven_light.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/oven_light.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="wire_rack_1">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/wire_rack_1.obj" />
+      </geometry>
+    <origin xyz="0 -1.0 0.0" rpy="0 0 0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/wire_rack_1.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="control_knob_1">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/control_knob_1.obj" />
+      </geometry>
+      <origin xyz="1.5 -2.25 -2.775" rpy="0.0 0.0 0.0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="obj_parts/group_output/control_knob_1.obj" />
+      </geometry>
+      <origin xyz="1.5 -2.25 -2.775" rpy="0.0 0.0 0.0" />
+    </collision>
+  </link>
+  <joint name="oven_body_to_oven_door_hinge" type="revolute">
+    <parent link="oven_body" />
+    <child link="oven_door" />
+    <origin xyz="0 -2.95 2.45" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-1.57" upper="0.0" effort="20" velocity="1.0" />
+  </joint>
+  <joint name="oven_door_to_glass_window" type="fixed">
+    <parent link="oven_door" />
+    <child link="glass_viewing_window" />
+    
+    
+  </joint>
+  <joint name="oven_door_to_handle" type="fixed">
+    <parent link="oven_door" />
+    <child link="oven_handle" />
+    
+    
+  </joint>
+  <joint name="oven_body_to_control_panel" type="fixed">
+    <parent link="oven_body" />
+    <child link="control_panel" />
+    
+    
+  </joint>
+  <joint name="control_panel_to_knob_1" type="continuous">
+    <parent link="control_panel" />
+    <child link="control_knob_1" />
+    <origin xyz="-1.5 2.25 2.775" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    
+  </joint>
+  <joint name="control_panel_to_knob_2" type="continuous">
+    <parent link="control_panel" />
+    <child link="control_knob_2" />
+    <origin xyz="1.5 2.25 2.775" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    
+  </joint>
+  <joint name="oven_body_to_wire_rack_1_slide" type="prismatic">
+    <parent link="oven_body" />
+    <child link="wire_rack_1" />
+    <axis xyz="0 0 1" />
+    <limit lower="0.0" upper="3.4" effort="10" velocity="0.5" />
+  </joint>
+  <joint name="oven_body_to_wire_rack_2_slide" type="prismatic">
+    <parent link="oven_body" />
+    <child link="wire_rack_2" />
+    <axis xyz="0 0 1" />
+    <limit lower="0.0" upper="3.4" effort="10" velocity="0.5" />
+  </joint>
+  <joint name="oven_body_to_heating_element_top" type="fixed">
+    <parent link="oven_body" />
+    <child link="heating_element_top" />
+    
+    
+  </joint>
+  <joint name="oven_body_to_heating_element_bottom" type="fixed">
+    <parent link="oven_body" />
+    <child link="heating_element_bottom" />
+    
+    
+  </joint>
+  <joint name="oven_body_to_oven_light" type="fixed">
+    <parent link="oven_body" />
+    <child link="oven_light" />
+    
+    
+  </joint>
+  <joint name="oven_body_to_ventilation_grill" type="fixed">
+    <parent link="oven_body" />
+    <child link="ventilation_grill" />
+    
+    
+  </joint>
+</robot>

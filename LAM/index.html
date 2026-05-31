@@ -3,10 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="LAM: Language-Augmented Model for enhanced multimodal understanding.">
-  <meta name="keywords" content="LAM, Vision-Language Models, Multimodal AI">
+        content="LAM: Language Articulated Object Modelers — a multi-agent system that generates articulated 3D objects from text by unifying geometry and articulation as a code-generation task.">
+  <meta name="keywords" content="LAM, Articulated Objects, 3D Generation, URDF, Code Generation, LLM Agents, VLM, Robotics, CVPR">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LAM: Language-Augmented Model</title>
+  <title>LAM: Language Articulated Object Modelers</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="LAM: Language Articulated Object Modelers">
+  <meta property="og:description" content="Generating articulated 3D objects from text via a collaborative team of LLM/VLM agents that write, debug, and refine code.">
+  <meta property="og:image" content="./static/images/figures/teaser.png">
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -19,6 +24,7 @@
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="stylesheet" href="./static/css/urdf_carousel.css">
+  <link rel="stylesheet" href="./static/css/lam.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -40,93 +46,75 @@
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="https://gaoypeng.github.io">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
+        <span class="icon"><i class="fas fa-home"></i></span>
       </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://gaoypeng.github.io">
-            Home
-          </a>
-        </div>
-      </div>
+      <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#interactive">Interactive</a>
+      <a class="navbar-item" href="#BibTeX">BibTeX</a>
     </div>
-
   </div>
 </nav>
 
 
+<!-- ============================ HERO ============================ -->
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">LAM: Language Articulated Object Modelers</h1>
+          <h1 class="title is-1 publication-title">
+            <span class="title-gradient">LAM</span>: Language Articulated Object Modelers
+          </h1>
+
+          <div class="publication-venue">Preprint &middot; 2026</div>
+
           <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://gaoypeng.github.io">Yipeng Gao</a>,</span>
-            <span class="author-block">
-              <a href="#">Yunhao Ge</a>,</span>
-            <span class="author-block">
-              <a href="#">Peilin Cai</a>,</span>
-            <span class="author-block">
-              <a href="#">Daniel Seita</a>,</span>
-            <span class="author-block">
-              <a href="#">Laurent Itti</a>,</span>
+            <span class="author-block"><a href="https://gaoypeng.github.io">Yipeng Gao</a>,</span>
+            <span class="author-block">Yunhao Ge,</span>
+            <span class="author-block">Peilin Cai,</span>
+            <span class="author-block">Daniel Seita,</span>
+            <span class="author-block">Laurent Itti</span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block">University of Southern California,</span>
+            <span class="author-block">University of Southern California</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
+              <!-- Paper -->
               <span class="link-block">
-                <a href="./paper.pdf"
+                <a href="./CVPR2026_articulated_objects_arXiv.pdf"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
+              <!-- arXiv (coming soon) -->
               <span class="link-block">
-                <a href="#"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
+                <a class="external-link button is-normal is-rounded is-dark is-soon">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv (soon)</span>
                 </a>
               </span>
-              <!-- Video Link. -->
+              <!-- Video (coming soon) -->
               <span class="link-block">
-                <a href="#"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
+                <a class="external-link button is-normal is-rounded is-dark is-soon">
+                  <span class="icon"><i class="fab fa-youtube"></i></span>
+                  <span>Video (soon)</span>
                 </a>
               </span>
-              <!-- Code Link. -->
+              <!-- Code -->
               <span class="link-block">
-                <a href="#"
+                <a href="https://github.com/gaoypeng/LAM"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
+                  <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
-                  </a>
+                </a>
               </span>
             </div>
-
           </div>
         </div>
       </div>
@@ -134,152 +122,272 @@
   </div>
 </section>
 
+
+<!-- ============================ TEASER ============================ -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <!-- Placeholder for teaser image or video -->
-      <div style="width:100%; height:400px; background:#f0f0f0; border-radius:10px; display:flex; align-items:center; justify-content:center; color:#999;">
-        <div style="text-align:center;">
-          <i class="fas fa-image" style="font-size:48px; margin-bottom:10px;"></i>
-          <p>Teaser Image Placeholder</p>
-        </div>
+      <div class="fig-card">
+        <img src="./static/images/figures/teaser.png"
+             alt="LAM generates diverse articulated 3D objects from text prompts.">
       </div>
-      <h2 class="subtitle has-text-centered" style="margin-top: 20px;">
-        <span class="dnerf">LAM</span> integrates language models with vision systems to enhance
-        multimodal understanding and generation capabilities.
+      <h2 class="subtitle has-text-centered lead" style="margin-top: 1.2rem;">
+        <span class="dnerf">LAM</span> generates articulated 3D objects directly from text — co-designing
+        <b>geometry</b> and <b>articulation</b> as a single, interpretable <b>code</b> representation,
+        with <b>no visual prior or pre-built 3D assets</b>.
       </h2>
     </div>
   </div>
 </section>
 
 
-<section class="section">
+<!-- ============================ ABSTRACT ============================ -->
+<section class="section" id="abstract">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            This project investigates novel approaches to combining language and vision modalities
-            for improved performance on multimodal tasks. By leveraging pre-trained language models
-            and vision encoders, we develop systems that can better understand and reason about
-            visual content through natural language.
+            We introduce <span class="dnerf">LAM</span>, a system that explores the collaboration between
+            large language models and vision-language models to generate articulated objects from text
+            prompts <b>without a visual prior or pre-built 3D assets</b>. We formulate articulated object
+            generation as a unified <b>code-generation</b> task, in which geometry and articulation are
+            co-designed from scratch.
           </p>
           <p>
-            Our approach introduces a language-augmented framework that seamlessly integrates
-            linguistic understanding with visual perception. This enables more robust and
-            generalizable vision-language models capable of handling complex reasoning tasks.
+            Given an input text, <span class="dnerf">LAM</span> coordinates a team of specialized modules
+            to procedurally generate code that represents the desired articulated object. It first reasons
+            about the hierarchical structure of parts (links) with a <b>Link Designer</b>, then writes,
+            compiles, and debugs code with <b>Geometry &amp; Articulation Coders</b>, and self-corrects via
+            <b>Geometry &amp; Articulation Checkers</b>. The code serves as a structured, interpretable bridge
+            between individual links, ensuring correct relationships among them.
           </p>
           <p>
-            We demonstrate that <span class="dnerf">LAM</span> achieves state-of-the-art performance
-            on various multimodal benchmarks, showing significant improvements in tasks such as
-            visual question answering, image captioning, and cross-modal retrieval.
+            Experiments demonstrate the power of leveraging code as a generative medium within a collaborative
+            system, showcasing its effectiveness in automatically constructing complex articulated objects.
           </p>
+        </div>
+
+        <!-- Stat highlights -->
+        <div class="stat-row">
+          <div class="stat"><div class="num">77.1%</div><div class="lbl">Joint-prediction success<br>(vs. 40.3% best baseline)</div></div>
+          <div class="stat"><div class="num">84.6%</div><div class="lbl">Human preference<br>on General classes</div></div>
+          <div class="stat"><div class="num">91.7%</div><div class="lbl">User preference<br>on Open-World classes</div></div>
+          <div class="stat"><div class="num">2K</div><div class="lbl">LAMBench<br>text–code–object pairs</div></div>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
-
   </div>
 </section>
 
 
-<section class="section">
+<!-- ============================ METHOD ============================ -->
+<section class="section" id="method" style="background: var(--lam-bg-soft);">
   <div class="container is-max-desktop">
+    <div class="section-head"><h2 class="title is-3">Method</h2></div>
 
-    <!-- Method Overview. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified lead">
+      <p>
+        Unlike prior work that relies on structured inputs (images, videos, graphs, or meshes) and is capped
+        by a scalability ceiling on high-part-count objects, <span class="dnerf">LAM</span> unifies the coupled
+        problem of geometry and articulation into a single, expressive <b>code representation</b>. Because the
+        cost of code is largely independent of geometric resolution, <span class="dnerf">LAM</span> can describe
+        complex objects with a large, variable number of links — e.g.&nbsp;a keyboard with 20+ keys.
+      </p>
+    </div>
 
-        <div class="content has-text-justified">
-          <p>
-            Our method consists of three key components:
-          </p>
-          <ul>
-            <li><strong>Language-Vision Fusion:</strong> A novel fusion mechanism that effectively
-            combines visual features with linguistic representations.</li>
-            <li><strong>Cross-Modal Attention:</strong> Attention mechanisms that enable fine-grained
-            alignment between language and vision modalities.</li>
-            <li><strong>Contextual Reasoning:</strong> Enhanced reasoning capabilities through
-            language-guided visual understanding.</li>
-          </ul>
-        </div>
-
-        <!-- Placeholder for method diagram -->
-        <div class="content has-text-centered">
-          <div style="width:100%; max-width:800px; height:400px; background:#f0f0f0; border-radius:10px; display:flex; align-items:center; justify-content:center; color:#999; margin:20px auto;">
-            <div style="text-align:center;">
-              <i class="fas fa-chart-line" style="font-size:48px; margin-bottom:10px;"></i>
-              <p>Method Diagram Placeholder</p>
-            </div>
-          </div>
-        </div>
-
+    <!-- Pipeline figure -->
+    <div class="fig-card" style="margin-top: 1.2rem;">
+      <img src="./static/images/figures/pipeline.png" alt="LAM overall pipeline.">
+      <div class="fig-cap">
+        <b>Overall framework.</b> From a text prompt, <span class="dnerf">LAM</span> first designs a hierarchical
+        structure of the object, then iteratively generates and refines code for both geometry and articulation,
+        producing a complete articulated object.
       </div>
     </div>
-    <!--/ Method Overview. -->
 
-    <!-- Results. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Results</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            We evaluate our method on multiple benchmark datasets and demonstrate significant
-            improvements over existing approaches in various vision-language tasks. Below are
-            interactive examples of articulated objects generated by our model.
-          </p>
-        </div>
-
-        <!-- Interactive URDF Viewer -->
-        <div class="content">
-          <h3 class="title is-4" style="margin-top: 30px;">Interactive Articulated Objects</h3>
-          <p class="has-text-justified" style="margin-bottom: 20px;">
-            Explore our generated articulated objects below. Use the controls to interact with different joints
-            and observe the realistic articulation behavior.
-          </p>
-          <div id="urdf-carousel-viewer"></div>
-        </div>
-
+    <!-- Module cards -->
+    <div class="module-grid">
+      <div class="module-card">
+        <h4>Link Designer</h4>
+        <p>An LLM that decomposes the prompt into a hierarchy of shapes → parts → links and their relationships.</p>
+      </div>
+      <div class="module-card is-coder">
+        <h4>Geometry Coder</h4>
+        <p>Translates the link layout into executable code, composing parametric primitives (e.g.&nbsp;Three.js)
+           into each link's mesh and pose.</p>
+      </div>
+      <div class="module-card is-coder">
+        <h4>Articulation Coder</h4>
+        <p>Generates joint code — type, parent–child hierarchy, position, and motion axis — via a Joint Assembly Solver.</p>
+      </div>
+      <div class="module-card">
+        <h4>Debuggers</h4>
+        <p>Deterministic Python/JS checks that fix grammar and code-level errors before rendering.</p>
+      </div>
+      <div class="module-card is-checker">
+        <h4>Geometry &amp; Articulation Checkers</h4>
+        <p>2D &amp; 3D VLMs render and analyze the design, giving targeted feedback in a closed-loop refinement.</p>
+      </div>
+      <div class="module-card is-data">
+        <h4>LAMBench</h4>
+        <p>A new dataset of 2K text–code–articulated-object pairs for systematic training and validation.</p>
       </div>
     </div>
-    <!--/ Results. -->
 
+    <!-- Articulation figure -->
+    <div class="fig-card" style="margin-top: 1.6rem;">
+      <img src="./static/images/figures/articulation.png" alt="Articulation Builder closed loop.">
+      <div class="fig-cap">
+        <b>Articulation Builder.</b> The Articulation Coder writes joint code, the Visualizer simulates motion as
+        an image sequence, and the VLM-powered Checker provides corrective feedback — iterating until the motion
+        is physically plausible and functionally correct.
+      </div>
+    </div>
   </div>
 </section>
 
 
+<!-- ============================ RESULTS ============================ -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="section-head"><h2 class="title is-3">Results</h2></div>
+
+    <!-- Joint prediction table -->
+    <h3 class="title is-4">Joint-Prediction Success Rate</h3>
+    <div class="content has-text-justified lead">
+      <p>
+        On the masked-URDF reconstruction task, the default <b>LAM*</b> substantially surpasses prior methods,
+        and finetuning open-source <b>Qwen3-VL-8B</b> on LAMBench yields large gains over its zero-shot counterpart.
+      </p>
+    </div>
+    <div class="lam-table-wrap">
+      <table class="lam-table">
+        <thead>
+          <tr><th>Method</th><th>Five Classes&nbsp;↑</th><th>General Classes&nbsp;↑</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Real2Code</td><td>13.5%</td><td>—</td></tr>
+          <tr><td>Articulate Anything</td><td>40.3%</td><td>48.9%</td></tr>
+          <tr><td>LAM (Qwen3-VL-8B, zero-shot)</td><td>36.8%</td><td>44.3%</td></tr>
+          <tr><td>LAM (Qwen3-VL-8B, finetuned)</td><td>51.6%</td><td>49.6%</td></tr>
+          <tr class="is-ours"><td>LAM* (default)</td><td>77.1%</td><td>68.2%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Alignment table -->
+    <h3 class="title is-4" style="margin-top: 2rem;">Visual Alignment &amp; Articulation Quality</h3>
+    <div class="content has-text-justified lead">
+      <p>
+        On the shared in-distribution classes, <b>LAM*</b> achieves the best text–visual alignment (CLIP, BLIP)
+        and the highest GPT-5 pass rate for functionally-correct articulation.
+      </p>
+    </div>
+    <div class="lam-table-wrap">
+      <table class="lam-table">
+        <thead>
+          <tr><th>Method</th><th>CLIP&nbsp;↑</th><th>BLIP&nbsp;↑</th><th>GPT-5 pass&nbsp;↑</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CAGE</td><td>27.65</td><td>53.92</td><td>53.9%</td></tr>
+          <tr><td>SINGAPO</td><td>30.43</td><td>56.21</td><td>58.8%</td></tr>
+          <tr><td>Articulate Anything</td><td>28.23</td><td>56.99</td><td>65.3%</td></tr>
+          <tr><td>LAM (zero-shot)</td><td>27.63</td><td>55.92</td><td>66.1%</td></tr>
+          <tr><td>LAM (finetuned)</td><td>29.55</td><td>58.38</td><td>69.3%</td></tr>
+          <tr class="is-ours"><td>LAM* (default)</td><td>31.94</td><td>63.76</td><td>77.0%</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">Shared classes: Storage Furniture, Table, Refrigerator, Dishwasher, Oven, Washer.</p>
+    </div>
+
+    <!-- Qualitative comparison -->
+    <h3 class="title is-4" style="margin-top: 2rem;">Qualitative Comparisons</h3>
+    <div class="fig-card" style="margin-top: 0.6rem;">
+      <img src="./static/images/figures/general_comparison.png" alt="Generation quality comparisons across classes.">
+      <div class="fig-cap">
+        <b>Across classes.</b> SINGAPO fails to produce sensible objects on out-of-distribution classes, and
+        Articulate Anything struggles with the keyboard and scissors, whereas <span class="dnerf">LAM</span>
+        produces collision-free, correctly articulated results.
+      </div>
+    </div>
+
+    <div class="fig-card" style="margin-top: 1.2rem;">
+      <img src="./static/images/figures/open_world_comparison.png" alt="Open-vocabulary comparisons.">
+      <div class="fig-cap">
+        <b>Open-vocabulary scenarios.</b> Across containers, tools, and complex furniture,
+        <span class="dnerf">LAM</span> tracks part-to-part spatial relations more accurately and identifies
+        movable components more reliably than Articulate Anything.
+      </div>
+    </div>
+
+    <!-- Open-world metrics -->
+    <div class="fig-card" style="margin-top: 1.2rem;">
+      <img src="./static/images/figures/exp_metrics.png" alt="General and open-world metrics.">
+      <div class="fig-cap">
+        <b>General &amp; Open-World classes.</b> (a–b) <span class="dnerf">LAM</span> achieves the best CLIP and
+        BLIP scores; (c) both GPT-5 and human participants prefer <span class="dnerf">LAM</span>'s objects —
+        up to <b>91.7%</b> user preference on Open-World classes.
+      </div>
+    </div>
+
+    <!-- Instruction following -->
+    <h3 class="title is-4" style="margin-top: 2rem;">Instruction-Following &amp; Editing</h3>
+    <div class="fig-card" style="margin-top: 0.6rem;">
+      <img src="./static/images/figures/instruction_following.png" alt="Instruction-following editing.">
+      <div class="fig-cap">
+        <b>Incremental editing.</b> In four steps of adding and removing sub-objects, a one-drawer cabinet is
+        guided to become a five-drawer cabinet — code-as-representation makes the pipeline portable and reusable.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================ INTERACTIVE ============================ -->
+<section class="section" id="interactive" style="background: var(--lam-bg-soft);">
+  <div class="container is-max-desktop">
+    <div class="section-head"><h2 class="title is-3">Interactive Articulated Objects</h2></div>
+    <p class="has-text-centered lead" style="margin-bottom: 1.4rem;">
+      Explore objects generated by <span class="dnerf">LAM</span>, exported to URDF. Drag to rotate, scroll to zoom,
+      and use the joint sliders to articulate each model. Use the arrows to browse examples.
+    </p>
+    <div id="urdf-carousel-viewer"></div>
+  </div>
+</section>
+
+
+<!-- ============================ BIBTEX ============================ -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@inproceedings{gao2025lam,
-  author    = {Gao, Yipeng and others},
-  title     = {LAM: Language-Augmented Model},
-  booktitle = {Conference},
-  year      = {2025},
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@article{gao2026lam,
+  title   = {LAM: Language Articulated Object Modelers},
+  author  = {Gao, Yipeng and Ge, Yunhao and Cai, Peilin and Seita, Daniel and Itti, Laurent},
+  journal = {arXiv preprint},
+  year    = {2026}
 }</code></pre>
   </div>
 </section>
 
 
+<!-- ============================ FOOTER ============================ -->
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link" href="https://gaoypeng.github.io">
-        <i class="fas fa-home"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/gaoypeng" class="external-link">
-        <i class="fab fa-github"></i>
-      </a>
+      <a class="icon-link" href="https://gaoypeng.github.io"><i class="fas fa-home"></i></a>
+      <a class="icon-link" href="https://github.com/gaoypeng/LAM"><i class="fab fa-github"></i></a>
     </div>
     <div class="columns is-centered">
       <div class="column is-8">
-        <div class="content">
+        <div class="content has-text-centered">
           <p>
-            This website template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+            This work was supported by the National Eye Institute (R61EY037527) and the National Science
+            Foundation (award 2318101).
+          </p>
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
           </p>
         </div>
       </div>
@@ -287,22 +395,17 @@
   </div>
 </footer>
 
-<!-- Three.js and URDF Loader - Load before initialization -->
+<!-- Three.js and URDF Loader -->
 <script src="https://unpkg.com/three@0.145.0/build/three.min.js"></script>
 <script>
-    // Ensure THREE is available
-    if (typeof THREE === 'undefined') {
-        console.error('THREE.js not loaded!');
-    } else {
-        console.log('THREE.js loaded, version:', THREE.REVISION);
-    }
+    if (typeof THREE === 'undefined') { console.error('THREE.js not loaded!'); }
+    else { console.log('THREE.js loaded, version:', THREE.REVISION); }
 </script>
 <script src="https://unpkg.com/three@0.145.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://unpkg.com/three@0.145.0/examples/js/loaders/STLLoader.js"></script>
 <script src="https://unpkg.com/three@0.145.0/examples/js/loaders/ColladaLoader.js"></script>
 <script src="./static/js/OBJLoader.js"></script>
 <script>
-    // Manual URDFLoader setup since the module version has issues
     if (typeof THREE !== 'undefined') {
         THREE.STLLoader = THREE.STLLoader || window.STLLoader;
         THREE.ColladaLoader = THREE.ColladaLoader || window.ColladaLoader;
@@ -310,7 +413,6 @@
 </script>
 <script src="./static/js/URDFLoader.js"></script>
 <script>
-    // Ensure URDFLoader is attached to THREE
     if (typeof URDFLoader !== 'undefined') {
         THREE.URDFLoader = URDFLoader;
         window.URDFLoader = URDFLoader;
@@ -319,75 +421,55 @@
         console.error('URDFLoader not found after loading script');
     }
 </script>
-        <script src="./static/js/adaptive_camera.js"></script>
-        <script src="./static/js/urdf_carousel_new.js"></script>
+<script src="./static/js/adaptive_camera.js"></script>
+<script src="./static/js/urdf_carousel_new.js"></script>
 
 <script>
-// Wait for all scripts to load
-window.addEventListener('load', function() {
-    console.log('Checking dependencies...');
-    console.log('THREE available:', typeof THREE !== 'undefined');
-    console.log('THREE.OrbitControls available:', typeof THREE.OrbitControls !== 'undefined');
-    console.log('URDFLoader available:', typeof URDFLoader !== 'undefined');
-    console.log('THREE.URDFLoader available:', typeof THREE.URDFLoader !== 'undefined');
-
-    // Ensure URDFLoader is available on THREE namespace
-    if (typeof URDFLoader !== 'undefined' && typeof THREE.URDFLoader === 'undefined') {
-        THREE.URDFLoader = URDFLoader;
-        console.log('Attached URDFLoader to THREE namespace');
-    }
-});
-
-// Initialize URDF Carousel Viewer after all dependencies are loaded
 function initURDFViewer() {
-    // Check dependencies first
     if (typeof THREE === 'undefined') {
         console.error('THREE.js not loaded, cannot initialize URDF viewer');
         return;
     }
-
-    // Ensure all loaders are available
     if (typeof URDFLoader !== 'undefined') {
         THREE.URDFLoader = URDFLoader;
         window.URDFLoader = URDFLoader;
     }
-
     if (!THREE.URDFLoader && !window.URDFLoader) {
         console.error('URDFLoader not available, retrying in 500ms...');
         setTimeout(initURDFViewer, 500);
         return;
     }
 
-    console.log('All dependencies loaded, initializing URDF viewer...');
-
-    // Define URDF data for the carousel
     const urdfDataList = [
-        {
-            name: 'Cabinet with Five Drawers',
-            description: 'A functional cabinet with five articulated drawers',
-            urdfPath: './urdf_examples/a_cabinet_with_five_drawers_1/generated.urdf'
-        },
-        {
-            name: 'Keyboard',
-            description: 'An articulated keyboard model',
-            urdfPath: './urdf_examples/a_keyboard_2/generated.urdf'
-        }
-        // Add more objects here as needed
+        { name: 'Cabinet (Five Drawers)', description: 'Five prismatic drawers slide independently',
+          urdfPath: './urdf_examples/a_cabinet_with_five_drawers_1/generated.urdf' },
+        { name: 'Keyboard', description: 'High part-count object with 20+ articulated keys',
+          urdfPath: './urdf_examples/a_keyboard_2/generated.urdf' },
+        { name: 'Oven', description: 'Hinged door, prismatic tray, and rotating knobs',
+          urdfPath: './urdf_examples/oven/generated.urdf' },
+        { name: 'Ferris Wheel', description: 'Open-world object with a continuous spin and revolute gondolas',
+          urdfPath: './urdf_examples/ferris_wheel/generated.urdf' },
+        { name: 'Robot Arm', description: 'Multi-DoF arm with revolute and continuous joints',
+          urdfPath: './urdf_examples/robot_arm/generated.urdf' },
+        { name: 'Globe', description: 'Sphere spinning on a continuous tilted axis',
+          urdfPath: './urdf_examples/globe/generated.urdf' },
+        { name: 'Stapler', description: 'Revolute hinge between arm and base',
+          urdfPath: './urdf_examples/stapler/generated.urdf' },
+        { name: 'Clock', description: 'Three continuously-rotating hands',
+          urdfPath: './urdf_examples/clock/generated.urdf' },
+        { name: 'Eyeglasses', description: 'Folding temple arms on revolute hinges',
+          urdfPath: './urdf_examples/eyeglasses/generated.urdf' }
     ];
 
-    // Initialize the carousel viewer
     try {
-        const viewer = new URDFCarouselViewer('urdf-carousel-viewer', urdfDataList);
+        new URDFCarouselViewer('urdf-carousel-viewer', urdfDataList);
         console.log('URDF Carousel Viewer initialized successfully');
     } catch (error) {
         console.error('Error initializing URDF Carousel Viewer:', error);
-        console.error('Error details:', error.stack);
     }
 }
 
-// Wait for both DOM and all scripts to be ready
 window.addEventListener('load', function() {
-    // Give a delay to ensure all scripts are fully executed
     setTimeout(initURDFViewer, 500);
 });
 </script>

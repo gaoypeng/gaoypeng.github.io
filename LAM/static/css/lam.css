@@ -1,0 +1,186 @@
+/* ============================================================
+   LAM project page — academic polish layer
+   ============================================================ */
+
+:root {
+  --lam-blue:   #3a6fb0;
+  --lam-indigo: #5e3fae;
+  --lam-ink:    #1f2733;
+  --lam-muted:  #5b6573;
+  --lam-line:   #e6e9ef;
+  --lam-bg-soft:#f6f8fb;
+}
+
+body {
+  color: var(--lam-ink);
+}
+
+/* ---------- Hero ---------- */
+.publication-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.12;
+}
+.title-gradient {
+  background: linear-gradient(90deg, var(--lam-blue), var(--lam-indigo));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.publication-venue {
+  display: inline-block;
+  margin: 0.4rem auto 1.1rem;
+  padding: 0.28rem 0.9rem;
+  border: 1px solid var(--lam-line);
+  border-radius: 999px;
+  background: var(--lam-bg-soft);
+  color: var(--lam-muted);
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+}
+.publication-authors .author-block { margin: 0 0.18rem; }
+
+/* link buttons */
+.publication-links .button.is-dark {
+  background: var(--lam-ink);
+  transition: transform .12s ease, background .15s ease;
+}
+.publication-links .button.is-dark:hover { transform: translateY(-1px); background: #2c3a4d; }
+.publication-links .button.is-soon {
+  background: #aeb6c2 !important;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---------- Section rhythm ---------- */
+.section { padding-top: 2.4rem; padding-bottom: 2.4rem; }
+.title.is-3 {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.3rem;
+}
+.section-head { text-align: center; margin-bottom: 1.6rem; }
+.section-head .title.is-3::after {
+  content: "";
+  display: block;
+  width: 54px; height: 3px;
+  margin: 0.55rem auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--lam-blue), var(--lam-indigo));
+}
+
+.lead {
+  color: var(--lam-muted);
+  font-size: 1.02rem;
+}
+
+/* ---------- Figure cards ---------- */
+.fig-card {
+  border: 1px solid var(--lam-line);
+  border-radius: 14px;
+  background: #fff;
+  padding: 0.85rem;
+  box-shadow: 0 8px 24px -18px rgba(31,39,51,.5);
+  margin: 0 auto;
+}
+.fig-card img { display: block; width: 100%; border-radius: 8px; }
+.fig-cap {
+  margin-top: 0.7rem;
+  color: var(--lam-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: left;
+}
+.fig-cap b { color: var(--lam-ink); }
+
+/* ---------- Module pills ---------- */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+  margin: 1.4rem 0 0.4rem;
+}
+.module-card {
+  border: 1px solid var(--lam-line);
+  border-left: 4px solid var(--lam-blue);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  background: var(--lam-bg-soft);
+}
+.module-card h4 {
+  margin: 0 0 0.25rem;
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+  color: var(--lam-ink);
+}
+.module-card p { margin: 0; color: var(--lam-muted); font-size: 0.92rem; line-height: 1.5; }
+.module-card.is-coder   { border-left-color: var(--lam-indigo); }
+.module-card.is-checker { border-left-color: #c98a1e; }
+.module-card.is-data    { border-left-color: #2f9e6f; }
+
+/* ---------- Stat highlights ---------- */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.3rem 0;
+}
+.stat {
+  text-align: center;
+  border: 1px solid var(--lam-line);
+  border-radius: 12px;
+  padding: 1.1rem 0.6rem;
+  background: #fff;
+}
+.stat .num {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1;
+  background: linear-gradient(90deg, var(--lam-blue), var(--lam-indigo));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat .lbl { margin-top: 0.4rem; color: var(--lam-muted); font-size: 0.84rem; line-height: 1.35; }
+
+/* ---------- Result tables ---------- */
+.lam-table-wrap { overflow-x: auto; margin: 0.5rem 0 0.4rem; }
+table.lam-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  background: #fff;
+}
+table.lam-table th, table.lam-table td {
+  padding: 0.55rem 0.8rem;
+  text-align: center;
+  border-bottom: 1px solid var(--lam-line);
+}
+table.lam-table thead th {
+  font-family: 'Google Sans', sans-serif;
+  color: var(--lam-ink);
+  border-bottom: 2px solid #cfd6e0;
+}
+table.lam-table td:first-child, table.lam-table th:first-child { text-align: left; }
+table.lam-table tr.is-ours { background: linear-gradient(90deg, rgba(58,111,176,.10), rgba(94,63,174,.07)); }
+table.lam-table tr.is-ours td { font-weight: 700; }
+.table-note { color: var(--lam-muted); font-size: 0.82rem; margin-top: 0.35rem; }
+
+/* ---------- BibTeX ---------- */
+#BibTeX pre {
+  background: var(--lam-ink);
+  color: #e8edf4;
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+}
+
+/* ---------- Footer ---------- */
+.footer .icon-link { color: var(--lam-ink); }
+
+@media (max-width: 768px) {
+  .publication-title { font-size: 2rem; }
+  .stat .num { font-size: 1.55rem; }
+}

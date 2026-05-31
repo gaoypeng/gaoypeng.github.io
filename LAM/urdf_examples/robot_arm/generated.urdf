@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<robot name="a_robot_arm_8">
+  <link name="base">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/base.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="shoulder">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/shoulder.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="upper_arm">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/upper_arm.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="forearm">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/forearm.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="elbow_joint">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/elbow_joint.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="wrist_joint">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/wrist_joint.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="end_effector">
+    <visual>
+      <geometry>
+        <mesh filename="obj_parts/group_output/end_effector.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="base_yaw" type="continuous">
+    <parent link="base" />
+    <child link="shoulder" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <joint name="shoulder_pitch" type="revolute">
+    <parent link="shoulder" />
+    <child link="upper_arm" />
+    <axis xyz="1 0 0" />
+    <limit lower="0.0" upper="2.62" effort="15" velocity="1.5" />
+  </joint>
+  <joint name="upper_arm_to_elbow_sphere" type="fixed">
+    <parent link="upper_arm" />
+    <child link="elbow_joint" />
+    
+    
+  </joint>
+  <joint name="elbow_flex" type="revolute">
+    <parent link="elbow_joint" />
+    <child link="forearm" />
+    <axis xyz="0 0 1" />
+  </joint>
+  <joint name="wrist_roll" type="continuous">
+    <parent link="forearm" />
+    <child link="wrist_joint" />
+    <axis xyz="1 0 0" />
+    
+  </joint>
+  <joint name="wrist_pitch" type="revolute">
+    <parent link="wrist_joint" />
+    <child link="end_effector" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.05" upper="1.05" effort="10" velocity="2.0" />
+  </joint>
+</robot>

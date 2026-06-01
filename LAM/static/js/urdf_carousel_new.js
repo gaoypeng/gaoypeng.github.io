@@ -14,9 +14,14 @@ class URDFCarouselViewer {
 
     async init() {
         console.log('Initializing URDF Carousel with', this.urdfDataList.length, 'items');
+        this.viewers = new Array(this.urdfDataList.length).fill(null);
+        this._loading = {};
         this.createCarouselStructure();
-        await this.loadAllViewers();
+        // Only load the first object up front; the rest load lazily on navigation.
+        await this.loadViewer(0);
+        if (this.viewers[0]) this.viewers[0].resumeAnimation();
         this.setupNavigation();
+        this.setupVisibilityPause();
         console.log('URDF Carousel initialization complete');
     }
 
@@ -57,19 +62,54 @@ class URDFCarouselViewer {
         `;
     }
 
-    async loadAllViewers() {
-        for (let i = 0; i < this.urdfDataList.length; i++) {
+    // Lazily create + load a single viewer the first time it is shown.
+    loadViewer(index) {
+        if (this.viewers[index]) return Promise.resolve(this.viewers[index]);
+        if (this._loading[index]) return this._loading[index];
+
+        const item = document.querySelector(`.urdf-viewer-item[data-index="${index}"]`);
+        if (item) item.classList.add('is-loading');
+
+        const p = (async () => {
+            console.log(`Loading viewer ${index} for ${this.urdfDataList[index].name}`);
+            const viewer = new URDFViewer(`viewer-${index}`, `controls-${index}`, this.urdfDataList[index]);
             try {
-                console.log(`Loading viewer ${i} for ${this.urdfDataList[i].name}`);
-                const viewer = new URDFViewer(`viewer-${i}`, `controls-${i}`, this.urdfDataList[i]);
-                this.viewers.push(viewer);
                 await viewer.load();
-                console.log(`Successfully loaded viewer ${i}`);
             } catch (error) {
-                console.error(`Failed to load viewer ${i} for ${this.urdfDataList[i].name}:`, error);
-                // Continue loading other viewers even if one fails
+                console.error(`Failed to load viewer ${index}:`, error);
             }
+            this.viewers[index] = viewer;
+            if (item) item.classList.remove('is-loading');
+            return viewer;
+        })();
+
+        this._loading[index] = p;
+        return p;
+    }
+
+    // Pause rendering while the carousel is scrolled out of view or the tab is hidden.
+    setupVisibilityPause() {
+        const el = document.getElementById(this.containerId);
+        const activeViewer = () => this.viewers[this.currentIndex];
+
+        if ('IntersectionObserver' in window && el) {
+            this._io = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    const v = activeViewer();
+                    if (!v) return;
+                    if (e.isIntersecting) v.resumeAnimation();
+                    else v.pauseAnimation();
+                });
+            }, { threshold: 0.05 });
+            this._io.observe(el);
         }
+
+        document.addEventListener('visibilitychange', () => {
+            const v = activeViewer();
+            if (!v) return;
+            if (document.hidden) v.pauseAnimation();
+            else v.resumeAnimation();
+        });
     }
 
     setupNavigation() {
@@ -93,7 +133,11 @@ class URDFCarouselViewer {
         this.goToSlide(newIndex);
     }
 
-    goToSlide(index) {
+    async goToSlide(index) {
+        // Pause the viewer we are leaving so only one renders at a time.
+        const prev = this.viewers[this.currentIndex];
+        if (prev) prev.pauseAnimation();
+
         // Update active states
         document.querySelectorAll('.urdf-viewer-item').forEach((item, idx) => {
             item.classList.toggle('active', idx === index);
@@ -104,9 +148,12 @@ class URDFCarouselViewer {
 
         this.currentIndex = index;
 
-        // Trigger animation/resize on active viewer
-        if (this.viewers[index]) {
-            this.viewers[index].resize();
+        // Lazy-load on first visit, then resume only this viewer.
+        await this.loadViewer(index);
+        const v = this.viewers[index];
+        if (v) {
+            v.resize();
+            v.resumeAnimation();
         }
     }
 }
@@ -123,6 +170,7 @@ class URDFViewer {
         this.robot = null;
         this.joints = {};
         this.animationId = null;
+        this.isActive = false;
         this.showWireframe = false;
         this.linkColors = new Map();
         this.lightRig = null;
@@ -150,8 +198,8 @@ class URDFViewer {
             this.createJointControls();
             console.log(`[${this.canvasId}] Step 4 complete.`);
             
-            console.log(`[${this.canvasId}] Step 5: Starting animation...`);
-            this.animate();
+            console.log(`[${this.canvasId}] Step 5: Rendering once (animation starts when active)...`);
+            this.renderOnce();
             console.log(`[${this.canvasId}] Load sequence complete!`);
         } catch (error) {
             console.error(`[${this.canvasId}] Error during load:`, error);
@@ -231,8 +279,8 @@ class URDFViewer {
         const mainLight = new THREE.DirectionalLight(0xffffff, 0.7);
         mainLight.position.set(10, 10, 5);
         mainLight.castShadow = true;
-        mainLight.shadow.mapSize.width = 2048;
-        mainLight.shadow.mapSize.height = 2048;
+        mainLight.shadow.mapSize.width = 1024;
+        mainLight.shadow.mapSize.height = 1024;
         this.scene.add(mainLight);
         console.log(`[${this.canvasId}] Added main light: position (10, 10, 5), intensity 0.7`);
 
@@ -824,20 +872,40 @@ class URDFViewer {
     }
 
     animate() {
+        // Stop the loop entirely when this viewer is not the active one.
+        if (!this.isActive) {
+            this.animationId = null;
+            return;
+        }
         this.animationId = requestAnimationFrame(() => this.animate());
 
         if (this.controls) {
             this.controls.update();
         }
 
-        // Ensure renderer exists
         if (this.renderer && this.scene && this.camera) {
             this.renderer.render(this.scene, this.camera);
-        } else {
-            console.warn(`Missing renderer components for ${this.canvasId}:`,
-                        'renderer:', !!this.renderer,
-                        'scene:', !!this.scene,
-                        'camera:', !!this.camera);
+        }
+    }
+
+    // Render a single frame (used right after load and when paused).
+    renderOnce() {
+        if (this.renderer && this.scene && this.camera) {
+            this.renderer.render(this.scene, this.camera);
+        }
+    }
+
+    resumeAnimation() {
+        if (this.isActive) return;
+        this.isActive = true;
+        if (!this.animationId) this.animate();
+    }
+
+    pauseAnimation() {
+        this.isActive = false;
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
         }
     }
 

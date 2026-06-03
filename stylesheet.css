@@ -191,6 +191,9 @@ span.highlight {
 
   /* ---- Recent Works: keep gif | description side by side ---- */
   .tab-content td { padding: 10px 6px !important; }
+  /* give the figure column a bit more room on phones so the gif isn't tiny */
+  .tab-content td:first-child { width: 44% !important; }
+  .tab-content td:nth-child(2) { width: 56% !important; }
   .tab-content img { width: 100% !important; height: auto; }
 
   /* ---- Experience: keep description | logo side by side ---- */

@@ -175,58 +175,25 @@ span.highlight {
   display: block;
 }
 
-/* ===== Mobile / small-screen layout ===== */
+/* ===== Mobile / small-screen layout =====
+   Keep the desktop two-column (figure | text) composition, but let the
+   figures scale to their column instead of using fixed pixel widths, so
+   everything shrinks proportionally rather than squeezing the text. */
 @media screen and (max-width: 700px) {
-  /* avoid auto text inflation on rotate, keep our sizes */
+  /* keep our font sizes, don't let mobile auto-inflate text */
   body { -webkit-text-size-adjust: 100%; }
 
-  /* never let an image overflow its column */
+  /* no image may exceed its column */
   img { max-width: 100%; height: auto; }
 
-  /* ---- Header: stack the intro text and the profile photo ---- */
-  .header-table td {
-    display: block;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
-    padding: 8px 16px !important;
-  }
-  .header-table td img {
-    width: 55% !important;
-    max-width: 200px !important;
-    margin: 4px auto 8px;
-  }
-  .header-table p { text-align: left; }
-  .header-table p.name { text-align: center; }
-  .name { font-size: 28px; }
+  /* ---- Header: keep intro | photo side by side, trim padding ---- */
+  .header-table td { padding: 2.5% 2.5% !important; }
 
-  /* ---- Recent Works: stack the gif/figure above its description ---- */
-  .tab-content td {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
-    vertical-align: top;
-    padding: 4px 16px !important;
-  }
-  .tab-content img {
-    display: block;
-    width: 70% !important;
-    max-width: 230px !important;
-    margin: 6px auto 4px;
-  }
+  /* ---- Recent Works: keep gif | description side by side ---- */
+  .tab-content td { padding: 10px 6px !important; }
+  .tab-content img { width: 100% !important; height: auto; }
 
-  /* ---- Experience: stack the description above the logo ---- */
-  .exp-table td {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
-    text-align: left !important;
-    padding: 4px 16px !important;
-  }
-  .exp-table td img {
-    display: block;
-    margin: 4px auto 12px;
-  }
+  /* ---- Experience: keep description | logo side by side ---- */
+  .exp-table td { padding: 10px 6px !important; }
+  .exp-table td img { width: 100% !important; height: auto; }
 }

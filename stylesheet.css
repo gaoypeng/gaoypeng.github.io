@@ -175,6 +175,30 @@ span.highlight {
   display: block;
 }
 
+/* ===== Header social links (icon + label) ===== */
+.social-links {
+  line-height: 1.9;
+}
+
+.social-item {
+  white-space: nowrap;
+}
+
+/* separator lives with the preceding item so a wrapped line never starts with "/" */
+.social-item:not(:last-child)::after {
+  content: "/";
+  margin: 0 6px 0 8px;
+  color: #333;
+}
+
+.social-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+  vertical-align: -2px;
+  fill: currentColor;
+}
+
 /* ===== Mobile / small-screen layout =====
    Keep the desktop two-column (figure | text) composition, but let the
    figures scale to their column instead of using fixed pixel widths, so

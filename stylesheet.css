@@ -234,6 +234,32 @@ span.highlight {
 .icon-x:hover, .icon-x:focus { color: #000000; }
 .icon-linkedin:hover, .icon-linkedin:focus { color: #0a66c2; }
 
+/* ===== Featured project box (top of page) ===== */
+.featured {
+  border-left: 4px solid #c9302c;
+  background-color: #fdf3f2;
+  padding: 12px 16px;
+  border-radius: 4px;
+}
+
+.featured-headline,
+.featured-headline strong,
+.featured-headline a {
+  color: #c9302c;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.featured-headline a {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.featured-body {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
 /* ===== Mobile / small-screen layout =====
    Keep the desktop two-column (figure | text) composition, but let the
    figures scale to their column instead of using fixed pixel widths, so

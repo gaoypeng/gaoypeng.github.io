@@ -260,16 +260,22 @@ span.highlight {
   .exp-table td img { width: 100% !important; height: auto; }
 }
 
-.code-link {
-  display: inline-flex;
+.paper-resources {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  vertical-align: middle;
-  white-space: nowrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+}
+
+.paper-links {
+  flex: 1 1 auto;
 }
 
 .github-stars {
   display: inline-flex;
+  flex: 0 0 auto;
+  margin-left: auto;
   line-height: 0;
 }
 

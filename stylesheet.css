@@ -260,9 +260,16 @@ span.highlight {
   .exp-table td img { width: 100% !important; height: auto; }
 }
 
+.code-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 .github-stars {
-  display: inline-block;
-  margin-top: 8px;
+  display: inline-flex;
   line-height: 0;
 }
 
